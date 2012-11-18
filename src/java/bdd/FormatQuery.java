@@ -8,7 +8,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-abstract public class FormatQuery extends Database {
+abstract public class FormatQuery<T> extends Database {
 
     protected String table = "table";
     protected String primary_key = "id";
@@ -184,6 +184,8 @@ abstract public class FormatQuery extends Database {
             s.setDate(pos, (Date) value);
         } else if (value instanceof Time) {
             s.setTime(pos, (Time) value);
+        } else if (value instanceof Boolean) {
+            s.setBoolean(pos, (Boolean) value);
         }
     }
 

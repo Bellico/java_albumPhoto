@@ -12,11 +12,13 @@ public class PhotoMap extends FormatQuery {
         this.primary_key = "idPhoto";
     }
 
+    @Override
     protected int getPrimaryKey(Object o) {
         PhotoBean photo = (PhotoBean) o;
         return photo.getIdPhoto();
     }
 
+    @Override
     public PhotoBean ResultToBean(ResultSet res) throws SQLException {
         return new PhotoBean(
                 res.getInt("idPhoto"),
@@ -33,7 +35,8 @@ public class PhotoMap extends FormatQuery {
                 res.getInt("idAlbum"));
     }
 
-    HashMap<String, Object> BeanToData(Object o) {
+    @Override
+    public HashMap<String, Object> BeanToData(Object o) {
         PhotoBean photo = (PhotoBean) o;
         HashMap<String, Object> data = new HashMap<String, Object>();
         data.put("title", photo.getTitle());

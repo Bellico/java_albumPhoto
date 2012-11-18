@@ -12,11 +12,13 @@ public class UserMap extends FormatQuery {
         this.primary_key = "idUser";
     }
 
+    @Override
     protected int getPrimaryKey(Object o) {
         UserBean user = (UserBean) o;
         return user.getIdUser();
     }
 
+    @Override
     public UserBean ResultToBean(ResultSet res) throws SQLException {
         return new UserBean(
                 res.getInt("idUser"),
@@ -29,7 +31,8 @@ public class UserMap extends FormatQuery {
                 res.getTime("time_lastUpdate"));
     }
 
-    HashMap<String, Object> BeanToData(Object o) {
+    @Override
+    public HashMap<String, Object> BeanToData(Object o) {
         UserBean user = (UserBean) o;
         HashMap<String, Object> data = new HashMap<String, Object>();
         data.put("name", user.getName());

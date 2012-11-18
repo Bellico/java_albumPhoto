@@ -3,6 +3,7 @@ package tools;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.GregorianCalendar;
+import org.jasypt.util.password.ConfigurablePasswordEncryptor;
 
 public class Tools {
 
@@ -16,13 +17,27 @@ public class Tools {
     public static Time TimeNow() {
         return new java.sql.Time(calendar.getTimeInMillis());
     }
-    
-    public static String generate_KeyWord(String s){
-        return null;
+
+    public static String generate_KeyWord(String s) {
+        String[] carac = new String[]{"'", "?", "!", ".", ":", ";", "-",","};
+        for(String i : carac){
+            s=s.replace(i, "");
+        }
+        String kw = "";
+        String[] d = s.split(" ");
+        for (int i=0; i<d.length; i++){
+            if(d[i].length()>4){
+            kw += d[i] + "-";
+            }
+        }
+        kw = kw.substring(0, kw.length() - 1);
+        return kw;
     }
-    
-    public static String crypt(String s){
-        //MD5 ou autre
-        return null;
+
+    public static String crypt(String s) {
+        ConfigurablePasswordEncryptor passwordEncryptor = new ConfigurablePasswordEncryptor();
+        passwordEncryptor.setAlgorithm("MD5"); //SHA-256
+        passwordEncryptor.setPlainDigest(true);
+        return passwordEncryptor.encryptPassword(s);
     }
 }
