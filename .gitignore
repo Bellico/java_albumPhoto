@@ -2,7 +2,6 @@
 *.dat
 
 # Package Files #
-*.jar
 *.war
 *.ear
 *.class
