@@ -2,9 +2,11 @@ package command;
 
 import javax.servlet.http.HttpServletRequest;
 
-public interface Command {
+abstract public class Command {
 
-    public String getCommandName();
+    abstract public void actionPerform(HttpServletRequest request);
 
-    public ActionFlow actionPerform(HttpServletRequest request);
+    protected void setView(HttpServletRequest request, String path) {
+        request.setAttribute("view", path);
+    }
 }

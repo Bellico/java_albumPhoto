@@ -1,44 +1,33 @@
 package servlet;
 
-import command.ActionFlow;
 import command.Command;
 import command.CommandManager;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import tools.Tools;
 
-@WebServlet(name = "serv", urlPatterns = {"/*"})
+@WebServlet(name = "serv", urlPatterns = {"/"})
 public class FrontController extends HttpServlet {
+
+    private final String TEMPLATE_SERVLET = "/WEB-INF/templates/albumphoto.jsp";
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        ActionFlow flow;
-       
-        String operation =  request.getRequestURI().replace(getServletContext().getContextPath()+"/", "");
-    
-        
-        String gg = "Une pe:tite desct:iion bien gr?ose, lolilou";
-        PrintWriter o = response.getWriter();
-        o.print(Tools.generate_KeyWord(gg));
-      /*  CommandManager.init();
-        Command cmd = CommandManager.getCommand(operation);*/
-/*
-        if (cmd != null) {
-            flow = cmd.actionPerform(request);
+        String commandUrl = request.getRequestURI().replace(getServletContext().getContextPath() + "/", "");
+        Command cmd = CommandManager.getCommand(commandUrl);
+        if (!commandUrl.equals("")) {
+            if (cmd == null) {
+                cmd = CommandManager.getCommand("error");
+            }
         } else {
-            flow = null;
+            cmd = CommandManager.getCommand("default");
         }
-        if (flow.isRedirect()) {
-            response.sendRedirect(flow.getPath());
-        } else {
-            getServletContext().getRequestDispatcher(flow.getPath()).forward(request, response);
-        }*/
+        cmd.actionPerform(request);
+        getServletContext().getRequestDispatcher(TEMPLATE_SERVLET).forward(request, response);
     }
 }

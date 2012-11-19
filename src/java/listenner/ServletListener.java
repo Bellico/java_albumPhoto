@@ -1,6 +1,7 @@
 package listenner;
 
 import bdd.Database;
+import command.CommandManager;
 import javax.servlet.ServletContextAttributeEvent;
 import javax.servlet.ServletContextAttributeListener;
 import javax.servlet.ServletContextEvent;
@@ -14,8 +15,11 @@ public class ServletListener implements ServletContextListener, ServletContextAt
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
+        //Initialisation de la connexion a la base de donnée
         BDctx = new Database(sce.getServletContext());
         sce.getServletContext().setAttribute("bdd", BDctx);
+        //Initialisation des commandes
+        CommandManager.init();
     }
 
     @Override
