@@ -6,12 +6,14 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(name = "serv", urlPatterns = {"*.do"})
+@MultipartConfig(location = "c:\test", maxFileSize = 10485760, fileSizeThreshold = 1048576, maxRequestSize = 52428800)
 public class FrontController extends HttpServlet {
 
     private final String TEMPLATE_SERVLET = "/WEB-INF/layouts/albumphoto.jsp";
@@ -30,7 +32,11 @@ public class FrontController extends HttpServlet {
         if (cmd == null) {
             cmd = CommandManager.getCommand("error");
         }
-        cmd.actionPerform(request);
-        getServletContext().getRequestDispatcher(TEMPLATE_SERVLET).forward(request, response);
+         
+        if (cmd.actionPerform(request)) {
+            getServletContext().getRequestDispatcher(TEMPLATE_SERVLET).forward(request, response);
+        } else {
+            response.sendRedirect("sfs");
+        }
     }
 }

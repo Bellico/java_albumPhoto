@@ -10,6 +10,7 @@ public class CommandManager {
         cmds.put("acc", new DefaultCommand());
         cmds.put("error", new ErrorCommand());
         cmds.put("test", new TestCommand());
+        cmds.put("upload", new UploadCommand());
     }
 
     public static Command getCommand(String commandName) {

@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-public class PhotoMap extends FormatQuery {
+public class PhotoMap extends SQLMapping {
 
     public PhotoMap() {
         this.table = "photos";

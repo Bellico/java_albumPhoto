@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-public class UserMap extends FormatQuery {
+public class UserMap extends SQLMapping {
 
     public UserMap() {
         this.table = "users";
