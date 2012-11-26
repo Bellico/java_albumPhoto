@@ -32,21 +32,10 @@
                     </ul>
 
                 </div>
-                <div class="span10">
-                    <!--Sidebar content-->
-                    <ul class="nav nav-tabs">
-                        <li class="active">
-                            <a href="#"><i class="icon-home"></i> Accueil</a></li>
-                        <li><a href="#"><i class="icon-user"></i> Utilisateurs</a></li>
-                        <li><a href="#"><i class="icon-tag"></i> Albums</a></li>
-                        <li><a href="images.html"><i class="icon-picture"></i> Images</a></li>
-                    </ul>
-                </div>
 
-                <div class="span10"> 
                     <!--Body content-->
                     <jsp:include page="/WEB-INF/${view}" />
-                </div>
+                
             </div>
         </div>
 
