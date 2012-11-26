@@ -173,7 +173,7 @@ abstract public class SQLMapping<T> extends Database {
         }
     }
 
-    private void setStatement(PreparedStatement s, Object value, int pos) throws SQLException {
+    protected void setStatement(PreparedStatement s, Object value, int pos) throws SQLException {
         if (value == null) {
             s.setString(pos, null);
         } else if (value instanceof String) {

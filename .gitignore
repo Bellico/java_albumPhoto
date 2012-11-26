@@ -8,3 +8,4 @@
 *.dat
 Database/*
 build/*
+/dist/

@@ -1,5 +1,25 @@
+<%@page import="bean.UserBean"%>
+<%@page import="bdd.UserMap"%>
+<%@page import="bdd.AlbumMap"%>
+<%@page import="bean.AlbumBean"%>
+<%@page import="bdd.RightMap"%>
+<%@page import="bean.RightBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+                <div class="span10">
+                    <!--Sidebar content-->
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#"><i class="icon-home"></i> Accueil</a></li>
+                        <li><a href="#"><i class="icon-user"></i> Utilisateurs</a></li>
+                        <li><a href="#"><i class="icon-tag"></i> Albums</a></li>
+                        <li><a href="images"><i class="icon-picture"></i> Images</a></li>
+                    </ul>
+                </div>
+
+                <div class="span10"> 
+                    
 <div id="myCarousel" class="carousel slide">
     <!-- Carousel items -->
     <div class="carousel-inner">
@@ -20,3 +40,26 @@
     <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
     <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
 </div>
+                
+                </div>
+                
+                     <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/bootstrap.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+	
+		
+<script>
+$('.carousel').carousel()
+</script>
+
+<%
+AlbumMap map = new AlbumMap();
+AlbumBean a = (AlbumBean) map.getbyId(1);
+UserMap mapu = new UserMap();
+UserBean u = (UserBean) mapu.getbyId(2);
+a.addUser(u, true, true, true, false);
+   
+%>
