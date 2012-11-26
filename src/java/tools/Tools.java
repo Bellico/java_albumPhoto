@@ -4,10 +4,15 @@ import java.sql.Date;
 import java.sql.Time;
 import java.util.GregorianCalendar;
 import org.jasypt.util.password.ConfigurablePasswordEncryptor;
+import org.jasypt.util.text.BasicTextEncryptor;
 
 public class Tools {
 
-    private static GregorianCalendar calendar = new GregorianCalendar();
+    public static GregorianCalendar calendar = new GregorianCalendar();
+    public static String appPath = "";
+    public static final String MD5 = "MD5";
+    public static final String SHA1 = "SHA-1";
+    public static final String SHA256 = "SHA-256";
 
     public static Date DateNow() {
         return new java.sql.Date(calendar.getTimeInMillis());
@@ -33,10 +38,23 @@ public class Tools {
         return kw.substring(0, kw.length() - 1);
     }
 
-    public static String crypt(String s) {
+    public static String crypt(String s, String algo, boolean salage) {
         ConfigurablePasswordEncryptor passwordEncryptor = new ConfigurablePasswordEncryptor();
-        passwordEncryptor.setAlgorithm("MD5"); //SHA-256
-        passwordEncryptor.setPlainDigest(true);
+        BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
+        passwordEncryptor.setAlgorithm(algo);
+        passwordEncryptor.setPlainDigest(salage);
         return passwordEncryptor.encryptPassword(s);
+    }
+
+    public static boolean in_Array(String r, String[] tab) {
+        int i = 0;
+        boolean find = false;
+        while (i < tab.length && !find) {
+            if (tab[i].equals(r)) {
+                find = true;
+            }
+            i++;
+        }
+        return find;
     }
 }

@@ -1,28 +1,39 @@
 package command;
 
+import bdd.PhotoMap;
 import bean.PhotoBean;
+import java.awt.Image;
+import java.io.File;
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import model.Upload;
+import tools.Tools;
 
-public class UploadCommand extends Command {
+public class UploadCommand extends HttpServlet implements Command {
 
-    public static final String ATT_FICHIER = "fichier";
-    public static final String ATT_FORM    = "form";
-    
     @Override
-    public boolean actionPerform(HttpServletRequest request) {
- System.out.print("terst");
-        /* Préparation de l'objet formulaire */
-        Upload form = new Upload();
-
-        /* Traitement de la requête et récupération du bean en résultant */
-        PhotoBean fichier = form.enregistrerFichier(request, "C:\\test");
-        System.out.print(fichier.getTitle());
-
-        /* Stockage du formulaire et du bean dans l'objet request */
-        request.setAttribute(ATT_FORM, form);
-        request.setAttribute(ATT_FICHIER, fichier);
-        System.out.print("terst");
-        return false;
+    public ActionFlow actionPerform(HttpServletRequest request) {
+        Upload up = new Upload("file", new String[]{"jpg", "jpeg", "png"});
+        try {
+            String path = Tools.appPath + File.separator + "img";
+            int state = up.uploadFile(request, path);
+            if (state == 0) {
+                Image img = ImageIO.read(new File(path + File.separator + up.getFileName()));
+                PhotoBean photo = new PhotoBean();
+                photo.setTitle("Mon petit chat");
+                photo.setDescr("Je te décrit");
+                photo.setImg(up.getFileName());
+                photo.setHeight(img.getHeight(null));
+                photo.setWidth(img.getWidth(null));
+                photo.setKeyword(Tools.generate_KeyWord(photo.getDescr()));
+                photo.setIdAlbum(1);
+                PhotoMap map = new PhotoMap();
+                map.save(photo);
+            }
+        } catch (Exception ex) {
+            System.out.print(ex.getMessage());
+        }
+        return new ActionFlow("up", true);
     }
 }

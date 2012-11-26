@@ -1,3 +1,1 @@
-<%
- response.sendRedirect("acc.do");
-%>
+<jsp:forward page="/index"/>

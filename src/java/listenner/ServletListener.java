@@ -7,6 +7,7 @@ import javax.servlet.ServletContextAttributeListener;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
+import tools.Tools;
 
 @WebListener()
 public class ServletListener implements ServletContextListener, ServletContextAttributeListener {
@@ -20,6 +21,7 @@ public class ServletListener implements ServletContextListener, ServletContextAt
         sce.getServletContext().setAttribute("bdd", BDctx);
         //Initialisation des commandes
         CommandManager.init();
+        Tools.appPath=sce.getServletContext().getRealPath("");
     }
 
     @Override

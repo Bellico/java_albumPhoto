@@ -1,29 +1,22 @@
-<%@page import="bdd.UserMap"%>
-<%@page import="bean.UserBean"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-<h1>Page index</h1>
-<h1>${ok}</h1>
-
-<form action="<c:url value="/acc.do" />" method="post" enctype="multipart/form-data">
-            <fieldset>
-                <legend>Envoi de fichier</legend>
-
-                <label for="description">Description du fichier</label>
-                <input type="text" id="description" name="description" value="<c:out value="${fichier.descr}"/>" />
-                <span class="erreur">${form.erreurs['description']}</span>
-                <br />
-                
-
-                <label for="fichier">Emplacement du fichier <span class="requis">*</span></label>
-                <input type="file" id="fichier" name="fichier" value="<c:out value="${fichier.title}"/>" />
-                <span class="erreur">${form.erreurs['fichier']}</span>
-                <br />
-                
-                <input type="submit" value="Envoyer" class="sansLabel" />
-                <br />
-                
-                <p class="${empty form.erreurs ? 'succes' : 'erreur'}">${form.resultat}</p>        
-            </fieldset>
-        </form>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<div id="myCarousel" class="carousel slide">
+    <!-- Carousel items -->
+    <div class="carousel-inner">
+        <div class="active item"><img class="imagecaro" alt="" src="<c:url value="/img/tnn_010.jpg"/>"> <div class="carousel-caption">
+                <h4>Publie tes photos préférées</h4>
+                <p>Grâce à notre tout nouvel outil !</p>
+            </div></div>
+        <div class="item"><img class="imagecaro" alt="" src="<c:url value="/img/tnn_233.jpg"/>"><div class="carousel-caption">
+                <h4>Le monde va te connaître</h4>
+                <p>Partarge tes photos avec qui tu veux !</p>
+            </div></div>
+        <div class="item"><img class="imagecaro" alt="" src="<c:url value="/img/tnn_200.jpg"/>"><div class="carousel-caption">
+                <h4>Navigation intuitive</h4>
+                <p>C'est tellement facile de naviguer dans ses menus !</p>
+            </div></div>
+    </div>
+    <!-- Carousel nav -->
+    <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+    <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+</div>

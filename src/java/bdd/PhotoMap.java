@@ -49,6 +49,7 @@ public class PhotoMap extends SQLMapping {
         data.put("time_created", photo.getTime_created());
         data.put("date_lastUpdate", photo.getDate_lastUpdate());
         data.put("time_lastUpdate", photo.getTime_lastUpdate());
+        data.put("idAlbum ", photo.getIdAlbum());
         return data;
     }
 }

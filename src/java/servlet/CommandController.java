@@ -1,5 +1,6 @@
 package servlet;
 
+import command.ActionFlow;
 import command.Command;
 import command.CommandManager;
 import java.io.IOException;
@@ -12,31 +13,28 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "serv", urlPatterns = {"*.do"})
-@MultipartConfig(location = "c:\test", maxFileSize = 10485760, fileSizeThreshold = 1048576, maxRequestSize = 52428800)
-public class FrontController extends HttpServlet {
-
-    private final String TEMPLATE_SERVLET = "/WEB-INF/layouts/albumphoto.jsp";
+@WebServlet(name = "serv", urlPatterns = {"/do/*"})
+@MultipartConfig(maxFileSize = 10485760, fileSizeThreshold = 10485760, maxRequestSize = 52428800)
+public class CommandController extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         String commandUrl = null;
-        Pattern p = Pattern.compile(".*/(.*).do");
+        ActionFlow flow;
+        Pattern p = Pattern.compile(".*/do/(.*)");
         Matcher m = p.matcher(request.getRequestURI());
         if (m.find() && m.groupCount() == 1) {
             commandUrl = m.group(1);
         }
         Command cmd = CommandManager.getCommand(commandUrl);
-        if (cmd == null) {
-            cmd = CommandManager.getCommand("error");
-        }
-         
-        if (cmd.actionPerform(request)) {
-            getServletContext().getRequestDispatcher(TEMPLATE_SERVLET).forward(request, response);
+        flow = (cmd == null) ? new ActionFlow("error", true) : cmd.actionPerform(request);
+        String ctx = getServletContext().getContextPath();
+        if (flow.isRedirect()) {
+            response.sendRedirect(ctx + "/" + flow.getPath());
         } else {
-            response.sendRedirect("sfs");
+            getServletContext().getRequestDispatcher("/" + flow.getPath()).forward(request, response);
         }
     }
 }
