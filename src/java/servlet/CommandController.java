@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "serv", urlPatterns = {"/do/*"})
+@WebServlet(name = "CommandController", urlPatterns = {"/do/*"})
 @MultipartConfig(maxFileSize = 10485760, fileSizeThreshold = 10485760, maxRequestSize = 52428800)
 public class CommandController extends HttpServlet {
 

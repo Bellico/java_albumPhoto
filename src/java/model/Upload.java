@@ -11,9 +11,9 @@ import javax.servlet.http.Part;
 import tools.Tools;
 
 /**
- * Permet d'uploader un fichier Utilisation de la librairie :
- * http://commons.apache.org/fileupload/ Inspiré de :
- * http://www.siteduzero.com/tutoriel-3-682903-integration-dans-mvc.html
+ * Permet d'uploader un fichier 
+ * Utilisation de la librairie : http://commons.apache.org/fileupload/ 
+ * Inspiré de : http://www.siteduzero.com/tutoriel-3-682903-integration-dans-mvc.html
  */
 public class Upload {
 
@@ -22,6 +22,11 @@ public class Upload {
     private String fileName = null;
     private static final int TAMPON = 10240;
 
+    /**
+     * Constructeur
+     * @param formFiel : Nom du champs du formulaire permettant de charger un fichier
+     * @param etx  : extensions acceptées pour l'upload
+     */
     public Upload(String formFiel, String[] etx) {
         this.form_field = formFiel;
         this.ext = etx;
@@ -31,6 +36,17 @@ public class Upload {
         return fileName;
     }
 
+    /**
+     * Récupere le fichier binaire dans la requete , et l'enregistre
+     * @param request
+     * @param path : cible de lieu d'enregistrement
+     * @return entier déterminant l'état de la fonction
+     *         0 : Tous s'est bien passé
+     *         1 : Aucun fichier n'est présent dans la requete
+     *         2 : Le taille du fichier est supérieure à celle attendue
+     *         3 : Erreur coté serveur
+     *         4 : Erreur au niveau de l'écriture 
+     */
     public int uploadFile(HttpServletRequest request, String path) throws Exception {
         int state = 0;
         InputStream content = null;
@@ -62,11 +78,10 @@ public class Upload {
             }
             //Données trop volumineuses
         } catch (IllegalStateException e) {
-
             state = 2;
         } catch (IOException ex) {
-            System.out.println("[ Erreur Upload Fichier ] : " + ex.getMessage());
             state = 3;
+            System.out.println("[ Erreur Upload Fichier ] : " + ex.getMessage());
         }
         return state;
     }

@@ -5,12 +5,11 @@ import bean.PhotoBean;
 import java.awt.Image;
 import java.io.File;
 import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import model.Upload;
 import tools.Tools;
 
-public class UploadCommand extends HttpServlet implements Command {
+public class UploadCommand implements Command {
 
     @Override
     public ActionFlow actionPerform(HttpServletRequest request) {
