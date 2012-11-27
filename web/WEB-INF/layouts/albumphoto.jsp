@@ -18,18 +18,17 @@
                     <div class="well" id="titre2">
                         Accueil
                     </div>
-                    <ul class="nav nav-tabs nav-stacked">
-                        <li>
-                            <a><div class="formulaire">
-                                    <form>
-                                        Nom : <input type="text" id="inputEmail" /><br>
-                                        Mot de passe : <input type="password" id="inputPassword" />
-                                        <button type="submit" class="btn"/>Connexion</button>
-                                    </form>
-                                </div></a>
-                        </li>
-                        <li><a href="#"><i class="icon-plus"></i> Nouvel Utilisateur</a></li>
-                    </ul>
+                    
+                    <% request.setAttribute("user", 1); %>
+                    <c:choose>
+     
+                        <c:when test="${!empty 'user'}"><jsp:include page="menuon.jsp" /></c:when>
+                        
+                    <c:otherwise><jsp:include page="menuoff.jsp" /></c:otherwise>  
+                    </c:choose>
+                    
+                    
+                    
 
                 </div>
 

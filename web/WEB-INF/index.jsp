@@ -1,9 +1,6 @@
-<%@page import="bean.UserBean"%>
-<%@page import="bdd.UserMap"%>
-<%@page import="bdd.AlbumMap"%>
-<%@page import="bean.AlbumBean"%>
-<%@page import="bdd.RightMap"%>
-<%@page import="bean.RightBean"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="bean.PhotoBean"%>
+<%@page import="bdd.PhotoMap"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
@@ -54,3 +51,15 @@
 <script>
 $('.carousel').carousel()
 </script>
+
+
+<% PhotoMap p = new PhotoMap();
+   ArrayList<PhotoBean> tab= p.getAll();
+    
+   for (PhotoBean photo : tab)
+          {
+       out.println(photo.getTitle());
+       
+            }
+
+%>
