@@ -2,15 +2,13 @@ package listenner;
 
 import bdd.Database;
 import command.CommandManager;
-import javax.servlet.ServletContextAttributeEvent;
-import javax.servlet.ServletContextAttributeListener;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import tools.Tools;
 
 @WebListener()
-public class ServletListener implements ServletContextListener, ServletContextAttributeListener {
+public class ServletListener implements ServletContextListener {
 
     private Database BDctx;
 
@@ -29,15 +27,4 @@ public class ServletListener implements ServletContextListener, ServletContextAt
         BDctx.close();
     }
 
-    @Override
-    public void attributeAdded(ServletContextAttributeEvent event) {
-    }
-
-    @Override
-    public void attributeRemoved(ServletContextAttributeEvent event) {
-    }
-
-    @Override
-    public void attributeReplaced(ServletContextAttributeEvent event) {
-    }
 }

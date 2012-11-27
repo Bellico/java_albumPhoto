@@ -162,7 +162,6 @@ abstract public class SQLMapping<T> extends Database {
     }
 
     private int delete(String attr, int value) throws SQLException {
-        String sql = "delete from " + table + " where ";
         if (queryPrepare) {
             String nameStatement = "delete-" + table + "-" + attr;
             PreparedStatement statement = prepareQuery(nameStatement, "delete from " + table + " where " + attr + "= ?");

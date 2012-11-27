@@ -44,11 +44,14 @@ public class AlbumBean {
         this.idStatut = idStatut;
     }
 
-    public void addUser(UserBean user, boolean lire, boolean inserer, boolean modifier, boolean supprimer) {
+    public void shareUser(UserBean user, boolean lire, boolean inserer, boolean modifier, boolean supprimer) {
         RightMap map = new RightMap();
-        if (map.get(user.getIdUser(), idAlbum) == null) {
-            RightBean r = new RightBean(user.getIdUser(), idAlbum, lire, inserer, modifier, supprimer);
-            map.save(r);
-        }
+        RightBean r = new RightBean(user.getIdUser(), idAlbum, lire, inserer, modifier, supprimer);
+        map.save(r);
+    }
+
+    public void removeUser(UserBean user) {
+        RightMap map = new RightMap();
+        map.delete(user.getIdUser(), idAlbum);
     }
 }

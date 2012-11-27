@@ -59,26 +59,35 @@ public class RightMap extends SQLMapping {
     }
 
     public int save(RightBean r) {
-
-
-        // if(right.getIdAlbum()>0 && right.getIdUser() > 0 )
-
-        // prepareQuery("Right","update rights set ");
-        PreparedStatement statement = prepareQuery("insertRight", "insert into rights (idUser,idAlbum,lire,inserer,modifier,supprimer) values (?,?,?,?,?,?)");
-        try {
-            setStatement(statement, r.getIdUser(), 1);
-            setStatement(statement, r.getIdAlbum(), 2);
-            setStatement(statement, r.isLire(), 3);
-            setStatement(statement, r.isInserer(), 4);
-            setStatement(statement, r.isModifier(), 5);
-            setStatement(statement, r.isSupprimer(), 6);
-            return statement.executeUpdate();
-        } catch (Exception ex) {
-            System.out.println("[ Erreur Methode Save ] : " + ex.getMessage());
+        PreparedStatement statement;
+        if (get(r.getIdUser(), r.getIdAlbum()) == null) {
+            statement = prepareQuery("insertRight", "insert into rights (lire,inserer,modifier,supprimer,idUser,idAlbum) values (?,?,?,?,?,?)");
+        } else {
+            statement = prepareQuery("updateRight", "update rights set lire=?,inserer=?,modifier=?,supprimer=? where idUser=? and idAlbum=?");
         }
+        try {
+            setStatement(statement, r.isLire(), 1);
+            setStatement(statement, r.isInserer(), 2);
+            setStatement(statement, r.isModifier(), 3);
+            setStatement(statement, r.isSupprimer(), 4);
+            setStatement(statement, r.getIdUser(), 5);
+            setStatement(statement, r.getIdAlbum(), 6);
+            return statement.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("[ Erreur Methode Save ] : " + ex.getMessage());
+            return 0;
+        }
+    }
 
-        // System.out.println("[ Erreur Methode Save ] : " + ex.getMessage());
-
-        return 0;
+    public int delete(int idUser, int idAlbum) {
+        PreparedStatement statement = prepareQuery("deleteRight", "delete from " + table + " where idUser=? and idAlbum=?");
+        try {
+            setStatement(statement, idUser, 1);
+            setStatement(statement, idAlbum, 2);
+            return statement.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("[ Erreur Methode Delete ] : " + ex.getMessage());
+            return 0;
+        }
     }
 }

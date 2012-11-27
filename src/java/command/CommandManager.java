@@ -8,6 +8,7 @@ public class CommandManager {
 
     public static void init() {
         cmds.put("upload", new UploadCommand());
+        cmds.put("connexion", new ConnexionCommand());
     }
 
     public static Command getCommand(String commandName) {

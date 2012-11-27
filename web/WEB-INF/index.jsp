@@ -54,12 +54,3 @@
 <script>
 $('.carousel').carousel()
 </script>
-
-<%
-AlbumMap map = new AlbumMap();
-AlbumBean a = (AlbumBean) map.getbyId(1);
-UserMap mapu = new UserMap();
-UserBean u = (UserBean) mapu.getbyId(2);
-a.addUser(u, true, true, true, false);
-   
-%>
