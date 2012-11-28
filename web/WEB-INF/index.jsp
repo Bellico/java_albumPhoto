@@ -9,7 +9,7 @@
                     <ul class="nav nav-tabs">
                         <li class="active">
                             <a href="#"><i class="icon-home"></i> Accueil</a></li>
-                        <li><a href="#"><i class="icon-user"></i> Utilisateurs</a></li>
+                        <li><a href="utilisateurs"><i class="icon-user"></i> Utilisateurs</a></li>
                         <li><a href="#"><i class="icon-tag"></i> Albums</a></li>
                         <li><a href="images"><i class="icon-picture"></i> Images</a></li>
                     </ul>
@@ -53,13 +53,3 @@ $('.carousel').carousel()
 </script>
 
 
-<% PhotoMap p = new PhotoMap();
-   ArrayList<PhotoBean> tab= p.getAll();
-    
-   for (PhotoBean photo : tab)
-          {
-       out.println(photo.getTitle());
-       
-            }
-
-%>
