@@ -13,8 +13,8 @@
     <ul class="nav nav-tabs">
         <li > <a href="index"><i class="icon-home"></i> Accueil</a></li>
         <li class="active"><a href="#"><i class="icon-user"></i> Utilisateurs</a></li>
-        <li><a href="#"><i class="icon-tag"></i> Albums</a></li>
-        <li><a href="#"><i class="icon-picture"></i> Images</a></li>
+        <li><a href="albums"><i class="icon-tag"></i> Albums</a></li>
+        <li><a href="images"><i class="icon-picture"></i> Images</a></li>
     </ul>
 </div>
 

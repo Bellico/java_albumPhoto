@@ -17,6 +17,7 @@ public class IndexController extends HttpServlet {
             throws ServletException, IOException {
 
         request.setAttribute("view", "index.jsp");
+        request.setAttribute("nompage", "Accueil");
         getServletContext().getRequestDispatcher(TEMPLATE_SERVLET).forward(request, response);
 
     }

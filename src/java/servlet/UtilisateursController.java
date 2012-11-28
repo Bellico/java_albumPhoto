@@ -29,6 +29,7 @@ public class UtilisateursController extends HttpServlet {
             throws ServletException, IOException {
 
         request.setAttribute("view", "utilisateurs.jsp");
+        request.setAttribute("nompage", "Liste d'utilisateurs");
 
 
    UserMap p = new UserMap();

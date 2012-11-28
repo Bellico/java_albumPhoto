@@ -25,6 +25,7 @@ public class DetailsImagesController extends HttpServlet {
             throws ServletException, IOException {
 
         request.setAttribute("view", "detailsimages.jsp");
+        request.setAttribute("nompage", "Détail de l'image");
         getServletContext().getRequestDispatcher(TEMPLATE_SERVLET).forward(request, response);
 
     }

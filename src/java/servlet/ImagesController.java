@@ -26,6 +26,7 @@ public class ImagesController extends HttpServlet {
             throws ServletException, IOException {
 
         request.setAttribute("view", "images.jsp");
+        request.setAttribute("nompage", "Liste d'images");
 
         PhotoMap mapPhoto = new PhotoMap();
         AlbumMap mapAlbum = new AlbumMap();

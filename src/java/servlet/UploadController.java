@@ -16,6 +16,7 @@ public class UploadController extends HttpServlet {
             throws ServletException, IOException {
 
         request.setAttribute("view", "up.jsp");
+        request.setAttribute("nompage", "Upload d'image");
         getServletContext().getRequestDispatcher(TEMPLATE_SERVLET).forward(request, response);
 
     }
