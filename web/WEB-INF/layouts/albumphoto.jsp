@@ -16,7 +16,7 @@
             <div class="row-fluid">
                 <div class="span2">
                     <div class="well" id="titre2">
-                        Accueil
+                        ${nompage}
                     </div>
                     
                     <c:choose>
