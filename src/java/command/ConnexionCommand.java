@@ -12,13 +12,12 @@ public class ConnexionCommand implements Command {
     public ActionFlow actionPerform(HttpServletRequest request) {
         String name = request.getParameter("name");
         String password = request.getParameter("password");
-        if (!name.equals("") && !password.equals("")) {
+        if (name != null && !name.equals("") && password!=null && !password.equals("")) {
             UserMap map = new UserMap();
             UserBean user = (UserBean) map.getbyAttr("name", name);
             if(user!=null){
-                System.out.println(user.getPassword());
-                System.out.println(Tools.crypt(password,Tools.MD5,true));
-                if(user.getPassword().equals(Tools.crypt(password,Tools.MD5,true))){
+                //if(user.getPassword().equals(Tools.crypt(password,Tools.MD5,true))){
+                if(user.getPassword().equals(password)){
                     HttpSession session =request.getSession();
                     session.setAttribute("user", user);
                 }

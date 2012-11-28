@@ -29,33 +29,23 @@
                 <th>Albums</th>
                 <th>Images</th>
                 <th>Membres depuis</th>
-                
+
             </tr>
         </thead>
-        
-        <% UserMap p = new UserMap();
-   ArrayList<UserBean> tab= p.getAll();
-   request.setAttribute("nom", tab);
 
-   for (UserBean user : tab)
-          {
-       
-       
-          %> 
         <tbody>
-            <tr>
-                
-                <td ><% out.println(user.getName()); %></td>
-                <td ><% out.println(user.getFirstName()); %></td>
-                <td ></td>
-                <td >12</td>
-                <td ><% out.println(user.getDate_created()); %></td>
-        
-            </tr>
-                     <%   
-                         }
+            <c:forEach items="${User}" var="u">
+                <tr>
+                    <td > ${u.name}</td> 
+                    <td > ${u.firstName}</td>
+                    <td ></td>
+                    <td >12</td>
+                    <td >${u.date_created}</td>
 
-%>
+                </tr>
+
+            </c:forEach>  
+
         </tbody>
     </table>
 

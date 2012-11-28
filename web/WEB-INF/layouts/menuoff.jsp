@@ -5,9 +5,9 @@
        <ul class="nav nav-tabs nav-stacked">
                         <li>
                             <a><div class="formulaire">
-                                    <form>
-                                        Nom : <input type="text" id="inputEmail" /><br>
-                                        Mot de passe : <input type="password" id="inputPassword" />
+                                    <form action="do/connexion" method="post">
+                                        Nom : <input name="name" type="text" id="inputEmail" /><br>
+                                        Mot de passe : <input name="password" type="password" id="inputPassword" />
                                         <button type="submit" class="btn"/>Connexion</button>
                                     </form>
                                 </div></a>

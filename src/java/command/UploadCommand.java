@@ -33,6 +33,6 @@ public class UploadCommand implements Command {
         } catch (Exception ex) {
             System.out.print(ex.getMessage());
         }
-        return new ActionFlow("up", true);
+        return new ActionFlow("upload", true);
     }
 }
