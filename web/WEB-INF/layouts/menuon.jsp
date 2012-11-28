@@ -8,7 +8,7 @@
                         <li><a href="myphotos"><i class="icon-picture"></i> Mes Photos</a></li>
                         <li><a href="myfriends"><i class="icon-user"></i> Mes Amis</a></li> 
                         <li><a href="addalbum"><i class="icon-plus"></i> Ajouter un album  <i class="icon-tag"></i></a></li>
-                        <li><a href="addphoto"><i class="icon-plus"></i> Ajouter une photo  <i class="icon-picture"></i></a></li>
+                        <li><a href="upload"><i class="icon-plus"></i> Ajouter une photo  <i class="icon-picture"></i></a></li>
                        
                     </ul>
 
