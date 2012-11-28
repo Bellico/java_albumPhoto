@@ -1,19 +1,24 @@
-insert into users values (1,'martin','franck','pass',CURRENT_DATE,CURRENT_TIME,null,null);
-insert into users values (2,'liaudo','emilien','pass',CURRENT_DATE,CURRENT_TIME,null,null);
-insert into users values (3,'Inconnu','Personne','pass',CURRENT_DATE,CURRENT_TIME,null,null);
+insert into users values (1,'martin','franck','pass','2012-11-28','15:51:23',null,null);
+insert into users values (2,'liaudo','emilien','pass','2012-11-29','15:51:23',null,null);
+insert into users values (3,'Inconnu','Personne','pass','2012-12-15','15:51:23',null,null);
+insert into users values (4,'Personne 4','Prenom 4','pass','2012-12-15','15:51:23',null,null);
+insert into users values (5,'Inconnu','Prenom 5','pass','2012-10-15','15:51:23',null,null);
+insert into users values (6,'Inconnu','Prenom 6','pass','2012-08-22','15:51:23',null,null);
+insert into users values (7,'Inconnu','Prenom 7','pass',CURRENT_DATE,CURRENT_TIME,null,null);
 
 insert into statuts values (0,'public');
 insert into statuts values (1,'prive');
 insert into statuts values (3,'cache');
 
-insert into albums values (1,1,0);
-insert into albums values (2,2,0);
+insert into albums values (1,'nom1','descr1',1,0);
+insert into albums values (2,'nom2','descr2',2,0);
 
 insert into photos values (1,'Mon chien','Voici mon chien, il est super beau',420,300,'chien.jpg','mot-cle',CURRENT_DATE,CURRENT_TIME,null,null,1);
-insert into photos values (2,'Un chat','Ca c''est mon chat tout mignon',1920,1080,'chat.jpg','mot-cle',CURRENT_DATE,CURRENT_TIME,null,null,1);
-insert into photos values (3,'Le serpent','Un gros serpent bien gros',500,600,'serpent.jpg','mot-cle',CURRENT_DATE,CURRENT_TIME,null,null,1);
-insert into photos values (4,'Belle demoiselle','Hum....',2000,1900,'demoiselle.jpg','mot-cle',CURRENT_DATE,CURRENT_TIME,null,null,2);
-insert into photos values (5,'Femme Sexy','Canon la meuf , kiff Grave',1920,1080,'sexy.jpg','mot-cle',CURRENT_DATE,CURRENT_TIME,null,null,2);
+insert into photos values (2,'Un chat','Ca c''est mon chat tout mignon',1920,1080,'chat.jpg','mot-cle','2012-12-15','15:51:23',null,null,1);
+insert into photos values (3,'Le serpent','Un gros serpent bien gros',500,600,'serpent.jpg','mot-cle','2012-08-22','15:51:23',null,null,1);
+insert into photos values (4,'Pomme','Pomme a manger',500,600,'serpent.jpg','mot-cle','2012-08-22','15:51:23',null,null,2);
+insert into photos values (5,'Belle','Hum....',2000,1900,'demoiselle.jpg','mot-cle',CURRENT_DATE,CURRENT_TIME,null,null,1);
+insert into photos values (6,'Nuage','Pas mal',1920,1080,'xy.jpg','mot-cle',CURRENT_DATE,CURRENT_TIME,null,null,2);
 
 insert into rights values (1,2,true,true,false,false);
 insert into rights values (2,1,true,false,true,true);

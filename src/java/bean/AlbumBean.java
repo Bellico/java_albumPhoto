@@ -5,16 +5,23 @@ import bdd.RightMap;
 public class AlbumBean {
 
     int idAlbum;
+    String nameAlbum;
+    String descr;
     int idUser;
     int idStatut;
 
     public AlbumBean() {
         this.idAlbum = -1;
+        this.nameAlbum = "";
+        this.descr = "";
         this.idUser = -1;
         this.idStatut = 0;
     }
 
-    public AlbumBean(int idAlbum, int idUser, int idStatut) {
+    public AlbumBean(int idAlbum, String nameAlbum, String descr, int idUser, int idStatut) {
+        this.idAlbum = idAlbum;
+        this.nameAlbum = nameAlbum;
+        this.descr = descr;
         this.idAlbum = idAlbum;
         this.idUser = idUser;
         this.idStatut = idStatut;
@@ -26,6 +33,22 @@ public class AlbumBean {
 
     public void setIdAlbum(int idAlbum) {
         this.idAlbum = idAlbum;
+    }
+
+    public String getNameAlbum() {
+        return nameAlbum;
+    }
+
+    public void setNameAlbum(String nameAlbum) {
+        this.nameAlbum = nameAlbum;
+    }
+
+    public String getDescr() {
+        return descr;
+    }
+
+    public void setDescr(String descr) {
+        this.descr = descr;
     }
 
     public int getIdUser() {

@@ -68,7 +68,7 @@ abstract public class SQLMapping<T> extends Database {
         }
     }
 
-    public Object getbyAttr(String attr, String value) {
+    public Object getbyAttr(String attr, Object value) {
         try {
             ResultSet res = findByAttr(attr, value);
             res.next();
@@ -79,7 +79,7 @@ abstract public class SQLMapping<T> extends Database {
         }
     }
 
-    public ArrayList<Object> getAllbyAttr(String attr, String value) {
+    public ArrayList<Object> getAllbyAttr(String attr, Object value) {
         ArrayList<Object> list = new ArrayList<Object>();
         try {
             ResultSet res = findByAttr(attr, value);

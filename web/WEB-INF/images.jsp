@@ -27,35 +27,17 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td class="photocadre"><img class="imagemin" alt="" src="img/tn_010.jpg"></td>
-                <td class="utilisateurs">Emilien</td>
-                <td class="titrealbum">Journée au zoo</td>
-                <td class="titrealbum">Couple de Perroquet</td>
-                <td class="description">Industria promittentes philosophus Lycia hos quia fabricarum e et Eusebius et res dignitatem inter nec agitari increpabat et quaestor et Montius increpabat ab et Pittacas increpabat hos insimulasset promittentes e.</td>
-                <td class="dateajout">15 janvier 2013 12:03:26</td>
-                <td class="datemodif">15 janvier 2013 12:03:26</td>
-            </tr>
-
-            <tr>
-                <td  class="photocadre"><img class="imagemin" src="img/tn_051.jpg"></td>
-                <td class="utilisateurs">Emilien</td>
-                <td class="titrealbum">Journée au zoo</td>
-                <td class="titrealbum">Fleur</td>
-                <td class="description">Industria promittentes philosophus Lycia hos quia fabricarum e et Eusebius et res dignitatem inter nec agitari increpabat et quaestor et Montius increpabat ab et Pittacas increpabat hos insimulasset promittentes e.</td>
-                <td class="dateajout">15 janvier 2013 12:03:26</td>
-                <td class="datemodif">15 janvier 2013 12:03:26</td>
-            </tr>
-            <tr>
-                <td  class="photocadre"><img class="imagemin" src="img/tn_200.jpg"></td>
-                <td class="utilisateurs">Emilien</td>
-                <td class="titrealbum">Journée au zoo</td>
-                <td class="titrealbum">L'ours Polaire</td>
-                <td class="description">Industria promittentes philosophus Lycia hos quia fabricarum e et Eusebius et res dignitatem inter nec agitari increpabat et quaestor et Montius increpabat ab et Pittacas increpabat hos insimulasset promittentes e.</td>
-                <td class="dateajout">15 janvier 2013 12:03:26</td>
-                <td class="datemodif">15 janvier 2013 12:03:26</td>
-            </tr>
+            <c:forEach items="${listPhoto}" var="lp">	
+                <tr>
+                    <td class="photocadre"><img class="imagemin" alt="" src="img/tn_010.jpg"></td>
+                    <td class="utilisateurs">Emilien</td>
+                    <td class="titrealbum">${listAlbum[lp.idAlbum].nameAlbum}</td>
+                    <td class="titrealbum">${lp.title}</td>
+                    <td class="description"><c:out value="${lp.descr}"/></td>
+                    <td class="dateajout">15 janvier 2013 12:03:26</td>
+                    <td class="datemodif">15 janvier 2013 12:03:26</td>
+                </tr>
+            </c:forEach>
         </tbody>
     </table>
-
 </div>

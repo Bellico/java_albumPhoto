@@ -35,7 +35,8 @@
         
         <% UserMap p = new UserMap();
    ArrayList<UserBean> tab= p.getAll();
-    
+   request.setAttribute("nom", tab);
+
    for (UserBean user : tab)
           {
        

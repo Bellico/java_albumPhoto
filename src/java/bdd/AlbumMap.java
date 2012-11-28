@@ -22,6 +22,8 @@ public class AlbumMap extends SQLMapping {
     public AlbumBean ResultToBean(ResultSet res) throws SQLException {
         return new AlbumBean(
                 res.getInt("idAlbum"),
+                res.getString("nameAlbum"),
+                res.getString("descr"),
                 res.getInt("idUser"),
                 res.getInt("idStatut"));
     }
@@ -31,6 +33,8 @@ public class AlbumMap extends SQLMapping {
         AlbumBean album = (AlbumBean) o;
         HashMap<String, Object> data = new HashMap<String, Object>();
         data.put("idUser", album.getIdUser());
+        data.put("nameAlbum", album.getNameAlbum());
+        data.put("descr", album.getDescr());
         data.put("idStatut", album.getIdStatut());
         return data;
     }

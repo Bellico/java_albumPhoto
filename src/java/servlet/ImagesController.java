@@ -1,6 +1,12 @@
 package servlet;
 
+import bdd.AlbumMap;
+import bdd.PhotoMap;
+import bean.AlbumBean;
+import bean.PhotoBean;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,6 +23,19 @@ public class ImagesController extends HttpServlet {
             throws ServletException, IOException {
 
         request.setAttribute("view", "images.jsp");
+        HashMap<AlbumBean, PhotoBean> ap = new   HashMap<AlbumBean, PhotoBean>();
+        
+        ArrayList<PhotoBean> listPhoto = new ArrayList<PhotoBean>();
+        PhotoMap mapPhoto = new PhotoMap();
+        AlbumMap mapAlbum = new AlbumMap();
+        ArrayList<AlbumBean> listAlbum = mapAlbum.getAllbyAttr("idStatut", 0);
+         request.setAttribute("listAlbum", listAlbum);
+         
+        for (AlbumBean al : listAlbum) {
+            listPhoto.add((PhotoBean) mapPhoto.getbyAttr("idAlbum", al.getIdAlbum()));
+        }
+        request.setAttribute("listPhoto", listPhoto);
+
         getServletContext().getRequestDispatcher(TEMPLATE_SERVLET).forward(request, response);
 
     }
