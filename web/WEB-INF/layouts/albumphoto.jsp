@@ -22,7 +22,7 @@
                     <% request.setAttribute("user", 1); %>
                     <c:choose>
      
-                        <c:when test="${!empty 'user'}"><jsp:include page="menuon.jsp" /></c:when>
+                        <c:when test="${empty 'user'}"><jsp:include page="menuon.jsp" /></c:when>
                         
                     <c:otherwise><jsp:include page="menuoff.jsp" /></c:otherwise>  
                     </c:choose>

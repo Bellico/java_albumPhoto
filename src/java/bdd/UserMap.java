@@ -44,4 +44,5 @@ public class UserMap extends SQLMapping {
         data.put("time_lastUpdate", user.getTime_lastUpdate());
         return data;
     }
+       
 }

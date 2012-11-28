@@ -4,7 +4,11 @@
  */
 package servlet;
 
+import bdd.AlbumMap;
+import bdd.UserMap;
+import bean.UserBean;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,6 +29,13 @@ public class UtilisateursController extends HttpServlet {
             throws ServletException, IOException {
 
         request.setAttribute("view", "utilisateurs.jsp");
+
+
+   UserMap p = new UserMap();
+   ArrayList<UserBean> tab= p.getAll();
+   request.setAttribute("User", tab);
+    
+   
         getServletContext().getRequestDispatcher(TEMPLATE_SERVLET).forward(request, response);
 
     }

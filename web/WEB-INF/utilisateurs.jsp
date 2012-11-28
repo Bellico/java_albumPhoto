@@ -33,28 +33,22 @@
             </tr>
         </thead>
         
-        <% UserMap p = new UserMap();
-   ArrayList<UserBean> tab= p.getAll();
-    
-   for (UserBean user : tab)
-          {
-       
-       
-          %> 
-        <tbody>
-            <tr>
-                
-                <td ><% out.println(user.getName()); %></td>
-                <td ><% out.println(user.getFirstName()); %></td>
-                <td ></td>
-                <td >12</td>
-                <td ><% out.println(user.getDate_created()); %></td>
-        
-            </tr>
-                     <%   
-                         }
 
-%>
+
+
+        <c:forEach items="${User}" var="u">
+            <tbody>
+                <tr>
+                    <td > ${u.name}</td> 
+                    <td > ${u.firstName}</td>
+                    <td ></td>
+                    <td >12</td>
+                    <td >${u.date_created}</td>
+
+                </tr>
+
+            </c:forEach>  
+
         </tbody>
     </table>
 

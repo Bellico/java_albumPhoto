@@ -57,6 +57,7 @@ abstract public class SQLMapping<T> extends Database {
         return res;
     }
 
+  
     public Object getbyId(int id) {
         try {
             ResultSet res = findByAttr(primary_key, id);
