@@ -2,6 +2,7 @@ package tools;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 import org.jasypt.util.password.ConfigurablePasswordEncryptor;
 import org.jasypt.util.text.BasicTextEncryptor;
@@ -56,5 +57,19 @@ public class Tools {
             i++;
         }
         return find;
+    }
+
+    public static String DateToString(Date date) {
+        SimpleDateFormat format = new SimpleDateFormat("dd MMMM yyyy");
+        return (date != null) ? "le " + format.format(date) : "";
+    }
+
+    public static String TimeToString(Time time) {
+        SimpleDateFormat format = new SimpleDateFormat(" à HH:mm");
+        return (time != null) ? format.format(time) : "";
+    }
+
+    public static String DateToString(Date date, Time time) {
+        return DateToString(date) + TimeToString(time);
     }
 }

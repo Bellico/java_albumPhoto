@@ -27,15 +27,15 @@
             </tr>
         </thead>
         <tbody>
-            <c:forEach items="${listPhoto}" var="lp">	
+            <c:forEach items="${listImg}" var="img"  >
                 <tr>
-                    <td class="photocadre"><img class="imagemin" alt="" src="img/tn_010.jpg"></td>
-                    <td class="utilisateurs">Emilien</td>
-                    <td class="titrealbum">${listAlbum[lp.idAlbum].nameAlbum}</td>
-                    <td class="titrealbum">${lp.title}</td>
-                    <td class="description"><c:out value="${lp.descr}"/></td>
-                    <td class="dateajout">15 janvier 2013 12:03:26</td>
-                    <td class="datemodif">15 janvier 2013 12:03:26</td>
+                    <td class="photocadre"><img class="imagemin" alt="" src="<c:out value="${img[0]}"/>"></td>
+                    <td class="utilisateurs"><c:out value="${img[1]}"/></td>
+                    <td class="titrealbum"><c:out value="${img[2]}"/></td>
+                    <td class="titrealbum"><c:out value="${img[3]}"/></td>
+                    <td class="description"><c:out value="${img[4]}"/></td>
+                    <td class="dateajout"><c:out value="${img[5]}"/> </td>
+                    <td class="dateajout"><c:out value="${img[6]}"/> </td>
                 </tr>
             </c:forEach>
         </tbody>
