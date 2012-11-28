@@ -11,11 +11,15 @@ import tools.Tools;
 
 public class UploadCommand implements Command {
 
+    public static final String FOLDER_ALBUM = "albums/"  ;
+
     @Override
     public ActionFlow actionPerform(HttpServletRequest request) {
         Upload up = new Upload("file", new String[]{"jpg", "jpeg", "png"});
         try {
-            String path = Tools.appPath + File.separator + "img";
+            String path = Tools.appPath + File.separator + FOLDER_ALBUM  + "album1";
+            File f = new File(path);
+            f.mkdirs();
             int state = up.uploadFile(request, path);
             if (state == 0) {
                 Image img = ImageIO.read(new File(path + File.separator + up.getFileName()));

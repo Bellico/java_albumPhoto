@@ -31,7 +31,6 @@ public class CommandController extends HttpServlet {
         Command cmd = CommandManager.getCommand(commandUrl);
         flow = (cmd == null) ? new ActionFlow("error", true) : cmd.actionPerform(request);
         String ctx = getServletContext().getContextPath();
-        System.out.print(ctx);
         if (flow.isRedirect()) {
             response.sendRedirect(ctx + "/" + flow.getPath());
         } else {

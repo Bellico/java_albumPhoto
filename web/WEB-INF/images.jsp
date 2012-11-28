@@ -29,7 +29,7 @@
         <tbody>
             <c:forEach items="${listImg}" var="img"  >
                 <tr>
-                    <td class="photocadre"><img class="imagemin" alt="" src="<c:out value="${img[0]}"/>"></td>
+                    <td class="photocadre"><img class="imagemin" alt="" src="<c:url value="/${img[0]}"/>"></td>
                     <td class="utilisateurs"><c:out value="${img[1]}"/></td>
                     <td class="titrealbum"><c:out value="${img[2]}"/></td>
                     <td class="titrealbum"><c:out value="${img[3]}"/></td>
