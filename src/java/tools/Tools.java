@@ -37,7 +37,11 @@ public class Tools {
                 kw += d[i] + "-";
             }
         }
-        return kw.substring(0, kw.length() - 1);
+        if (kw.length() > 1) {
+            return kw.substring(0, kw.length() - 1);
+        } else {
+            return "";
+        }
     }
 
     public static String crypt(String s, String algo, boolean salage) {

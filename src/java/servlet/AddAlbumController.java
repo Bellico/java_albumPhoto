@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Emilien
  */
-@WebServlet(name = "AddAlbumController", urlPatterns = {"/addalbum"})
+@WebServlet(name = "AddAlbumController", urlPatterns = {"/ajoutAlbum"})
 public class AddAlbumController extends HttpServlet {
     
         private final String TEMPLATE_SERVLET = "/WEB-INF/layouts/albumphoto.jsp";
@@ -24,7 +24,7 @@ public class AddAlbumController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        request.setAttribute("view", "newalbum.jsp");
+        request.setAttribute("view", "ajoutAlbum.jsp");
         request.setAttribute("nompage", "Ajout Album");
         getServletContext().getRequestDispatcher(TEMPLATE_SERVLET).forward(request, response);
 

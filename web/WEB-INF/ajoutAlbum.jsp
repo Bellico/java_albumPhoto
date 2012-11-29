@@ -19,7 +19,7 @@
                 </div>
 
 <div class="span10"> 
-    <form action="do/" method="post">
+    <form action="do/ajoutAlbum" method="post">
         <fieldset>
     <legend>Formulaire d'ajout d'album</legend>
         Titre album : <input name="titre" type="text" /><br>

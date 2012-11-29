@@ -16,16 +16,20 @@ public class UploadCommand implements Command {
     @Override
     public ActionFlow actionPerform(HttpServletRequest request) {
         Upload up = new Upload("file", new String[]{"jpg", "jpeg", "png"});
+         String album = request.getParameter("album");
         try {
-            String path = Tools.appPath + File.separator + FOLDER_ALBUM  + "album1";
+            String path = Tools.appPath + File.separator + FOLDER_ALBUM  + album;
             File f = new File(path);
             f.mkdirs();
             int state = up.uploadFile(request, path);
             if (state == 0) {
+                
+                String title = request.getParameter("titre");
+                String descr = request.getParameter("description");
                 Image img = ImageIO.read(new File(path + File.separator + up.getFileName()));
                 PhotoBean photo = new PhotoBean();
-                photo.setTitle("Mon petit chat");
-                photo.setDescr("Je te décrit");
+                photo.setTitle(title);
+                photo.setDescr(descr);
                 photo.setImg(up.getFileName());
                 photo.setHeight(img.getHeight(null));
                 photo.setWidth(img.getWidth(null));
@@ -35,7 +39,7 @@ public class UploadCommand implements Command {
                 map.save(photo);
             }
         } catch (Exception ex) {
-            System.out.print(ex.getMessage());
+             System.out.println("[ Erreur Command Upload] : " + ex.getMessage());
         }
         return new ActionFlow("upload", true);
     }
