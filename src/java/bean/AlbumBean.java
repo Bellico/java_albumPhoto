@@ -1,6 +1,8 @@
 package bean;
 
+import bdd.PhotoMap;
 import bdd.RightMap;
+import java.util.ArrayList;
 
 public class AlbumBean {
 
@@ -76,5 +78,11 @@ public class AlbumBean {
     public void removeUser(UserBean user) {
         RightMap map = new RightMap();
         map.delete(user.getIdUser(), idAlbum);
+    }
+
+    public int getNbPhoto() {
+        PhotoMap mapPhoto = new PhotoMap();
+        ArrayList<PhotoBean> photos = mapPhoto.getAllbyAttr("idAlbum", idAlbum);
+        return photos.size();
     }
 }

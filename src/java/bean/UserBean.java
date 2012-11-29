@@ -1,7 +1,10 @@
 package bean;
 
+import bdd.AlbumMap;
+import bdd.PhotoMap;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
 import tools.Tools;
 
 public class UserBean {
@@ -87,5 +90,23 @@ public class UserBean {
 
     public void setTime_lastUpdate() {
         this.time_lastUpdate = Tools.TimeNow();
+    }
+
+    public int getNbAlbum() {
+        AlbumMap mapAlbum = new AlbumMap();
+        ArrayList<AlbumBean> albums = mapAlbum.getAllbyAttr("idUser ", idUser);
+        return albums.size();
+    }
+
+    public int getNbPhoto() {
+        AlbumMap mapAlbum = new AlbumMap();
+        PhotoMap mapPhoto = new PhotoMap();
+        ArrayList<AlbumBean> albums = mapAlbum.getAllbyAttr("idUser ", idUser);
+        int nbPhotos = 0;
+        for (AlbumBean al : albums) {
+            ArrayList<PhotoBean> photos = mapPhoto.getAllbyAttr("idAlbum", al.getIdAlbum());
+            nbPhotos += photos.size();
+        }
+        return nbPhotos;
     }
 }

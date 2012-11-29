@@ -9,18 +9,19 @@ import org.jasypt.util.text.BasicTextEncryptor;
 
 public class Tools {
 
-    public static GregorianCalendar calendar = new GregorianCalendar();
     public static String appPath = "";
     public static final String MD5 = "MD5";
     public static final String SHA1 = "SHA-1";
     public static final String SHA256 = "SHA-256";
 
     public static Date DateNow() {
+        GregorianCalendar calendar = new GregorianCalendar();
         return new java.sql.Date(calendar.getTimeInMillis());
         //String date = calendar.get(Calendar.YEAR)+"-"+(calendar.get(Calendar.MONTH)+1)+"-"+calendar.get(Calendar.DAY_OF_MONTH)
     }
 
     public static Time TimeNow() {
+        GregorianCalendar calendar = new GregorianCalendar();
         return new java.sql.Time(calendar.getTimeInMillis());
     }
 

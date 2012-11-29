@@ -29,19 +29,20 @@
                 <th>Albums</th>
                 <th>Images</th>
                 <th>Membres depuis</th>
+                   <th>Dernière mise à jour</th>
 
             </tr>
         </thead>
 
         <tbody>
-            <c:forEach items="${User}" var="u">
+            <c:forEach items="${User}" var="us">
                 <tr>
-                    <td > ${u.name}</td> 
-                    <td > ${u.firstName}</td>
-                    <td ></td>
-                    <td >12</td>
-                    <td >${u.date_created}</td>
-
+                     <td> <c:out value="${us.name}"/></td> 
+                     <td> <c:out value="${us.firstName}"/></td> 
+                     <td> <c:out value="${us.getNbAlbum()}"/></td> 
+                     <td> <c:out value="${us.getNbPhoto()}"/></td> 
+                     <td> <c:out value="${us.date_created}"/></td> 
+                     <td> <c:out value="${us.date_created}"/></td> 
                 </tr>
 
             </c:forEach>  

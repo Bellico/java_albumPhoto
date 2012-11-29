@@ -21,8 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "UtilisateursController", urlPatterns = {"/utilisateurs"})
 public class UtilisateursController extends HttpServlet {
-    
-      private final String TEMPLATE_SERVLET = "/WEB-INF/layouts/albumphoto.jsp";
+
+    private final String TEMPLATE_SERVLET = "/WEB-INF/layouts/albumphoto.jsp";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -32,13 +32,12 @@ public class UtilisateursController extends HttpServlet {
         request.setAttribute("nompage", "Liste d'utilisateurs");
 
 
-   UserMap p = new UserMap();
-   ArrayList<UserBean> tab= p.getAll();
-   request.setAttribute("User", tab);
-    
-   
+        UserMap p = new UserMap();
+        ArrayList<UserBean> tab = p.getAll();
+        request.setAttribute("User", tab);
+
+
         getServletContext().getRequestDispatcher(TEMPLATE_SERVLET).forward(request, response);
 
     }
-    
 }

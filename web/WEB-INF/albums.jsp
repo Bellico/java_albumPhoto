@@ -24,26 +24,21 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>Nom</th>
-                <th>Prénom</th>
-                <th>Albums</th>
+                <th>Album</th>
+                <th>Auteur</th>
+                <th>Description</th>
                 <th>Images</th>
-                <th>Membres depuis</th>
-
             </tr>
         </thead>
 
         <tbody>
-            <c:forEach items="${User}" var="u">
+            <c:forEach items="${listAlbum}" var="album">
                 <tr>
-                    <td > ${u.name}</td> 
-                    <td > ${u.firstName}</td>
-                    <td ></td>
-                    <td >12</td>
-                    <td >${u.date_created}</td>
-
+                    <td> <c:out value="${album[0]}"/></td> 
+                    <td><c:out value="${album[1]}"/></td> 
+                    <td><c:out value="${album[2]}"/></td> 
+                    <td><c:out value="${album[3]}"/></td>
                 </tr>
-
             </c:forEach>  
 
         </tbody>
