@@ -4,7 +4,7 @@
 <div class="span10">
     <!--Sidebar content-->
     <ul class="nav nav-tabs">
-        <li > <a href="index"><i class="icon-home"></i> Accueil</a></li>
+        <li> <a href="index"><i class="icon-home"></i> Accueil</a></li>
         <li><a href="utilisateurs"><i class="icon-user"></i> Utilisateurs</a></li>
         <li><a href="albums"><i class="icon-tag"></i> Albums</a></li>
         <li class="active"><a href="#"><i class="icon-picture"></i> Images</a></li>
@@ -12,8 +12,6 @@
 </div>
 
 <div class="span10"> 
-
-
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -24,6 +22,7 @@
                 <th>Description</th>
                 <th>Date de création</th>
                 <th>Dernière mise à jour</th>
+                <th>Options</th>
             </tr>
         </thead>
         <tbody>
@@ -36,6 +35,7 @@
                     <td class="description"><c:out value="${img[4]}"/></td>
                     <td class="dateajout"><c:out value="${img[5]}"/> </td>
                     <td class="dateajout"><c:out value="${img[6]}"/> </td>
+                    <td> <a href="details?nrophoto=<c:out value="${img[7]}"/>"><button class="btn btn-primary" type="button">Voir Détails</button></a></td>
                 </tr>
             </c:forEach>
         </tbody>

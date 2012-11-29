@@ -4,7 +4,6 @@
 <%@page import="bean.PhotoBean"%>
 <%@page import="bdd.PhotoMap"%>
 
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
@@ -19,8 +18,6 @@
 </div>
 
 <div class="span10"> 
-
-
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -30,7 +27,6 @@
                 <th>Images</th>
             </tr>
         </thead>
-
         <tbody>
             <c:forEach items="${listAlbum}" var="album">
                 <tr>
@@ -40,8 +36,6 @@
                     <td><c:out value="${album[3]}"/></td>
                 </tr>
             </c:forEach>  
-
         </tbody>
     </table>
-
 </div>
