@@ -1,19 +1,14 @@
 package command;
 
-import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 
-public class DefaultCommand implements Command {
+public class DefaultCommand extends Command {
 
-    private static HashMap<String, String> attrPage = new HashMap<String, String>();
-
-    static {
-        attrPage.put("tit1ePage", "Accueil");
-        attrPage.put("namePage", "Accueil");
-    }
 
     @Override
-    public ActionFlow actionPerform(HttpServletRequest request) {
-        return new ActionFlow("index.jsp", attrPage, false);
+    public ActionFlow actionPerform(HttpServletRequest request, String[] UrlParams) {
+        setAttrPage(TITRE_PAGE, "Accueil");
+        setAttrPage(NOM_PAGE, "Accueil");
+        return new ActionFlow("index", attrPage, false);
     }
 }

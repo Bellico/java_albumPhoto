@@ -6,24 +6,32 @@ import bean.AlbumBean;
 import bean.PhotoBean;
 import java.awt.Image;
 import java.io.File;
-import java.util.HashMap;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import model.Upload;
 import tools.Tools;
 
-public class UploadCommand implements Command {
+public class UploadCommand extends Command {
 
-    private static HashMap<String, String> attrPage = new HashMap<String, String>();
-
-    static {
-        attrPage.put("tit1ePage", "Ajouter une photo");
-        attrPage.put("namePage", "Photo");
-    }
     public static final String FOLDER_ALBUM = "albumphoto/";
 
     @Override
-    public ActionFlow actionPerform(HttpServletRequest request) {
+    public ActionFlow actionPerform(HttpServletRequest request, String[] UrlParams) {
+
+        try {
+            if (UrlParams[1].equals("up")) {
+                return upload(request);
+            } else {
+                return new ActionFlow("error", true);
+            }
+        } catch (IndexOutOfBoundsException ex) {
+            setAttrPage(TITRE_PAGE, "Upload");
+            setAttrPage(NOM_PAGE, "Nouvelle photo");
+            return new ActionFlow("upload", attrPage, false);
+        }
+    }
+
+    public ActionFlow upload(HttpServletRequest request) {
         Upload up = new Upload("file", new String[]{"jpg", "jpeg", "png"});
         String namealbum = request.getParameter("album");
         try {
@@ -51,6 +59,7 @@ public class UploadCommand implements Command {
         } catch (Exception ex) {
             System.out.println("[ Erreur Command Upload] : " + ex.getMessage());
         }
+
         return new ActionFlow("upload", true);
     }
 }

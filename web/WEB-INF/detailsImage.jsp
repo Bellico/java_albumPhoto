@@ -4,10 +4,10 @@
 <div class="span10">
     <!--Sidebar content-->
     <ul class="nav nav-tabs">
-        <li> <a href="index"><i class="icon-home"></i> Accueil</a></li>
-        <li><a href="utilisateurs"><i class="icon-user"></i> Utilisateurs</a></li>
-        <li><a href="albums"><i class="icon-tag"></i> Albums</a></li>
-        <li><a href="images"><i class="icon-picture"></i> Images</a></li>
+        <li><a href="<c:url value="/index"/>"><i class="icon-home"></i> Accueil</a></li>
+        <li><a href="<c:url value="/utilisateurs"/>"><i class="icon-user"></i> Utilisateurs</a></li>
+        <li><a href="<c:url value="/albums"/>"><i class="icon-tag"></i> Albums</a></li>
+        <li><a href="<c:url value="/photos"/>"><i class="icon-picture"></i> Photos</a></li>
     </ul>
 </div>
 
@@ -15,7 +15,7 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>Images</th>
+                <th>Photos</th>
                 <td><img class="imagemin" alt="" src="<c:url value="/${details[0]}"/>"></td>
             </tr>
             <tr>

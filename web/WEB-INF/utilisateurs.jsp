@@ -10,10 +10,10 @@
 <div class="span10">
     <!--Sidebar content-->
     <ul class="nav nav-tabs">
-        <li> <a href="index"><i class="icon-home"></i> Accueil</a></li>
-        <li class="active"><a href="#"><i class="icon-user"></i> Utilisateurs</a></li>
-        <li><a href="albums"><i class="icon-tag"></i> Albums</a></li>
-        <li><a href="images"><i class="icon-picture"></i> Images</a></li>
+        <li><a href="<c:url value="/index"/>"><i class="icon-home"></i> Accueil</a></li>
+        <li class="active"><a href="<c:url value="/utilisateurs"/>"><i class="icon-user"></i> Utilisateurs</a></li>
+        <li><a href="<c:url value="/albums"/>"><i class="icon-tag"></i> Albums</a></li>
+        <li><a href="<c:url value="/photos"/>"><i class="icon-picture"></i> Photos</a></li>
     </ul>
 </div>
 
@@ -24,13 +24,13 @@
                 <th>Nom</th>
                 <th>Prénom</th>
                 <th>Albums</th>
-                <th>Images</th>
+                <th>Photos</th>
                 <th>Membres depuis</th>
                 <th>Dernière mise à jour</th>
             </tr>
         </thead>
         <tbody>
-            <c:forEach items="${User}" var="us">
+            <c:forEach items="${user}" var="us">
                 <tr>
                     <td> <c:out value="${us.name}"/></td> 
                     <td> <c:out value="${us.firstName}"/></td> 

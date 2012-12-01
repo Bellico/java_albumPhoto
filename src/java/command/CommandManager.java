@@ -8,7 +8,7 @@ public class CommandManager {
 
     public static void init() {
         cmds.put("index", new DefaultCommand());
-        cmds.put("images", new ImagesCommand());
+        cmds.put("photos", new PhotosCommand());
         cmds.put("albums", new AlbumCommand());
         //cmds.put("details", new DetailsCommand());
         cmds.put("utilisateurs", new UsersCommand());
@@ -16,6 +16,7 @@ public class CommandManager {
         cmds.put("error", new ErrorCommand());
         cmds.put("upload", new UploadCommand());
         cmds.put("connexion", new ConnexionCommand());
+        cmds.put("inscription", new InscriptionCommand());
     }
 
     public static Command getCommand(String commandName) {

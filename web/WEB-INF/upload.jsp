@@ -4,15 +4,15 @@
 <div class="span10">
     <!--Sidebar content-->
     <ul class="nav nav-tabs">
-        <li><a href="index"><i class="icon-home"></i> Accueil</a></li>
-        <li><a href="utilisateurs"><i class="icon-user"></i> Utilisateurs</a></li>
-        <li><a href="albums"><i class="icon-tag"></i> Albums</a></li>
-        <li><a href="images"><i class="icon-picture"></i> Images</a></li>
+        <li><a href="<c:url value="/index"/>"><i class="icon-home"></i> Accueil</a></li>
+        <li><a href="<c:url value="/utilisateurs"/>"><i class="icon-user"></i> Utilisateurs</a></li>
+        <li><a href="<c:url value="/albums"/>"><i class="icon-tag"></i> Albums</a></li>
+        <li><a href="<c:url value="/photos"/>"><i class="icon-picture"></i> Photos</a></li>
     </ul>
 </div>
 
 <div class="span10">
-    <form action="<c:url value="upload"/>" method="post" enctype="multipart/form-data">
+    <form action="<c:url value="upload/up"/>" method="post" enctype="multipart/form-data">
         <fieldset>
             <legend>Envoi de fichier</legend>
             Titre Photo: <input name="titre" type="text" /><br>

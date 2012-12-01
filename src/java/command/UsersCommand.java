@@ -5,19 +5,16 @@ import bean.UserBean;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 
-public class UsersCommand implements Command {
-    
+public class UsersCommand extends Command {
 
     @Override
-    public ActionFlow actionPerform(HttpServletRequest request) {
-        
-        request.setAttribute("nompage", "Liste des Util");
-
+    public ActionFlow actionPerform(HttpServletRequest request, String[] UrlParams) {
         UserMap p = new UserMap();
         ArrayList<UserBean> tab = p.getAll();
-        request.setAttribute("User", tab);
-        request.setAttribute("listAlbum", tab);
+        request.setAttribute("user", tab);
 
-        return new ActionFlow("utilisateurs.jsp", false);
+        setAttrPage(TITRE_PAGE, "Utilisateurs");
+        setAttrPage(NOM_PAGE, "Liste des utilisateurs");
+        return new ActionFlow("utilisateurs", attrPage, false);
     }
 }

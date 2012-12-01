@@ -4,6 +4,7 @@ import command.ActionFlow;
 import command.Command;
 import command.CommandManager;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.servlet.ServletException;
@@ -23,23 +24,24 @@ public class FrontController extends HttpServlet {
 
         String ctx = getServletContext().getContextPath();
         String commandUrl = null;
+        String[] UrlParams = null;
         ActionFlow flow;
-        Pattern p = Pattern.compile(ctx + "/(.*)/*(.*)");
+        Pattern p = Pattern.compile(ctx + "/(.*)");
         Matcher m = p.matcher(request.getRequestURI());
-        if (m.find()) {
-            commandUrl = m.group(1);
-            System.out.print(ctx);
+        if ((m.find() && m.groupCount() == 1)) {
+            UrlParams = m.group(1).split("/");
+            commandUrl = UrlParams[0];
         }
         Command cmd = CommandManager.getCommand(commandUrl);
-        flow = (cmd == null) ? new ActionFlow("error", true) : cmd.actionPerform(request);
-
-
-        request.setAttribute("view", flow.getPath());
-        request.setAttribute("page", flow.getAttrPage());
-        if (flow.isRedirect()) {
-            response.sendRedirect(ctx + "/" + flow.getPath());
-        } else {
-            getServletContext().getRequestDispatcher(TEMPLATE_SERVLET).forward(request, response);
+        flow = (cmd == null) ? new ActionFlow("error", true) : cmd.actionPerform(request, UrlParams);
+        if (flow != null) {
+            if (flow.isRedirect()) {
+                response.sendRedirect(ctx + "/" + flow.getPath());
+            } else {
+                request.setAttribute("view", flow.getPath() + ".jsp");
+                request.setAttribute("page", flow.getAttrPage());
+                getServletContext().getRequestDispatcher(TEMPLATE_SERVLET).forward(request, response);
+            }
         }
     }
 }

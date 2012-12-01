@@ -13,7 +13,7 @@ public class ActionFlow {
         this.attrPage = attrPage;
         this.redirect = redirect;
     }
-    
+
     public ActionFlow(String path, boolean redirect) {
         this.path = path;
         this.attrPage = null;

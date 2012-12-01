@@ -7,27 +7,29 @@ import bean.AlbumBean;
 import bean.PhotoBean;
 import bean.UserBean;
 import java.util.ArrayList;
-import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import tools.Tools;
 
-public class ImagesCommand implements Command {
+public class PhotosCommand extends Command {
 
-    private static HashMap<String, String> attrPage = new HashMap<String, String>();
-
-    static {
-        attrPage.put("tit1ePage", "Images");
-        attrPage.put("namePage", "Liste des images");
-    }
+    private PhotoMap mapPhoto = new PhotoMap();
+    private AlbumMap mapAlbum = new AlbumMap();
+    private UserMap mapUser = new UserMap();
 
     @Override
-    public ActionFlow actionPerform(HttpServletRequest request) {
-        PhotoMap mapPhoto = new PhotoMap();
-        AlbumMap mapAlbum = new AlbumMap();
-        UserMap mapUser = new UserMap();
+    public ActionFlow actionPerform(HttpServletRequest request, String[] UrlParams) {
+        try {
+            Integer numphoto = Integer.parseInt(UrlParams[1]);
+            return detailsPhoto(request, numphoto);
+        } catch (IndexOutOfBoundsException ex) {
+            return listPhoto(request);
+        } catch (NumberFormatException ex) {
+            return new ActionFlow("error", true);
+        }
+    }
 
+    public ActionFlow listPhoto(HttpServletRequest request) {
         ArrayList<AlbumBean> albumpublic = mapAlbum.getAllbyAttr("idStatut", 0);
-
         ArrayList<String[]> tab = new ArrayList<String[]>();
         for (AlbumBean al : albumpublic) {
             UserBean user = (UserBean) mapUser.getbyAttr("idUser", al.getIdUser());
@@ -45,23 +47,17 @@ public class ImagesCommand implements Command {
                         });
             }
         }
-
         request.setAttribute("listImg", tab);
-        return new ActionFlow("images.jsp",attrPage, false);
+
+        setAttrPage(TITRE_PAGE, "Photos");
+        setAttrPage(NOM_PAGE, "Liste des photos");
+        return new ActionFlow("photos", attrPage, false);
     }
-}
 
-/*
- *   Integer numphoto = Integer.parseInt(request.getParameter("nrophoto"));
-
-        PhotoMap mapPhoto = new PhotoMap();
-        AlbumMap mapAlbum = new AlbumMap();
-        UserMap mapUser = new UserMap();
-
+    public ActionFlow detailsPhoto(HttpServletRequest request, int numphoto) {
         PhotoBean photo = (PhotoBean) mapPhoto.getbyId(numphoto);
         AlbumBean album = (AlbumBean) mapAlbum.getbyId(photo.getIdAlbum());
         UserBean user = (UserBean) mapUser.getbyId(album.getIdUser());
-        System.out.print(photo.getIdPhoto());
         String[] tab = new String[]{
             UploadCommand.FOLDER_ALBUM + album.getNameAlbum() + "/" + photo.getImg(),
             user.getName(),
@@ -73,5 +69,10 @@ public class ImagesCommand implements Command {
             Tools.DateToString(photo.getDate_created(), photo.getTime_created()),
             Tools.DateToString(photo.getDate_lastUpdate(), photo.getTime_lastUpdate())
         };
-         request.setAttribute("details", tab);
- */
+        request.setAttribute("details", tab);
+
+        setAttrPage(TITRE_PAGE, "Details Photos");
+        setAttrPage(NOM_PAGE, "Details de la photo");
+        return new ActionFlow("detailsImage", attrPage, false);
+    }
+}

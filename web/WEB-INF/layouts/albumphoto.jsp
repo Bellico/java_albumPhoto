@@ -6,7 +6,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="<c:url value="/css/bootstrap.css"/>" rel="stylesheet" type="text/css" />
         <link href="<c:url value="/css/styles.css"/>" rel="stylesheet" type="text/css" />
-        <title>${page.tit1ePage} | Album Photo</title>
+        <title>${page.titlePage} | Album Photo</title>
     </head>
     <body>
         <div class="well">
@@ -19,10 +19,15 @@
                         ${page.namePage}
                     </div>
                     <c:choose>
-                        <c:when test="${!empty sessionScope.user}"><jsp:include page="menuon.jsp" /></c:when>
-                        <c:otherwise><jsp:include page="menuoff.jsp" /></c:otherwise>  
+                        <c:when test="${!empty sessionScope.user}">
+                            <jsp:include page="menu_on.jsp" />
+                        </c:when>
+                        <c:otherwise>
+                            <jsp:include page="menu_off.jsp" />
+                        </c:otherwise>  
                     </c:choose>
                 </div>
+                    
                 <!--Body content-->
                 <jsp:include page="/WEB-INF/${view}" />
             </div>

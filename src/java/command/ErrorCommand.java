@@ -1,19 +1,18 @@
 package command;
 
-import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 
-public class ErrorCommand implements Command {
+public class ErrorCommand extends Command {
 
-    private static HashMap<String, String> attrPage = new HashMap<String, String>();
-
-    static {
-        attrPage.put("tit1ePage", "Erreur");
+    {
+        attrPage.put("titlePage", "Erreur");
         attrPage.put("namePage", "Oups !");
     }
 
     @Override
-    public ActionFlow actionPerform(HttpServletRequest request) {
-        return new ActionFlow("error.jsp", attrPage, false);
+    public ActionFlow actionPerform(HttpServletRequest request, String[] UrlParams) {
+        setAttrPage(TITRE_PAGE, "Erreur");
+        setAttrPage(NOM_PAGE, "Oups !");
+        return new ActionFlow("error", attrPage, false);
     }
 }

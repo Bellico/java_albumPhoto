@@ -5,20 +5,12 @@ import bdd.UserMap;
 import bean.AlbumBean;
 import bean.UserBean;
 import java.util.ArrayList;
-import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 
-public class AlbumCommand implements Command {
-
-    private static HashMap<String, String> attrPage = new HashMap<String, String>();
-
-    static {
-        attrPage.put("tit1ePage", "Albums");
-        attrPage.put("namePage", "Liste des Albums");
-    }
+public class AlbumCommand extends Command {
 
     @Override
-    public ActionFlow actionPerform(HttpServletRequest request) {
+    public ActionFlow actionPerform(HttpServletRequest request, String[] UrlParams) {
         AlbumMap mapAlbum = new AlbumMap();
         UserMap mapUser = new UserMap();
         ArrayList<AlbumBean> albumpublic = mapAlbum.getAllbyAttr("idStatut", 0);
@@ -33,6 +25,9 @@ public class AlbumCommand implements Command {
                     });
         }
         request.setAttribute("listAlbum", tab);
-        return new ActionFlow("albums.jsp", attrPage, false);
+
+        setAttrPage(TITRE_PAGE, "Albums");
+        setAttrPage(NOM_PAGE, "Liste des Albums");
+        return new ActionFlow("albums", attrPage, false);
     }
 }

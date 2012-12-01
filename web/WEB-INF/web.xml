@@ -14,7 +14,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CommandController</servlet-name>
-        <url-pattern>/images/*</url-pattern>
+        <url-pattern>/photos/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CommandController</servlet-name>
@@ -30,7 +30,11 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CommandController</servlet-name>
-        <url-pattern>/connexion</url-pattern>
+        <url-pattern>/connexion/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CommandController</servlet-name>
+        <url-pattern>/inscription/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
