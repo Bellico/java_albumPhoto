@@ -25,6 +25,7 @@
                 <th>Auteur</th>
                 <th>Description</th>
                 <th>Photos</th>
+                <th>Options</th>
             </tr>
         </thead>
         <tbody>
@@ -34,6 +35,7 @@
                     <td><c:out value="${album[1]}"/></td> 
                     <td><c:out value="${album[2]}"/></td> 
                     <td><c:out value="${album[3]}"/></td>
+                    <td> <a href="<c:url value="/albums/${album[4]}"/>"><button class="btn btn-primary" type="button">Voir Détails</button></a></td>
                 </tr>
             </c:forEach>  
         </tbody>
