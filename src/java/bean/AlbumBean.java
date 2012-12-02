@@ -33,10 +33,6 @@ public class AlbumBean {
         return idAlbum;
     }
 
-    public void setIdAlbum(int idAlbum) {
-        this.idAlbum = idAlbum;
-    }
-
     public String getNameAlbum() {
         return nameAlbum;
     }

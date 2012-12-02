@@ -46,8 +46,8 @@ public class InscriptionCommand extends Command {
                     setAttrPage(MESSAGE, "L'incription ne s'est pas terminée correctement, une erreur serveur s'est produite");
                 }
             } else {
-                    setAttrPage(MESSAGE, "Ce login est déja utilisé.");
-                }
+                setAttrPage(MESSAGE, "Ce login est déja utilisé.");
+            }
         }
         return new ActionFlow("inscription", attrPage, false);
     }

@@ -8,7 +8,6 @@ import bean.PhotoBean;
 import bean.UserBean;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
-import tools.Tools;
 
 public class PhotosCommand extends Command {
 

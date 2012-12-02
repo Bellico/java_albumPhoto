@@ -20,7 +20,7 @@ public class FrontController extends HttpServlet {
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        request.setCharacterEncoding("UTF-8");
         String ctx = getServletContext().getContextPath();
         String commandUrl = null;
         String[] UrlParams = null;

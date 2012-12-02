@@ -12,11 +12,12 @@
 </div>
 
 <div class="span10"> 
-    <form action="ajoutAlbum" method="post">
+      <h3>${page.messagePage}</h3>
+    <form action="<c:url value="/albums/nouveau"/>" method="post">
         <fieldset>
             <legend>Formulaire d'ajout d'album</legend>
-            Titre album : <input name="titre" type="text" /><br>
-            Description : <textarea name="description" type="text" /></textarea><br/>
+            Titre album : <input name="name" type="text" /> ${form.name}<br>
+            Description : <textarea name="description" type="text" /></textarea> ${form.description}<br/>
             <button type="submit" class="btn"/>Creer</button></fieldset>
     </form>
 </div>

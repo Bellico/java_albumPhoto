@@ -1,3 +1,4 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <div class="span10">
@@ -16,7 +17,7 @@
         <table  border="0">	   
             <tr>
                 <td> <label for="for1"> nom </label> </td>
-                <td> <input id="for1" name="nom" value="${requestScope.nom}" type="text" /> </td> <td>${form.nom}</td>
+                <td> <input id="for1" name="nom" value="<c:out value="${nom}"/>" type="text" /> </td> <td>${form.nom}</td>
             </tr>
 
             <tr>
