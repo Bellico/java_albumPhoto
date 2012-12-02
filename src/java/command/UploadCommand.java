@@ -32,7 +32,7 @@ public class UploadCommand extends Command {
         }
     }
 
-    public ActionFlow upload(HttpServletRequest request) {
+    synchronized public ActionFlow upload(HttpServletRequest request) {
         ControlForm form = new ControlForm(request);
         String title = form.check("titre", ControlForm.NON_VIDE, "Donnez un titre à votre photo");
         String namealbum = form.check("album", ControlForm.NON_VIDE);
@@ -48,8 +48,9 @@ public class UploadCommand extends Command {
                 f.mkdirs();
                 int state = up.uploadFile(request, path);
                 if (state == 0) {
+                    f = new File(path + File.separator + up.getFileName());
                     try {
-                        Image img = ImageIO.read(new File(path + File.separator + up.getFileName()));
+                        Image img = ImageIO.read(f);
                         PhotoBean photo = new PhotoBean();
                         photo.setTitle(title);
                         photo.setDescr(descr);
@@ -67,13 +68,17 @@ public class UploadCommand extends Command {
                     } catch (IOException ex) {
                         setAttrPage(MESSAGE, "L'upload ne s'est pas terminé correctement, une erreur serveur s'est produite");
                         System.out.println("[ Erreur lecture image ] : " + ex.getMessage());
+                    } catch (NullPointerException ex) {
+                        f.delete();
+                        setAttrPage(MESSAGE, "Votre fichier n'est pas une image !");
+                        System.out.println("[ Erreur lecture image ] : " + ex.getMessage());
                     }
                 } else {
                     String[] errorUpload = new String[]{
                         "Veuillez selectionner une photo à uploader.",
                         "Votre image doit faire 10Mo maximum.",
                         "L'upload ne s'est pas terminé correctement, une erreur serveur s'est produite.",
-                        "L'upload ne s'est pas terminé correctement, une erreur serveur s'est produite.",};
+                        "L'upload ne s'est pas terminé correctement, une erreur serveur s'est produite."};
                     setAttrPage(MESSAGE, errorUpload[state - 1]);
                 }
             } else {

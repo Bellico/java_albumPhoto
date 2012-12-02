@@ -41,8 +41,8 @@ public class PhotosCommand extends Command {
                             al.getNameAlbum(),
                             ph.getTitle(),
                             ph.getDescr(),
-                            Tools.DateToString(ph.getDate_created(), ph.getTime_created()),
-                            Tools.DateToString(ph.getDate_lastUpdate(), ph.getTime_lastUpdate()),
+                            ph.getDateCreated(),
+                            ph.getDateLastUpdate(),
                             Integer.toString(ph.getIdPhoto())
                         });
             }
@@ -56,11 +56,11 @@ public class PhotosCommand extends Command {
 
     public ActionFlow detailsPhoto(HttpServletRequest request, int numphoto) {
         PhotoBean photo = (PhotoBean) mapPhoto.getbyId(numphoto);
-        if(photo==null){ 
-            request.setAttribute(ErrorCommand.MESSAGE_ERROR,"Cette photo n'existe pas.");
-            return new ActionFlow("error",attrPage,false);
+        if (photo == null) {
+            request.setAttribute(ErrorCommand.MESSAGE_ERROR, "Cette photo n'existe pas.");
+            return new ActionFlow("error", attrPage, false);
         }
-        
+
         AlbumBean album = (AlbumBean) mapAlbum.getbyId(photo.getIdAlbum());
         UserBean user = (UserBean) mapUser.getbyId(album.getIdUser());
         String[] tab = new String[]{
@@ -71,9 +71,8 @@ public class PhotosCommand extends Command {
             photo.getDescr(),
             Integer.toString(photo.getWidth()),
             Integer.toString(photo.getHeight()),
-            Tools.DateToString(photo.getDate_created(), photo.getTime_created()),
-            Tools.DateToString(photo.getDate_lastUpdate(), photo.getTime_lastUpdate())
-        };
+            photo.getDateCreated(),
+            photo.getDateLastUpdate()};
         request.setAttribute("details", tab);
 
         setAttrPage(TITRE_PAGE, "Details Photos");

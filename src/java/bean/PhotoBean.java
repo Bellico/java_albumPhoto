@@ -131,4 +131,12 @@ public class PhotoBean {
     public void setIdAlbum(int idAlbum) {
         this.idAlbum = idAlbum;
     }
+
+    public String getDateCreated() {
+        return Tools.DateToString(getDate_created(), getTime_created());
+    }
+
+    public String getDateLastUpdate() {
+        return Tools.DateToString(getDate_lastUpdate(), getTime_lastUpdate());
+    }
 }

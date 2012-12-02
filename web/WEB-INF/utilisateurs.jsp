@@ -36,8 +36,8 @@
                     <td> <c:out value="${us.firstName}"/></td> 
                     <td> <c:out value="${us.getNbAlbum()}"/></td> 
                     <td> <c:out value="${us.getNbPhoto()}"/></td> 
-                    <td> <c:out value="${us.date_created}"/></td> 
-                    <td> <c:out value="${us.date_created}"/></td> 
+                    <td> <c:out value="${us.getDateCreated()}"/></td> 
+                    <td> <c:out value="${us.getDateLastUpdate()}"/></td> 
                 </tr>
             </c:forEach>  
         </tbody>

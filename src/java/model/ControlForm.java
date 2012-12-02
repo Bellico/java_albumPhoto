@@ -50,6 +50,8 @@ public class ControlForm {
             if (!res) {
                 nbError++;
             }
+        } else {
+            nbError++;
         }
         return value;
     }
@@ -63,6 +65,27 @@ public class ControlForm {
                 nbError++;
                 form.put(field, mError);
             }
+        } else {
+            nbError++;
+            form.put(field, mError);
+        }
+        return value;
+    }
+
+    public String check(String field, String regex, String mError) {
+        String value = request.getParameter(field);
+        if (value != null) {
+            request.setAttribute(field, value);
+            Pattern p = Pattern.compile(regex);
+            Matcher m = p.matcher(value);
+            boolean res = m.matches();
+            if (!res) {
+                nbError++;
+                form.put(field, mError);
+            }
+        } else {
+            nbError++;
+            form.put(field, mError);
         }
         return value;
     }
@@ -88,6 +111,10 @@ public class ControlForm {
 
     public void close() {
         request.setAttribute("form", form);
+    }
+    
+    public void clean(){
+        
     }
 
     private boolean int_control(String value) {

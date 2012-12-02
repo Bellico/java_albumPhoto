@@ -80,13 +80,11 @@ public class Upload {
             //Données trop volumineuses
         } catch (IllegalStateException e) {
             state = 2;
-        } catch (IOException ex) {
+            //Erreures potentielles = IOException - ServletException - RuntimeException
+        } catch (Exception ex) {
             state = 3;
-            System.out.println("[ Erreur Upload Fichier ] : " + ex.getMessage());
-        } catch (ServletException ex) {
-            state = 3;
-            System.out.println("[ Erreur Upload Fichier ] : " + ex.getMessage());
-        }
+            System.out.println("[ Erreur Serveur Upload Fichier ] : " + ex.getMessage());
+        } 
         return state;
     }
 

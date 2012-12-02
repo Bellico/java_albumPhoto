@@ -23,7 +23,7 @@ public class InscriptionCommand extends Command {
         }
     }
 
-    public ActionFlow newUser(HttpServletRequest request) {
+    synchronized public ActionFlow newUser(HttpServletRequest request) {
         ControlForm form = new ControlForm(request);
         String nom = form.check("nom", ControlForm.NON_VIDE, "Précisé un nom");
         String prenom = form.check("prenom", ControlForm.NON_VIDE, "Précisé un prenom");
@@ -32,17 +32,22 @@ public class InscriptionCommand extends Command {
         form.compare("pass", "passc", "mdp non valide");
         form.close();
         if (form.getNbError() == 0) {
-            UserBean user = new UserBean();
-            user.setName(nom);
-            user.setFirstName(prenom);
-            user.setLogin(login);
-            user.setPassword(Tools.crypt(pass,Tools.MD5,true));
             UserMap map = new UserMap();
-            if (map.save(user) == 1) {
-                setAttrPage(MESSAGE, "Inscription réussie!");
+            UserBean user = (UserBean) map.getbyAttr("login", login);
+            if (user == null) {
+                user = new UserBean();
+                user.setName(nom);
+                user.setFirstName(prenom);
+                user.setLogin(login);
+                user.setPassword(Tools.crypt(pass, Tools.MD5, true));
+                if (map.save(user) == 1) {
+                    setAttrPage(MESSAGE, "Inscription réussie!");
+                } else {
+                    setAttrPage(MESSAGE, "L'incription ne s'est pas terminée correctement, une erreur serveur s'est produite");
+                }
             } else {
-                setAttrPage(MESSAGE, "L'incription ne s'est pas terminée correctement, une erreur serveur s'est produite");
-            }
+                    setAttrPage(MESSAGE, "Ce login est déja utilisé.");
+                }
         }
         return new ActionFlow("inscription", attrPage, false);
     }

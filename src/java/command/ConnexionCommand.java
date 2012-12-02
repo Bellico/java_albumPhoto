@@ -12,12 +12,12 @@ public class ConnexionCommand extends Command {
     @Override
     public ActionFlow actionPerform(HttpServletRequest request, String[] UrlParams) {
         ControlForm form = new ControlForm(request);
-        String name = form.check("name", ControlForm.NON_VIDE);
+        String login = form.check("login", ControlForm.NON_VIDE);
         String password = form.check("password", ControlForm.NON_VIDE);
         form.close();
         if (form.getNbError() == 0) {
             UserMap map = new UserMap();
-            UserBean user = (UserBean) map.getbyAttr("login", name);
+            UserBean user = (UserBean) map.getbyAttr("login", login);
             if (user != null) {
                 if (user.getPassword().equals(Tools.crypt(password, Tools.MD5, true))) {
                     HttpSession session = request.getSession();

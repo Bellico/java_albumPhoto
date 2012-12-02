@@ -5,7 +5,7 @@
     <li>
         <a><div class="formulaire">
                 <form action="<c:url value="connexion"/>" method="post">
-                    Nom : <input name="name" type="text" id="inputEmail" /><br>
+                    Nom : <input name="login" type="text" id="inputEmail" /><br>
                     Mot de passe : <input name="password" type="password" id="inputPassword" />
                     <button type="submit" class="btn"/>Connexion</button>
                 </form>

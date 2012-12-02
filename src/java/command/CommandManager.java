@@ -10,9 +10,7 @@ public class CommandManager {
         cmds.put("index", new DefaultCommand());
         cmds.put("photos", new PhotosCommand());
         cmds.put("albums", new AlbumCommand());
-        //cmds.put("details", new DetailsCommand());
         cmds.put("utilisateurs", new UsersCommand());
-        //cmds.put("ajoutAlbum", new AddAlbumCommand());
         cmds.put("error", new ErrorCommand());
         cmds.put("upload", new UploadCommand());
         cmds.put("connexion", new ConnexionCommand());
