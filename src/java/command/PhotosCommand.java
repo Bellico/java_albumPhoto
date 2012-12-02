@@ -37,7 +37,7 @@ public class PhotosCommand extends Command {
             for (PhotoBean ph : photos) {
                 tab.add(new String[]{
                             UploadCommand.FOLDER_ALBUM + al.getNameAlbum() + "/" + ph.getImg(),
-                            user.getName(),
+                            user.getName() + " " + user.getFirstName(),
                             al.getNameAlbum(),
                             ph.getTitle(),
                             ph.getDescr(),
@@ -65,7 +65,7 @@ public class PhotosCommand extends Command {
         UserBean user = (UserBean) mapUser.getbyId(album.getIdUser());
         String[] tab = new String[]{
             UploadCommand.FOLDER_ALBUM + album.getNameAlbum() + "/" + photo.getImg(),
-            user.getName(),
+            user.getName() + " " + user.getFirstName(),
             album.getNameAlbum(),
             photo.getTitle(),
             photo.getDescr(),
