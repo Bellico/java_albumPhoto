@@ -7,6 +7,7 @@ abstract public class Command {
 
     protected static final String TITRE_PAGE = "titlePage";
     protected static final String NOM_PAGE = "namePage";
+    protected static final String MESSAGE = "messagePage";
     protected HashMap<String, String> attrPage = new HashMap<String, String>();
 
     Command() {

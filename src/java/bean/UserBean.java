@@ -12,6 +12,7 @@ public class UserBean {
     private int idUser;
     private String name;
     private String firstName;
+    private String login;
     private String password;
     private Date date_created;
     private Time time_created;
@@ -29,10 +30,11 @@ public class UserBean {
         this.time_lastUpdate = Tools.TimeNow();
     }
 
-    public UserBean(int idUser, String name, String firstName, String password, Date date_created, Time time_created, Date date_lastUpdate, Time time_lastUpdate) {
+    public UserBean(int idUser, String name, String firstName, String login, String password, Date date_created, Time time_created, Date date_lastUpdate, Time time_lastUpdate) {
         this.idUser = idUser;
         this.name = name;
         this.firstName = firstName;
+        this.login = login;
         this.password = password;
         this.date_created = date_created;
         this.time_created = time_created;
@@ -58,6 +60,14 @@ public class UserBean {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getPassword() {

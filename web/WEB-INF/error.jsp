@@ -11,6 +11,9 @@
     </ul>
 </div>
 <div class="span10"> 
-<h1>Page erreur </h1>
+<h1>Nous sommes désolé, une erreur s'est produite </h1>
+<p>
+    ${messageError}
+</p>
 </div>
 

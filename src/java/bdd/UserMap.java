@@ -24,6 +24,7 @@ public class UserMap extends SQLMapping {
                 res.getInt("idUser"),
                 res.getString("name"),
                 res.getString("firstName"),
+                res.getString("login"),
                 res.getString("password"),
                 res.getDate("date_created"),
                 res.getTime("time_created"),
@@ -37,6 +38,7 @@ public class UserMap extends SQLMapping {
         HashMap<String, Object> data = new HashMap<String, Object>();
         data.put("name", user.getName());
         data.put("firstName", user.getFirstName());
+        data.put("login", user.getLogin());
         data.put("password", user.getPassword());
         data.put("date_created", user.getDate_created());
         data.put("time_created", user.getTime_created());
@@ -44,5 +46,4 @@ public class UserMap extends SQLMapping {
         data.put("time_lastUpdate", user.getTime_lastUpdate());
         return data;
     }
-       
 }

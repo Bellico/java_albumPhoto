@@ -11,6 +11,6 @@
                 </form>
             </div></a>
     </li>
-    <li><a href="<c:url value="inscription"/>"><i class="icon-plus"></i> Nouvel Utilisateur</a></li>
+    <li><a href="<c:url value="/inscription"/>"><i class="icon-plus"></i> Nouvel Utilisateur</a></li>
 </ul>
 

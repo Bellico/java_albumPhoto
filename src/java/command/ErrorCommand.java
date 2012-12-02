@@ -4,10 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public class ErrorCommand extends Command {
 
-    {
-        attrPage.put("titlePage", "Erreur");
-        attrPage.put("namePage", "Oups !");
-    }
+    public static final String MESSAGE_ERROR="messageError";
 
     @Override
     public ActionFlow actionPerform(HttpServletRequest request, String[] UrlParams) {

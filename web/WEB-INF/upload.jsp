@@ -11,14 +11,16 @@
     </ul>
 </div>
 
+
 <div class="span10">
-    <form action="<c:url value="upload/up"/>" method="post" enctype="multipart/form-data">
+    <h3>${page.messagePage}</h3>
+    <form action="<c:url value="/upload/up"/>" method="post" enctype="multipart/form-data">
         <fieldset>
             <legend>Envoi de fichier</legend>
-            Titre Photo: <input name="titre" type="text" /><br>
-            Album : <input name="album" type="text" value="album1" /><br>
-            Description : <textarea name="description" type="text" /></textarea><br/>
-            Fichier : <input type="file" id="fichier" name="file"  />               <br />
+            Titre Photo: <input name="titre" type="text" />  ${form.titre} <br>
+            Album : <input name="album" type="text" value="album1" /> ${form.album} <br>
+            Description : <textarea name="description" type="text" /></textarea> ${form.description}<br/>
+            Fichier : <input type="file" id="fichier" name="file"  />            <br />
             <button type="submit" class="btn"/>Envoyer</button>        
         </fieldset>
     </form>

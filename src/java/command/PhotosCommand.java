@@ -56,6 +56,11 @@ public class PhotosCommand extends Command {
 
     public ActionFlow detailsPhoto(HttpServletRequest request, int numphoto) {
         PhotoBean photo = (PhotoBean) mapPhoto.getbyId(numphoto);
+        if(photo==null){ 
+            request.setAttribute(ErrorCommand.MESSAGE_ERROR,"Cette photo n'existe pas.");
+            return new ActionFlow("error",attrPage,false);
+        }
+        
         AlbumBean album = (AlbumBean) mapAlbum.getbyId(photo.getIdAlbum());
         UserBean user = (UserBean) mapUser.getbyId(album.getIdUser());
         String[] tab = new String[]{
@@ -73,6 +78,6 @@ public class PhotosCommand extends Command {
 
         setAttrPage(TITRE_PAGE, "Details Photos");
         setAttrPage(NOM_PAGE, "Details de la photo");
-        return new ActionFlow("detailsImage", attrPage, false);
+        return new ActionFlow("detailsPhoto", attrPage, false);
     }
 }

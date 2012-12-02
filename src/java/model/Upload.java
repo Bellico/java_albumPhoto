@@ -6,13 +6,14 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 import tools.Tools;
 
 /**
  * Permet d'uploader un fichier 
- * Utilisation de la librairie : http://commons.apache.org/fileupload/ 
+ * Utilisation de la librairie : http://commons.apache.org/fileupload/
  * Inspiré de : http://www.siteduzero.com/tutoriel-3-682903-integration-dans-mvc.html
  */
 public class Upload {
@@ -24,8 +25,9 @@ public class Upload {
 
     /**
      * Constructeur
+     *
      * @param formFiel : Nom du champs du formulaire permettant de charger un fichier
-     * @param etx  : extensions acceptées pour l'upload
+     * @param etx : extensions acceptées pour l'upload
      */
     public Upload(String formFiel, String[] etx) {
         this.form_field = formFiel;
@@ -38,16 +40,17 @@ public class Upload {
 
     /**
      * Récupere le fichier binaire dans la requete , et l'enregistre
+     *
      * @param request
      * @param path : cible de lieu d'enregistrement
      * @return entier déterminant l'état de la fonction
-     *         0 : Tous s'est bien passé
-     *         1 : Aucun fichier n'est présent dans la requete
-     *         2 : Le taille du fichier est supérieure à celle attendue
-     *         3 : Erreur coté serveur
-     *         4 : Erreur au niveau de l'écriture 
+     *      0 : Tous s'est bien passé 
+     *      1 : Aucun fichier n'est présent dans la requete 
+     *      2 : Le taille du fichier est supérieure à celle attendue 
+     *      3 : Erreur coté serveur 
+     *      4 : Erreur au niveau de l'écriture
      */
-    public int uploadFile(HttpServletRequest request, String path) throws Exception {
+    public int uploadFile(HttpServletRequest request, String path) {
         int state = 0;
         InputStream content = null;
         try {
@@ -63,18 +66,16 @@ public class Upload {
                 } else {
                     content = part.getInputStream();
                 }
-                //Aucun fichier sélectionnée
-                if (fileName == null || content == null) {
-                    state = 1;
-                } else {
-                    try {
-                        fileName = Tools.crypt(fileName, Tools.SHA1, false).replace("/", "");
-                        writeFile(content, fileName, path);
-                    } catch (Exception ex) {
-                        state = 4;
-                        System.out.println("[ Erreur Upload Fichier ] : " + ex.getMessage());
-                    }
+                try {
+                    fileName = Tools.crypt(fileName, Tools.SHA1, false).replace("/", "");
+                    writeFile(content, fileName, path);
+                } catch (Exception ex) {
+                    state = 4;
+                    System.out.println("[ Erreur Upload Ecriture Fichier ] : " + ex.getMessage());
                 }
+                //Aucun fichier sélectionnée
+            } else {
+                state = 1;
             }
             //Données trop volumineuses
         } catch (IllegalStateException e) {
@@ -82,19 +83,21 @@ public class Upload {
         } catch (IOException ex) {
             state = 3;
             System.out.println("[ Erreur Upload Fichier ] : " + ex.getMessage());
+        } catch (ServletException ex) {
+            state = 3;
+            System.out.println("[ Erreur Upload Fichier ] : " + ex.getMessage());
         }
         return state;
     }
 
     /*
-     * Analyser l'en-tête "content-disposition", et de vérifier le paramètre "filename"
+     * Analyser l'en-tête "content-disposition", vérifier le paramètre "filename" et renvoi le nom de fichier 
      */
     private static String getNameFromHeader(Part part) {
         // Boucle sur chacun des paramètres de l'en-tête "content-disposition"
         for (String contentDisposition : part.getHeader("content-disposition").split(";")) {
             //Recherche de la présence du paramètre "filename"
             if (contentDisposition.trim().startsWith("filename")) {
-                //Renvoi du nom de fichier 
                 return contentDisposition.substring(contentDisposition.indexOf('=') + 1).trim().replace("\"", "");
             }
         }
