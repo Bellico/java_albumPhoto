@@ -28,14 +28,14 @@
         <tbody>
             <c:forEach items="${listImg}" var="img"  >
                 <tr>
-                    <td class="photocadre"><img class="imagemin" alt="" src="<c:url value="/${img[0]}"/>"></td>
+                    <td class="photocadre"><img class="img-rounded" alt="" src="<c:url value="/${img[0]}"/>"></td>
                     <td class="utilisateurs"><c:out value="${img[1]}"/></td>
                     <td class="titrealbum"><c:out value="${img[2]}"/></td>
                     <td class="titrealbum"><c:out value="${img[3]}"/></td>
                     <td class="description"><c:out value="${img[4]}"/></td>
                     <td class="dateajout"><c:out value="${img[5]}"/> </td>
-                    <td class="dateajout"><c:out value="${img[6]}"/> </td>
-                    <td> <a href="photos/<c:out value="${img[7]}"/>"><button class="btn btn-primary" type="button">Voir Détails</button></a></td>
+                    <td class="datemodif"><c:out value="${img[6]}"/> </td>
+                    <td class="options"> <a href="photos/<c:out value="${img[7]}"/>"><button class="btn btn-small btn-primary" type="button">Voir Détails</button></a></td>
                 </tr>
             </c:forEach>
         </tbody>

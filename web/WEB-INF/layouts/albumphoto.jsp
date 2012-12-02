@@ -19,7 +19,7 @@
                         ${page.namePage}
                     </div>
                     <c:choose>
-                        <c:when test="${!empty sessionScope.user}">
+                        <c:when test="${empty sessionScope.user}">
                             <jsp:include page="menu_on.jsp" />
                         </c:when>
                         <c:otherwise>
@@ -27,7 +27,7 @@
                         </c:otherwise>  
                     </c:choose>
                 </div>
-                    
+
                 <!--Body content-->
                 <jsp:include page="/WEB-INF/${view}" />
             </div>

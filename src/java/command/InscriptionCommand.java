@@ -29,7 +29,7 @@ public class InscriptionCommand extends Command {
         String prenom = form.check("prenom", ControlForm.NON_VIDE, "Précisé un prenom");
         String login = form.check("login", ControlForm.NON_VIDE, "Précisé un login");
         String pass = form.check("pass", ControlForm.NON_VIDE, "Précisé un mdp");
-        form.compare("pass", "passc", "mdp non valide");
+        form.compare("pass", "passc", "Les mots de passe ne sont pas les mêmes");
         form.close();
         if (form.getNbError() == 0) {
             UserMap map = new UserMap();

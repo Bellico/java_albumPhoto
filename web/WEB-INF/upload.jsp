@@ -14,14 +14,39 @@
 
 <div class="span10">
     <h3>${page.messagePage}</h3>
-    <form action="<c:url value="/upload/up"/>" method="post" enctype="multipart/form-data">
-        <fieldset>
-            <legend>Envoi de fichier</legend>
-            Titre Photo: <input name="titre" type="text" />  ${form.titre} <br>
-            Album : <input name="album" type="text" value="album1" /> ${form.album} <br>
-            Description : <textarea name="description" type="text" /></textarea> ${form.description}<br/>
-            Fichier : <input type="file" id="fichier" name="file"  />            <br />
-            <button type="submit" class="btn"/>Envoyer</button>        
-        </fieldset>
+    <legend>Envoyer une photo</legend>
+
+    <form class="form-horizontal" action="<c:url value="/upload/up"/>" method="post" enctype="multipart/form-data">
+        <div class="control-group">
+            <label class="control-label">Titre Photo</label> 
+            <div class="controls">
+                <input name="titre" id="inputEmail" type="text" />  ${form.titre} 
+            </div>
+        </div>
+
+
+        <div class="control-group">
+
+            <label class="control-label">Album</label> 
+            <div class="controls">
+                <select name="album" type="text" value="album1" />
+                <option value="album1">album1</option>
+                <option value="album2">album2</option>
+                </select> ${form.album} 
+            </div></div>
+
+        <div class="control-group">
+            <label class="control-label">Description</label> 
+            <div class="controls">
+                <textarea name="description" type="text" /></textarea> ${form.description}
+            </div></div>
+        <div class="control-group">
+            <label class="control-label">Choisir un fichier</label><div class="controls"><input type="file" id="fichier" name="file"  />         
+            </div></div>
+        <div class="control-group">
+            <div class="controls">
+                <button type="submit" class="btn"/>Envoyer</button>        
+            </div>  </div>
     </form>
+
 </div>
