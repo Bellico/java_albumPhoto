@@ -15,41 +15,41 @@
     <h3>${page.messagePage}</h3>
     <form  class="form-horizontal" method="post" action="<c:url value="/inscription/new"/>">
         <legend>Inscription d'un nouvel utilisateur</legend>
-            <div class="control-group">
+        <div class="control-group">
             <label class="control-label">Nom</label> 
             <div class="controls">
                 <input id="for1" name="nom" value="<c:out value="${nom}"/>" type="text" /> ${form.nom}
             </div></div>   
-           
-            <div class="control-group">
+
+        <div class="control-group">
             <label class="control-label">Prénom</label> 
             <div class="controls">
                 <input id="for1" name="prenom" value="<c:out value="${prenom}" />" type="text" /> <c:out value="${form.prenom}" />
             </div></div>  
-            
-               <div class="control-group">
+
+        <div class="control-group">
             <label class="control-label">Login</label> 
             <div class="controls">
                 <input id="for1" name="login"  value="${requestScope.login}" type="text" /> ${form.login}
             </div></div>  
-            
-                <div class="control-group">
+
+        <div class="control-group">
             <label class="control-label">Mot de passe</label> 
             <div class="controls">
                 <input id="for1" name="pass"   value="${requestScope.pass}"type="password" /> 
             </div></div>  
-                  
-            <div class="control-group">
+
+        <div class="control-group">
             <label class="control-label">Mot de passe confirmation</label> 
             <div class="controls">
                 <input id="for1" name="passc"   value="${requestScope.passc}" type="password" /> ${form.passc}
             </div></div>
 
-              <div class="control-group">
- 
+        <div class="control-group">
+
             <div class="controls">
-               <input id="for1"  type="submit" value="Enregistrement"/>
+                <input id="for1"  type="submit" value="Enregistrement"/>
             </div></div>
-   
+
     </form>
 </div>

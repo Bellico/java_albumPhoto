@@ -114,6 +114,5 @@ public class AlbumCommand extends Command {
         setAttrPage(TITRE_PAGE, "Albums");
         setAttrPage(NOM_PAGE, "Creer un Album");
         return new ActionFlow("ajoutAlbum", attrPage, false);
-
     }
 }

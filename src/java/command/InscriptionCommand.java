@@ -25,10 +25,10 @@ public class InscriptionCommand extends Command {
 
     synchronized public ActionFlow newUser(HttpServletRequest request) {
         ControlForm form = new ControlForm(request);
-        String nom = form.check("nom", ControlForm.NON_VIDE, "Précisé un nom");
-        String prenom = form.check("prenom", ControlForm.NON_VIDE, "Précisé un prenom");
-        String login = form.check("login", ControlForm.NON_VIDE, "Précisé un login");
-        String pass = form.check("pass", ControlForm.NON_VIDE, "Précisé un mdp");
+        String nom = form.check("nom", ControlForm.NON_VIDE, "Précisez un nom");
+        String prenom = form.check("prenom", ControlForm.NON_VIDE, "Précisez un prenom");
+        String login = form.check("login", ControlForm.NON_VIDE, "Précisez un login");
+        String pass = form.check("pass", ControlForm.NON_VIDE, "Précisez un mdp");
         form.compare("pass", "passc", "Les mots de passe ne sont pas les mêmes");
         form.close();
         if (form.getNbError() == 0) {

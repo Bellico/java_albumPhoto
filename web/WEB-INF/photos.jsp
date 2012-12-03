@@ -16,7 +16,7 @@
         <thead>
             <tr>
                 <th>Images</th>
-                <th>Utilisateur</th>
+                <th>Auteur</th>
                 <th>Album</th>
                 <th>Titre</th>
                 <th>Description</th>
