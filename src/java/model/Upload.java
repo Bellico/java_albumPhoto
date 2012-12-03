@@ -37,7 +37,7 @@ public class Upload {
     public String getFileName() {
         return fileName;
     }
-
+    
     /**
      * Récupere le fichier binaire dans la requete , et l'enregistre
      *
@@ -58,16 +58,16 @@ public class Upload {
             fileName = getNameFromHeader(part);
             if (fileName != null && !fileName.isEmpty()) {
                 fileName = fileName.substring(fileName.lastIndexOf('/') + 1).substring(fileName.lastIndexOf('\\') + 1);
+                 String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
                 if (ext != null) {
-                    String ex = fileName.substring(fileName.lastIndexOf(".") + 1);
-                    if (Tools.in_Array(ex, ext)) {
+                    if (Tools.in_Array(extension, ext)) {
                         content = part.getInputStream();
                     }
                 } else {
                     content = part.getInputStream();
                 }
                 try {
-                    fileName = Tools.crypt(fileName, Tools.SHA1, false).replace("/", "");
+                    fileName = Tools.crypt(fileName, Tools.SHA1, false).replace("/", "")+"."+extension;
                     writeFile(content, fileName, path);
                 } catch (Exception ex) {
                     state = 4;

@@ -5,13 +5,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="<c:url value="/css/bootstrap.css"/>" rel="stylesheet" type="text/css" />
-        <link href="<c:url value="/css/styles.css"/>" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" href="<c:url value="/css/jquery.fancybox.css?v=2.1.3"/>" type="text/css" media="screen" />
-        <link rel="stylesheet" href="<c:url value="/css/jquery.fancybox-buttons.css?v=1.0.5"/>" type="text/css" media="screen" />
-        <link rel="stylesheet" href="<c:url value="/css/jquery.fancybox-thumbs.css?v=1.0.7"/>" type="text/css" media="screen" />
-        
-        
-        
+        <link href="<c:url value="/css/styles.css"/>" rel="stylesheet" type="text/css" />  
+        <link rel="stylesheet" href="<c:url value="/js/fancybox/jquery.fancybox.css"/>" type="text/css" media="screen" />
+        <link rel="stylesheet" href="<c:url value="/js/fancybox/helpers/jquery.fancybox-buttons.css"/>" type="text/css" media="screen" />
+        <link rel="stylesheet" href="<c:url value="/js/fancybox/helpers/jquery.fancybox-thumbs.css"/>" type="text/css" media="screen" />
         <title>${page.titlePage} | Album Photo</title>
     </head>
     <body>
@@ -38,17 +35,15 @@
                 <jsp:include page="/WEB-INF/${view}" />
             </div>
         </div>
-            
-            
-            
-            
-            <script src="js/jquery.js"></script>
-            <script type="text/javascript" src="js/jquery.mousewheel-3.0.6.pack.js"></script>
-            <script type="text/javascript" src="js/jquery.fancybox.pack.js?v=2.1.3"></script>
-            <script type="text/javascript" src="js/jquery.fancybox-buttons.js?v=1.0.5"></script>
-            <script type="text/javascript" src="js/jquery.fancybox-media.js?v=1.0.5"></script>
-            <script type="text/javascript" src="js/jquery.fancybox-thumbs.js?v=1.0.7"></script>
-             <script type="text/javascript">
+ <script src="<c:url value="/js/jquery.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/js/fancybox/jquery.fancybox.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/js/fancybox/jquery.easing-1.3.pack.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/js/fancybox/jquery.mousewheel-3.0.6.pack.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/js/fancybox/helpers/jquery.fancybox-buttons.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/js/fancybox/helpers/jquery.fancybox-media.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/js/fancybox/helpers/jquery.fancybox-thumbs.js"/>"></script>
+
+ <script type="text/javascript">
 	$(document).ready(function() {
 	$(".fancybox-thumb").fancybox({
 		prevEffect	: 'none',
