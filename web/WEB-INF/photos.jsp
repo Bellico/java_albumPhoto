@@ -29,7 +29,7 @@
             <c:forEach items="${listImg}" var="img"  >
                 <tr>
                     <td class="photocadre">
-                        <a class="fancybox-thumb" rel="fancybox-thumb" href="<c:url value="/${img[0]}"/>" title="test">
+                        <a class="fancybox-thumb" rel="fancybox-thumb" href="<c:url value="/${img[0]}"/>" title="<c:out value="${img[3]}"/>">
                             <img class="img-rounded" alt="" src="<c:url value="/${img[0]}"/>">
                         </a>
                     </td>

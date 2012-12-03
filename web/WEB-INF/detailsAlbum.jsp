@@ -57,7 +57,7 @@
                     <td class="description"><c:out value="${img[4]}"/></td>
                     <td class="dateajout"><c:out value="${img[5]}"/> </td>
                     <td class="dateajout"><c:out value="${img[6]}"/> </td>
-                    <td> <a href="photos/<c:out value="${img[7]}"/>"><button class="btn btn-primary" type="button">Voir Détails</button></a></td>
+                    <td> <a href="../photos/<c:out value="${img[7]}"/>"><button class="btn btn-primary" type="button">Voir Détails</button></a></td>
                 </tr>
             </c:forEach>
         </tbody>
