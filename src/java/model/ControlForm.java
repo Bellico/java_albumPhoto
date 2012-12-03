@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,7 +15,8 @@ public class ControlForm {
     public static final int TEXTE_25 = 25;
     public static final int TEXTE_100 = 100;
     private HttpServletRequest request;
-    private HashMap<String, String> form = new HashMap<String, String>();
+    private HashMap<String, String> errors = new HashMap<String, String>();
+    private ArrayList<String> fieldsForm = new ArrayList<String>();
     private int nbError = 0;
 
     public ControlForm(HttpServletRequest request) {
@@ -46,6 +48,7 @@ public class ControlForm {
         String value = request.getParameter(field);
         if (value != null) {
             request.setAttribute(field, value);
+            fieldsForm.add(field);
             boolean res = controlManager(typeControl, value);
             if (!res) {
                 nbError++;
@@ -60,14 +63,15 @@ public class ControlForm {
         String value = request.getParameter(field);
         if (value != null) {
             request.setAttribute(field, value);
+            fieldsForm.add(field);
             boolean res = controlManager(typeControl, value);
             if (!res) {
                 nbError++;
-                form.put(field, mError);
+                errors.put(field, mError);
             }
         } else {
             nbError++;
-            form.put(field, mError);
+            errors.put(field, mError);
         }
         return value;
     }
@@ -76,16 +80,17 @@ public class ControlForm {
         String value = request.getParameter(field);
         if (value != null) {
             request.setAttribute(field, value);
+            fieldsForm.add(field);
             Pattern p = Pattern.compile(regex);
             Matcher m = p.matcher(value);
             boolean res = m.matches();
             if (!res) {
                 nbError++;
-                form.put(field, mError);
+                errors.put(field, mError);
             }
         } else {
             nbError++;
-            form.put(field, mError);
+            errors.put(field, mError);
         }
         return value;
     }
@@ -94,12 +99,10 @@ public class ControlForm {
         String v1 = request.getParameter(field1);
         String v2 = request.getParameter(field2);
         if (v1 != null && v2 != null) {
-            request.setAttribute(field1, v1);
-            request.setAttribute(field2, v2);
             boolean res = compare_control(v1, v2);
             if (!res) {
                 nbError++;
-                form.put(field2, mError);
+                errors.put(field2, mError);
             }
         }
         return v1;
@@ -110,11 +113,14 @@ public class ControlForm {
     }
 
     public void close() {
-        request.setAttribute("form", form);
+        request.setAttribute("form", errors);
     }
-    
-    public void clean(){
-        
+
+    public void clean() {
+        request.removeAttribute("form");
+        for (String s : fieldsForm) {
+            request.removeAttribute(s);
+        }
     }
 
     private boolean int_control(String value) {

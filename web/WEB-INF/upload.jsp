@@ -26,27 +26,31 @@
 
 
         <div class="control-group">
-
             <label class="control-label">Album</label> 
             <div class="controls">
                 <select name="album" type="text" value="album1" />
-                <option value="album1">album1</option>
-                <option value="album2">album2</option>
+                <c:forEach items="${listAlbum}" var="al"  >
+                    <option value="${al.idAlbum}">${al.nameAlbum}</option>
+                    <option value="album2">album2</option>
+                </c:forEach>
                 </select> ${form.album} 
-            </div></div>
-
+            </div>
+        </div>
         <div class="control-group">
             <label class="control-label">Description</label> 
             <div class="controls">
                 <textarea name="description" type="text" /></textarea> ${form.description}
-            </div></div>
+            </div>
+        </div>
         <div class="control-group">
             <label class="control-label">Choisir un fichier</label><div class="controls"><input type="file" id="fichier" name="file"  />         
-            </div></div>
+            </div>
+        </div>
         <div class="control-group">
             <div class="controls">
                 <button type="submit" class="btn"/>Envoyer</button>        
-            </div>  </div>
+            </div>
+        </div>
     </form>
 
 </div>

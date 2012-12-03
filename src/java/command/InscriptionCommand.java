@@ -41,6 +41,7 @@ public class InscriptionCommand extends Command {
                 user.setLogin(login);
                 user.setPassword(Tools.crypt(pass, Tools.MD5, true));
                 if (map.save(user) == 1) {
+                    form.clean();
                     setAttrPage(MESSAGE, "Inscription réussie!");
                 } else {
                     setAttrPage(MESSAGE, "L'incription ne s'est pas terminée correctement, une erreur serveur s'est produite");

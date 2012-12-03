@@ -30,19 +30,19 @@
         <div class="control-group">
             <label class="control-label">Login</label> 
             <div class="controls">
-                <input id="for1" name="login"  value="${requestScope.login}" type="text" /> ${form.login}
+                <input id="for1" name="login"  value="${login}" type="text" /> ${form.login}
             </div></div>  
 
         <div class="control-group">
             <label class="control-label">Mot de passe</label> 
             <div class="controls">
-                <input id="for1" name="pass"   value="${requestScope.pass}"type="password" /> 
+                <input id="for1" name="pass"   value="${pass}"type="password" /> 
             </div></div>  
 
         <div class="control-group">
             <label class="control-label">Mot de passe confirmation</label> 
             <div class="controls">
-                <input id="for1" name="passc"   value="${requestScope.passc}" type="password" /> ${form.passc}
+                <input id="for1" name="passc"   value="${passc}" type="password" /> ${form.passc}
             </div></div>
 
         <div class="control-group">

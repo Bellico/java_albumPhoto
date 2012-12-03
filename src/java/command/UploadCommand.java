@@ -7,6 +7,7 @@ import bean.PhotoBean;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import model.ControlForm;
@@ -16,11 +17,14 @@ import tools.Tools;
 public class UploadCommand extends Command {
 
     public static final String FOLDER_ALBUM = "albumphoto/";
+    AlbumMap mapalbum = new AlbumMap();
 
     @Override
     public ActionFlow actionPerform(HttpServletRequest request, String[] UrlParams) {
         setAttrPage(TITRE_PAGE, "Upload");
         setAttrPage(NOM_PAGE, "Nouvelle photo");
+        ArrayList<AlbumBean> list = mapalbum.getAllbyAttr("idUser", 1);
+        request.setAttribute("listAlbum", list);
         try {
             if (UrlParams[1].equals("up")) {
                 return upload(request);
@@ -35,14 +39,14 @@ public class UploadCommand extends Command {
     synchronized public ActionFlow upload(HttpServletRequest request) {
         ControlForm form = new ControlForm(request);
         String title = form.check("titre", ControlForm.NON_VIDE, "Donnez un titre à votre photo");
-        String namealbum = form.check("album", ControlForm.NON_VIDE);
+        String namealbum = form.check("album", ControlForm.ENTIER);
         String descr = form.check("description", ControlForm.NON_VIDE, "Une petite description?");
         form.close();
         if (form.getNbError() == 0) {
             Upload up = new Upload("file", new String[]{"jpg", "jpeg", "png"});
-            AlbumMap mapalbum = new AlbumMap();
-            AlbumBean album = (AlbumBean) mapalbum.getbyAttr("nameAlbum", namealbum);
+            AlbumBean album = (AlbumBean) mapalbum.getbyId(Integer.parseInt(namealbum));
             if (album != null) {
+                namealbum=album.getNameAlbum();
                 String path = Tools.appPath + File.separator + FOLDER_ALBUM + namealbum;
                 File f = new File(path);
                 f.mkdirs();
