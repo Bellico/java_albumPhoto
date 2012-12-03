@@ -16,7 +16,11 @@
         <thead>
             <tr>
                 <th>Photos</th>
-                <td><img class="imagemin" alt="" src="<c:url value="/${details[0]}"/>"></td>
+                <td>
+                    <a id="single_1" href="<c:url value="/${details[0]}"/>" title="<c:out value="${details[3]}"/>">
+                    <img class="imagemin" alt="" src="<c:url value="/${details[0]}"/>">
+                    </a>
+                    </td>
             </tr>
             <tr>
                 <th>Utilisateur</th>
