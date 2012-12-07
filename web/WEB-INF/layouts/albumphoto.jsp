@@ -50,7 +50,9 @@
     <body>
         <div class="well">
             <div class="optAdmin">
-                <button class="btn btn-warning">Devenir Admin</button>
+                <a href="<c:url value="/admin"/>">
+                    <button class="btn btn-warning">Devenir Admin</button>
+                </a>
             </div>
             <div id="titre">Album Photo</div>
         </div>
@@ -61,13 +63,19 @@
                         ${namePage}
                     </div>
                     <c:choose>
-                        <c:when test="${empty sessionScope.user}">
+                        <c:when test="${!empty sessionScope.user}">
                             <jsp:include page="menu_on.jsp" />
                         </c:when>
                         <c:otherwise>
                             <jsp:include page="menu_off.jsp" />
                         </c:otherwise>  
                     </c:choose>
+                    <c:if test="${!empty sessionScope.admin}">
+                        <div class="well" id="titre2">
+                            Super Actions
+                        </div>
+                        <jsp:include page="menu_super.jsp" />
+                    </c:if>
                 </div>
 
                 <!--Body content-->

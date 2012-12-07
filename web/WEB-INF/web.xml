@@ -10,6 +10,10 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CommandController</servlet-name>
+        <url-pattern>/admin/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CommandController</servlet-name>
         <url-pattern>/error/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>

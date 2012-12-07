@@ -20,6 +20,8 @@ public class AlbumCommand implements ICommand {
     public ActionFlow actionPerform(HttpServletRequest request, String[] UrlParams) {
         try {
             if (UrlParams[1].equals("nouveau")) {
+                request.setAttribute(TITRE_PAGE, "Albums");
+                request.setAttribute(NOM_PAGE, "Creer un Album");
                 if (request.getMethod().equals("GET")) {
                     return new ActionFlow("ajoutAlbum", false);
                 }
@@ -111,8 +113,6 @@ public class AlbumCommand implements ICommand {
             }
         }
         form.close();
-        request.setAttribute(TITRE_PAGE, "Albums");
-        request.setAttribute(NOM_PAGE, "Creer un Album");
         return new ActionFlow("ajoutAlbum", false);
     }
 }

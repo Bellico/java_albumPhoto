@@ -15,6 +15,7 @@ public class CommandManager {
         cmds.put("upload", new UploadCommand());
         cmds.put("connexion", new ConnexionCommand());
         cmds.put("inscription", new InscriptionCommand());
+        cmds.put("admin", new AdminCommand());
     }
 
     public static ICommand getCommand(String commandName) {
