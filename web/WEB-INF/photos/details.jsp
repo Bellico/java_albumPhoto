@@ -27,7 +27,7 @@
             </tr>
             <tr>
                 <th>Album</th>
-                <td><c:out value="${details[2]}"/></td>
+                <td><a href="<c:url value="/albums/${details[9]}"/>"><c:out value="${details[2]}"/></a></td>
             </tr>
             <tr>
                 <th>Titre</th>
