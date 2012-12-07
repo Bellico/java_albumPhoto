@@ -57,7 +57,7 @@ public class PhotoBean {
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.title = Tools.FirtLetterToUpper(title);
     }
 
     public String getDescr() {
@@ -65,7 +65,7 @@ public class PhotoBean {
     }
 
     public void setDescr(String descr) {
-        this.descr = descr;
+        this.descr = Tools.FirtLetterToUpper(descr);
     }
 
     public int getWidth() {

@@ -3,6 +3,7 @@ package bean;
 import bdd.PhotoMap;
 import bdd.RightMap;
 import java.util.ArrayList;
+import tools.Tools;
 
 public class AlbumBean {
 
@@ -38,7 +39,7 @@ public class AlbumBean {
     }
 
     public void setNameAlbum(String nameAlbum) {
-        this.nameAlbum = nameAlbum;
+        this.nameAlbum = Tools.FirtLetterToUpper(nameAlbum);
     }
 
     public String getDescr() {
@@ -46,7 +47,7 @@ public class AlbumBean {
     }
 
     public void setDescr(String descr) {
-        this.descr = descr;
+        this.descr =  Tools.FirtLetterToUpper(descr);
     }
 
     public int getIdUser() {

@@ -44,6 +44,7 @@
                     </c:choose>
                 </c:forEach>
                 </select>
+                <a href="<c:url value="/albums/nouveau"/>"><button class="btn btn-small btn-inverse" type="button">Nouvel Album ?</button></a>
             </div>
         </div>
 

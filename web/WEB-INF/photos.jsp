@@ -39,7 +39,7 @@
                     <td class="description"><c:out value="${img[4]}"/></td>
                     <td class="dateajout"><c:out value="${img[5]}"/> </td>
                     <td class="datemodif"><c:out value="${img[6]}"/> </td>
-                    <td class="options"> <a href="photos/<c:out value="${img[7]}"/>"><button class="btn btn-small btn-primary" type="button">Voir Détails</button></a></td>
+                    <td class="options"> <a href="<c:url value="/photos/${img[7]}"/>"><button class="btn btn-small btn-primary" type="button">Voir Détails</button></a></td>
                 </tr>
             </c:forEach>
         </tbody>

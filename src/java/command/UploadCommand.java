@@ -4,12 +4,14 @@ import bdd.AlbumMap;
 import bdd.PhotoMap;
 import bean.AlbumBean;
 import bean.PhotoBean;
+import bean.UserBean;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import model.ControlForm;
 import model.Upload;
 import tools.Tools;
@@ -23,7 +25,9 @@ public class UploadCommand implements ICommand {
     public ActionFlow actionPerform(HttpServletRequest request, String[] UrlParams) {
         request.setAttribute(TITRE_PAGE, "Upload");
         request.setAttribute(NOM_PAGE, "Nouvelle photo");
-        ArrayList<AlbumBean> list = mapalbum.getAllbyAttr("idUser", 1);
+        HttpSession session = request.getSession();
+        UserBean user = (UserBean) session.getAttribute("user");
+        ArrayList<AlbumBean> list = mapalbum.getAllbyAttr("idUser",user.getIdUser());
         request.setAttribute("listAlbum", list);
         try {
             if (UrlParams[1].equals("up")) {
@@ -65,13 +69,12 @@ public class UploadCommand implements ICommand {
                         PhotoMap maphoto = new PhotoMap();
                         if (maphoto.save(photo) == 1) {
                             form.clean();
-                            form.setResult(ControlForm.RES_VALID, "Votre photo est maintenant enregistrée!");
+                            form.setResult(ControlForm.RES_VALID, "Votre photo est maintenant enregistrée !");
                         } else {
-                            request.setAttribute("messagePage", "L'upload ne s'est pas terminé correctement, une erreur serveur s'est produite");
-                            form.setResult(ControlForm.RES_VALID, "Votre photo est maintenant enregistrée!");
+                            form.setResult(ControlForm.RES_VALID, "L'upload ne s'est pas terminé correctement, une erreur serveur s'est produite.");
                         }
                     } catch (IOException ex) {
-                        form.setResult(ControlForm.RES_ERROR, "L'upload ne s'est pas terminé correctement, une erreur serveur s'est produite");
+                        form.setResult(ControlForm.RES_ERROR, "L'upload ne s'est pas terminé correctement, une erreur serveur s'est produite.");
                         System.out.println("[ Erreur lecture image ] : " + ex.getMessage());
                     } catch (NullPointerException ex) {
                         f.delete();

@@ -8,6 +8,7 @@ import bean.PhotoBean;
 import bean.UserBean;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import model.ControlForm;
 
 public class AlbumCommand implements ICommand {
@@ -96,20 +97,22 @@ public class AlbumCommand implements ICommand {
 
     public ActionFlow newAlbum(HttpServletRequest request) {
         ControlForm form = new ControlForm(request);
-        String name = form.check("name", ControlForm.NON_VIDE, "Donnez un titre à votre album");
+        String name = form.check("name", ControlForm.NON_VIDE, "Donnez un titre à votre album.");
         String description = form.check("description", ControlForm.NON_VIDE, "Une petite description ?");
 
         if (form.getNbError() == 0) {
+            HttpSession session = request.getSession();
+            UserBean user = (UserBean) session.getAttribute("user");
             AlbumBean album = new AlbumBean();
             album.setNameAlbum(name);
             album.setDescr(description);
             album.setIdStatut(0);
-            album.setIdUser(1);
+            album.setIdUser(user.getIdUser());
             if (mapAlbum.save(album) == 1) {
                 form.clean();
-                form.setResult(ControlForm.RES_VALID, "Album ajouté!");
+                form.setResult(ControlForm.RES_VALID, "Album ajouté !");
             } else {
-                form.setResult(ControlForm.RES_ERROR, "L'operation ne s'est pas terminée correctement, une erreur serveur s'est produite");
+                form.setResult(ControlForm.RES_ERROR, "L'operation ne s'est pas terminée correctement, une erreur serveur s'est produite.");
             }
         }
         form.close();

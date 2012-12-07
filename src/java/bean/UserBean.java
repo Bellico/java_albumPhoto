@@ -51,7 +51,7 @@ public class UserBean {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = Tools.FirtLetterToUpper(name);
     }
 
     public String getFirstName() {
@@ -59,7 +59,7 @@ public class UserBean {
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.firstName = Tools.FirtLetterToUpper(firstName);
     }
 
     public String getLogin() {

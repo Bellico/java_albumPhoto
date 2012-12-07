@@ -12,14 +12,13 @@
 </div>
 
 <div class="span10"> 
-    <table class="table table-bordered">
+    <table class="tabdetails table table-bordered">
         <thead>
             <tr>
-                <th>Photos</th>
-                <td>
-                    <a id="single_1" href="<c:url value="/${details[0]}"/>" title="<c:out value="${details[3]}"/>">
-                    <img class="imagemin" alt="" src="<c:url value="/${details[0]}"/>">
-                    </a>
+                  <td colspan="2" class="photocadre">
+                        <a class="fancybox-thumb" rel="fancybox-thumb" href="<c:url value="/${details[0]}"/>" title="<c:out value="${details[3]}"/>">
+                            <img alt="" src="<c:url value="/${details[0]}"/>">
+                        </a>
                     </td>
             </tr>
             <tr>
@@ -32,7 +31,7 @@
             </tr>
             <tr>
                 <th>Titre</th>
-                <td><c:out value="${details[3]}"/>t</td>
+                <td><c:out value="${details[3]}"/></td>
             </tr>		  
             <tr>
                 <th>Description</th>

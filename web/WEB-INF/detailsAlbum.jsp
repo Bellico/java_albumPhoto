@@ -12,28 +12,29 @@
 </div>
 
 <div class="span10"> 
-    <table class="table table-bordered">
+    <table class="tabdetails table table-bordered">
         <thead>
+        <tr>
             <th>Titre</th>
-                <td><c:out value="${details[1]}"/></td>
-            </tr>
-            <tr>
-                <th>Utilisateur</th>
-                <td><c:out value="${details[0]}"/></td>
-            </tr>		  
-            <tr>
-                <th>Description</th>
-                <td><c:out value="${details[2]}"/></td>
-            </tr>
-             <tr>
-                <th>Nombres de photo</th>
-                <td><c:out value="${details[3]}"/></td>
-            </tr> 
+            <td><c:out value="${details[1]}"/></td>
+        </tr>
+        <tr>
+            <th>Utilisateur</th>
+            <td><c:out value="${details[0]}"/></td>
+        </tr>		  
+        <tr>
+            <th>Description</th>
+            <td><c:out value="${details[2]}"/></td>
+        </tr>
+        <tr>
+            <th>Nombres de photo</th>
+            <td><c:out value="${details[3]}"/></td>
+        </tr> 
         </thead>
     </table>
 </div>
-    
-    <div class="span10"> 
+
+<div class="span10"> 
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -50,14 +51,18 @@
         <tbody>
             <c:forEach items="${listImg}" var="img"  >
                 <tr>
-                    <td class="photocadre"><img class="imagemin" alt="" src="<c:url value="/${img[0]}"/>"></td>
+                    <td class="photocadre">
+                        <a class="fancybox-thumb" rel="fancybox-thumb" href="<c:url value="/${img[0]}"/>" title="<c:out value="${img[3]}"/>">
+                            <img class="img-rounded" alt="" src="<c:url value="/${img[0]}"/>">
+                        </a>
+                    </td>
                     <td class="utilisateurs"><c:out value="${img[1]}"/></td>
                     <td class="titrealbum"><c:out value="${img[2]}"/></td>
                     <td class="titrealbum"><c:out value="${img[3]}"/></td>
                     <td class="description"><c:out value="${img[4]}"/></td>
                     <td class="dateajout"><c:out value="${img[5]}"/> </td>
                     <td class="dateajout"><c:out value="${img[6]}"/> </td>
-                    <td> <a href="../photos/<c:out value="${img[7]}"/>"><button class="btn btn-primary" type="button">Voir Détails</button></a></td>
+                    <td class="options"> <a href="<c:url value="/photos/${img[7]}"/>"><button class="btn btn-small btn-primary" type="button">Voir Détails</button></a></td>
                 </tr>
             </c:forEach>
         </tbody>

@@ -77,4 +77,8 @@ public class Tools {
     public static String DateToString(Date date, Time time) {
         return DateToString(date) + TimeToString(time);
     }
+
+    public static String FirtLetterToUpper(String s) {
+        return s.replaceFirst(".", (s.charAt(0) + "").toUpperCase());
+    }
 }

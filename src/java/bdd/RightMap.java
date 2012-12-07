@@ -10,14 +10,14 @@ public class RightMap extends SQLMapping {
 
     public RightMap() {
         this.table = "rights";
-        this.primary_key = "idUser";
+        this.primary_key = "idAlbum";
 
     }
 
     @Override
     protected int getPrimaryKey(Object o) {
         RightBean right = (RightBean) o;
-        return right.getIdUser();
+        return right.getIdAlbum();
     }
 
     @Override
@@ -90,4 +90,5 @@ public class RightMap extends SQLMapping {
             return 0;
         }
     }
+    
 }
