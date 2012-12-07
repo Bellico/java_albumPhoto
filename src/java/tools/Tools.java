@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.jasypt.util.password.ConfigurablePasswordEncryptor;
 import org.jasypt.util.text.BasicTextEncryptor;
 
@@ -80,5 +82,15 @@ public class Tools {
 
     public static String FirtLetterToUpper(String s) {
         return s.replaceFirst(".", (s.charAt(0) + "").toUpperCase());
+    }
+
+    public static String[] parseUrl(String url) {
+        Pattern p = Pattern.compile("./(.*)");
+        Matcher m = p.matcher(url);
+        if ((m.find() && m.groupCount() == 1)) {
+            return m.group(1).split("/");
+        } else {
+            return null;
+        }
     }
 }

@@ -15,7 +15,6 @@ values ('Inconnu','Prenom 7','login7','pass',CURRENT_DATE,CURRENT_TIME,null,null
 
 insert into statuts values (0,'public');
 insert into statuts values (1,'prive');
-insert into statuts values (3,'cache');
 
 insert into albums (nameAlbum,descr,idUser,idStatut) values ('Album de Franck','Ceci est une description bien courte',1,0);
 insert into albums (nameAlbum,descr,idUser,idStatut) values ('Album d''Emilien','Ceci est une description bien courte',2,0);

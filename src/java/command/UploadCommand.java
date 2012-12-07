@@ -27,7 +27,7 @@ public class UploadCommand implements ICommand {
         request.setAttribute(NOM_PAGE, "Nouvelle photo");
         HttpSession session = request.getSession();
         UserBean user = (UserBean) session.getAttribute("user");
-        ArrayList<AlbumBean> list = mapalbum.getAllbyAttr("idUser",user.getIdUser());
+        ArrayList<AlbumBean> list = mapalbum.getAllbyAttr("idUser", user.getIdUser());
         request.setAttribute("listAlbum", list);
         try {
             if (UrlParams[1].equals("up")) {
@@ -36,7 +36,7 @@ public class UploadCommand implements ICommand {
                 return new ActionFlow("error", true);
             }
         } catch (IndexOutOfBoundsException ex) {
-            return new ActionFlow("upload", false);
+            return new ActionFlow("photos/ajouter", false);
         }
     }
 
@@ -95,6 +95,6 @@ public class UploadCommand implements ICommand {
             }
         }
         form.close();
-        return new ActionFlow("upload", false);
+        return new ActionFlow("photos/ajouter", false);
     }
 }

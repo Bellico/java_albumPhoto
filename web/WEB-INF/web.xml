@@ -40,6 +40,10 @@
         <servlet-name>CommandController</servlet-name>
         <url-pattern>/inscription/*</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CommandController</servlet-name>
+        <url-pattern>/partage/*</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

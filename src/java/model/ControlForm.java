@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
+import tools.Tools;
 
 public class ControlForm {
 
@@ -66,6 +67,22 @@ public class ControlForm {
         return value;
     }
 
+        public String check(String field, String[]values) {
+        String value = request.getParameter(field);
+        if (value != null) {
+            result.setField(field, FIELD_VALID, value);
+            boolean res =Tools.in_Array(value, values);
+            if (!res) {
+                result.setField(field, FIELD_ERROR, value);
+                nbError++;
+            }
+        } else {
+            result.setField(field, FIELD_ERROR, value);
+            nbError++;
+        }
+        return value;
+    }
+        
     public String check(String field, int typeControl, String mError) {
         String value = request.getParameter(field);
         if (value != null) {

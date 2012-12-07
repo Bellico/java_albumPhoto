@@ -12,13 +12,9 @@ public class InscriptionCommand implements ICommand {
     public ActionFlow actionPerform(HttpServletRequest request, String[] UrlParams) {
         request.setAttribute(TITRE_PAGE, "Inscription");
         request.setAttribute(NOM_PAGE, "Inscrivez vous !");
-        try {
-            if (UrlParams[1].equals("new")) {
-                return newUser(request);
-            } else {
-                return new ActionFlow("error", true);
-            }
-        } catch (IndexOutOfBoundsException ex) {
+        if (request.getMethod().equals("POST")) {
+            return newUser(request);
+        } else {
             return new ActionFlow("inscription", false);
         }
     }

@@ -17,7 +17,7 @@
   
     <legend>Inscription d'un nouvel utilisateur</legend>
     
-    <form class="form-horizontal" method="post" action="<c:url value="/inscription/new"/>">
+    <form class="form-horizontal" method="post" action="<c:url value="/inscription"/>">
 
         <div class="control-group">
             <label class="control-label">Nom : </label> 
