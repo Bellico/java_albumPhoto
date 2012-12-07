@@ -22,8 +22,12 @@ public class PhotosCommand implements ICommand {
     @Override
     public ActionFlow actionPerform(HttpServletRequest request, String[] UrlParams) {
         try {
-            Integer numphoto = Integer.parseInt(UrlParams[1]);
-            return detailsPhoto(request, numphoto);
+            if (UrlParams[1].equals("mesPhotos")) {
+                return mesPhotos(request);
+            } else {
+                Integer numphoto = Integer.parseInt(UrlParams[1]);
+            return detailsPhoto(request, numphoto); 
+            }
         } catch (IndexOutOfBoundsException ex) {
             return listPhoto(request);
         } catch (NumberFormatException ex) {
@@ -46,7 +50,8 @@ public class PhotosCommand implements ICommand {
                             ph.getDescr(),
                             ph.getDateCreated(),
                             ph.getDateLastUpdate(),
-                            Integer.toString(ph.getIdPhoto())
+                            Integer.toString(ph.getIdPhoto()),
+                            Integer.toString(al.getIdAlbum())
                         });
             }
         }
@@ -94,10 +99,46 @@ public class PhotosCommand implements ICommand {
             Integer.toString(photo.getWidth()),
             Integer.toString(photo.getHeight()),
             photo.getDateCreated(),
-            photo.getDateLastUpdate()};
+            photo.getDateLastUpdate(),
+            Integer.toString(album.getIdAlbum())};
         request.setAttribute("details", tab);
 
 
         return new ActionFlow("photos/details", false);
+    }
+    
+      public ActionFlow mesPhotos(HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+        UserBean user = (UserBean) session.getAttribute("user");
+        if (user != null) {
+            
+        ArrayList<AlbumBean> albumuser = mapAlbum.getAllbyAttr("idUser", user.getIdUser());
+        ArrayList<String[]> tab = new ArrayList<String[]>();
+        for (AlbumBean al : albumuser) {
+                        ArrayList<PhotoBean> photos = mapPhoto.getAllbyAttr("idAlbum", al.getIdAlbum());
+            for (PhotoBean ph : photos) {
+                tab.add(new String[]{
+                            UploadCommand.FOLDER_ALBUM + al.getNameAlbum() + "/" + ph.getImg(),
+                            user.getName() + " " + user.getFirstName(),
+                            al.getNameAlbum(),
+                            ph.getTitle(),
+                            ph.getDescr(),
+                            ph.getDateCreated(),
+                            ph.getDateLastUpdate(),
+                            Integer.toString(ph.getIdPhoto()),
+                            Integer.toString(al.getIdAlbum()),
+                            Integer.toString(user.getIdUser())
+                        });
+            }
+        }
+            request.setAttribute("listImg", tab);
+            request.setAttribute(TITRE_PAGE, "Photos");
+            request.setAttribute(NOM_PAGE, "Liste de mes Photos");
+            return new ActionFlow("photos/photos", false);
+        } else {
+            request.setAttribute(ErrorCommand.MESSAGE_ERROR, "Veuillez vous connecter pour voir vos photos.");
+            return new ActionFlow("error", false);
+        }
     }
 }
