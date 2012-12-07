@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class CommandManager {
 
-    protected static HashMap<String, Command> cmds = new HashMap<String, Command>();
+    private static HashMap<String, ICommand> cmds = new HashMap<String, ICommand>();
 
     public static void init() {
         cmds.put("index", new DefaultCommand());
@@ -17,7 +17,7 @@ public class CommandManager {
         cmds.put("inscription", new InscriptionCommand());
     }
 
-    public static Command getCommand(String commandName) {
+    public static ICommand getCommand(String commandName) {
         return cmds.get(commandName);
     }
 }

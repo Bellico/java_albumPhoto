@@ -13,44 +13,59 @@
 
 
 <div class="span10">
-    <h3>${page.messagePage}</h3>
-    <legend>Envoyer une photo</legend>
+
+    <span class="btn btn-${form.getResultType()}">${form.getResultMessage()}</span>
+
+    <legend>Envoyer une nouvelle photo</legend>
 
     <form class="form-horizontal" action="<c:url value="/upload/up"/>" method="post" enctype="multipart/form-data">
+
         <div class="control-group">
-            <label class="control-label">Titre Photo</label> 
+            <label class="control-label">Titre de la photo : </label> 
             <div class="controls">
-                <input name="titre" id="inputEmail" type="text" />  ${form.titre} 
+                <input name="titre" id="inputEmail" value="<c:out value="${form.getValue('titre')}"/>" type="text" />
+                <span class="label label-${form.getType("titre")}">${form.getMessage("titre")}</span>
             </div>
         </div>
 
 
         <div class="control-group">
-            <label class="control-label">Album</label> 
+            <label class="control-label">Album : </label> 
             <div class="controls">
-                <select name="album" type="text" value="album1" />
-                <c:forEach items="${listAlbum}" var="al"  >
-                    <option value="${al.idAlbum}">${al.nameAlbum}</option>
-                    <option value="album2">album2</option>
+                <select name="album" type="text" />
+                <c:forEach items="${listAlbum}" var="al" >
+                    <c:choose>
+                        <c:when test="${form.getValue('album')==al.idAlbum}">
+                            <option selected="selected" value="${al.idAlbum}">${al.nameAlbum}</option>
+                        </c:when>
+                        <c:otherwise>
+                            <option value="${al.idAlbum}">${al.nameAlbum}</option>
+                        </c:otherwise>  
+                    </c:choose>
                 </c:forEach>
-                </select> ${form.album} 
+                </select>
             </div>
         </div>
+
         <div class="control-group">
-            <label class="control-label">Description</label> 
+            <label class="control-label">Description : </label> 
             <div class="controls">
-                <textarea name="description" type="text" /></textarea> ${form.description}
+                <textarea name="description" type="text" /><c:out value="${form.getValue('description')}"/></textarea>
+                <span class="label label-${form.getType("description")}">${form.getMessage("description")}</span>
             </div>
         </div>
+
         <div class="control-group">
-            <label class="control-label">Choisir un fichier</label><div class="controls"><input type="file" id="fichier" name="file"  />         
+            <label class="control-label">Choisir une Photo : </label><div class="controls"><input type="file" id="fichier" name="file"  />         
             </div>
         </div>
+
         <div class="control-group">
             <div class="controls">
-                <button type="submit" class="btn"/>Envoyer</button>        
+                <button class="btn btn-primary" type="submit" class="btn"/>Envoyer</button>        
             </div>
         </div>
+
     </form>
 
 </div>

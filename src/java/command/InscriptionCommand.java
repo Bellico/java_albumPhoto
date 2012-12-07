@@ -6,12 +6,12 @@ import javax.servlet.http.HttpServletRequest;
 import model.ControlForm;
 import tools.Tools;
 
-public class InscriptionCommand extends Command {
+public class InscriptionCommand implements ICommand {
 
     @Override
     public ActionFlow actionPerform(HttpServletRequest request, String[] UrlParams) {
-        setAttrPage(TITRE_PAGE, "Inscription");
-        setAttrPage(NOM_PAGE, "Inscrivez vous !");
+        request.setAttribute(TITRE_PAGE, "Inscription");
+        request.setAttribute(NOM_PAGE, "Inscrivez vous !");
         try {
             if (UrlParams[1].equals("new")) {
                 return newUser(request);
@@ -19,7 +19,7 @@ public class InscriptionCommand extends Command {
                 return new ActionFlow("error", true);
             }
         } catch (IndexOutOfBoundsException ex) {
-            return new ActionFlow("inscription", attrPage, false);
+            return new ActionFlow("inscription", false);
         }
     }
 
@@ -29,8 +29,7 @@ public class InscriptionCommand extends Command {
         String prenom = form.check("prenom", ControlForm.NON_VIDE, "Précisez un prenom");
         String login = form.check("login", ControlForm.NON_VIDE, "Précisez un login");
         String pass = form.check("pass", ControlForm.NON_VIDE, "Précisez un mdp");
-        form.compare("pass", "passc", "Les mots de passe ne sont pas les mêmes");
-        form.close();
+        form.compare("passc", "pass", "Les mots de passe ne sont pas les mêmes");
         if (form.getNbError() == 0) {
             UserMap map = new UserMap();
             UserBean user = (UserBean) map.getbyAttr("login", login);
@@ -42,14 +41,15 @@ public class InscriptionCommand extends Command {
                 user.setPassword(Tools.crypt(pass, Tools.MD5, true));
                 if (map.save(user) == 1) {
                     form.clean();
-                    setAttrPage(MESSAGE, "Inscription réussie!");
+                    form.setResult(ControlForm.RES_VALID, "Inscription réussie!");
                 } else {
-                    setAttrPage(MESSAGE, "L'incription ne s'est pas terminée correctement, une erreur serveur s'est produite");
+                    form.setResult(ControlForm.RES_ERROR, "L'incription ne s'est pas terminée correctement, une erreur serveur s'est produite");
                 }
             } else {
-                setAttrPage(MESSAGE, "Ce login est déja utilisé.");
+                form.setResult(ControlForm.RES_ERROR, "Ce login est déja utilisé.");
             }
         }
-        return new ActionFlow("inscription", attrPage, false);
+        form.close();
+        return new ActionFlow("inscription", false);
     }
 }

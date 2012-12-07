@@ -12,44 +12,60 @@
 </div>
 
 <div class="span10">
-    <h3>${page.messagePage}</h3>
-    <form  class="form-horizontal" method="post" action="<c:url value="/inscription/new"/>">
-        <legend>Inscription d'un nouvel utilisateur</legend>
-        <div class="control-group">
-            <label class="control-label">Nom</label> 
-            <div class="controls">
-                <input id="for1" name="nom" value="<c:out value="${nom}"/>" type="text" /> ${form.nom}
-            </div></div>   
+    
+    <span class="btn btn-${form.getResultType()}">${form.getResultMessage()}</span>
+  
+    <legend>Inscription d'un nouvel utilisateur</legend>
+    
+    <form class="form-horizontal" method="post" action="<c:url value="/inscription/new"/>">
 
         <div class="control-group">
-            <label class="control-label">Prénom</label> 
+            <label class="control-label">Nom : </label> 
             <div class="controls">
-                <input id="for1" name="prenom" value="<c:out value="${prenom}" />" type="text" /> <c:out value="${form.prenom}" />
-            </div></div>  
+                <input name="nom" value="<c:out value="${form.getValue('nom')}"/>" type="text" />
+                <span class="label label-${form.getType("nom")}">${form.getMessage("nom")}</span>
+            </div>
+        </div>   
 
         <div class="control-group">
-            <label class="control-label">Login</label> 
+            <label class="control-label">Prénom : </label> 
             <div class="controls">
-                <input id="for1" name="login"  value="${login}" type="text" /> ${form.login}
-            </div></div>  
+                <input name="prenom" value="<c:out value="${form.getValue('prenom')}" />" type="text" />
+                <span class="label label-${form.getType("prenom")}">${form.getMessage("prenom")}</span>
+            </div>
+        </div>  
 
         <div class="control-group">
-            <label class="control-label">Mot de passe</label> 
+            <label class="control-label">Login : </label> 
             <div class="controls">
-                <input id="for1" name="pass"   value="${pass}"type="password" /> 
-            </div></div>  
+                <input name="login" value="<c:out value="${form.getValue('login')}" />" type="text" /> 
+                <span class="label label-${form.getType("login")}">${form.getMessage("login")}</span>
+            </div>
+        </div>  
 
         <div class="control-group">
-            <label class="control-label">Mot de passe confirmation</label> 
+            <label class="control-label">Mot de passe : </label> 
             <div class="controls">
-                <input id="for1" name="passc"   value="${passc}" type="password" /> ${form.passc}
-            </div></div>
+                <input name="pass" value="<c:out value="${form.getValue('pass')}" />"type="password" />
+                <span class="label label-${form.getType("pass")}">${form.getMessage("pass")}</span>
+            </div>
+        </div>  
 
         <div class="control-group">
-
+            <label class="control-label">Mot de passe de confirmation : </label> 
             <div class="controls">
-                <input id="for1"  type="submit" value="Enregistrement"/>
-            </div></div>
+                <input name="passc" type="password" />
+                <span class="label label-${form.getType("passc")}">${form.getMessage("passc")}</span>
+            </div>
+        </div>
 
+        <div class="control-group">
+            <div class="controls">
+                <input class="btn btn-primary" type="submit" value="Enregistrement"/>
+            </div>
+        </div>
     </form>
+    
 </div>
+            
+ 

@@ -38,9 +38,9 @@
     </div>
 </div>
 
-<script src="js/jquery.js"></script>
-<script type="text/javascript" src="js/bootstrap.js"></script>
-<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<c:url value="/js/jquery.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/js/bootstrap.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/js/bootstrap.min.js"/>"></script>
 <script>$('.carousel').carousel()</script>
 
 

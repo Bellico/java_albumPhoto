@@ -14,15 +14,15 @@ import model.ControlForm;
 import model.Upload;
 import tools.Tools;
 
-public class UploadCommand extends Command {
+public class UploadCommand implements ICommand {
 
     public static final String FOLDER_ALBUM = "albumphoto/";
     AlbumMap mapalbum = new AlbumMap();
 
     @Override
     public ActionFlow actionPerform(HttpServletRequest request, String[] UrlParams) {
-        setAttrPage(TITRE_PAGE, "Upload");
-        setAttrPage(NOM_PAGE, "Nouvelle photo");
+        request.setAttribute(TITRE_PAGE, "Upload");
+        request.setAttribute(NOM_PAGE, "Nouvelle photo");
         ArrayList<AlbumBean> list = mapalbum.getAllbyAttr("idUser", 1);
         request.setAttribute("listAlbum", list);
         try {
@@ -32,21 +32,20 @@ public class UploadCommand extends Command {
                 return new ActionFlow("error", true);
             }
         } catch (IndexOutOfBoundsException ex) {
-            return new ActionFlow("upload", attrPage, false);
+            return new ActionFlow("upload", false);
         }
     }
 
     synchronized public ActionFlow upload(HttpServletRequest request) {
         ControlForm form = new ControlForm(request);
-        String title = form.check("titre", ControlForm.NON_VIDE, "Donnez un titre à votre photo");
+        String title = form.check("titre", ControlForm.NON_VIDE, "Donnez un titre à votre photo.");
         String namealbum = form.check("album", ControlForm.ENTIER);
         String descr = form.check("description", ControlForm.NON_VIDE, "Une petite description?");
-        form.close();
         if (form.getNbError() == 0) {
             Upload up = new Upload("file", new String[]{"jpg", "jpeg", "png"});
             AlbumBean album = (AlbumBean) mapalbum.getbyId(Integer.parseInt(namealbum));
             if (album != null) {
-                namealbum=album.getNameAlbum();
+                namealbum = album.getNameAlbum();
                 String path = Tools.appPath + File.separator + FOLDER_ALBUM + namealbum;
                 File f = new File(path);
                 f.mkdirs();
@@ -65,16 +64,18 @@ public class UploadCommand extends Command {
                         photo.setIdAlbum(album.getIdAlbum());
                         PhotoMap maphoto = new PhotoMap();
                         if (maphoto.save(photo) == 1) {
-                            setAttrPage(MESSAGE, "Votre photo est maintenant enregistrée.");
+                            form.clean();
+                            form.setResult(ControlForm.RES_VALID, "Votre photo est maintenant enregistrée!");
                         } else {
-                            setAttrPage(MESSAGE, "L'upload ne s'est pas terminé correctement, une erreur serveur s'est produite");
+                            request.setAttribute("messagePage", "L'upload ne s'est pas terminé correctement, une erreur serveur s'est produite");
+                            form.setResult(ControlForm.RES_VALID, "Votre photo est maintenant enregistrée!");
                         }
                     } catch (IOException ex) {
-                        setAttrPage(MESSAGE, "L'upload ne s'est pas terminé correctement, une erreur serveur s'est produite");
+                        form.setResult(ControlForm.RES_ERROR, "L'upload ne s'est pas terminé correctement, une erreur serveur s'est produite");
                         System.out.println("[ Erreur lecture image ] : " + ex.getMessage());
                     } catch (NullPointerException ex) {
                         f.delete();
-                        setAttrPage(MESSAGE, "Votre fichier n'est pas une image !");
+                        form.setResult(ControlForm.RES_ERROR, "Votre fichier n'est pas une image.");
                         System.out.println("[ Erreur lecture image ] : " + ex.getMessage());
                     }
                 } else {
@@ -83,13 +84,14 @@ public class UploadCommand extends Command {
                         "Votre image doit faire 10Mo maximum.",
                         "L'upload ne s'est pas terminé correctement, une erreur serveur s'est produite.",
                         "L'upload ne s'est pas terminé correctement, une erreur serveur s'est produite."};
-                    setAttrPage(MESSAGE, errorUpload[state - 1]);
+                    form.setResult(ControlForm.RES_ERROR, errorUpload[state - 1]);
                 }
             } else {
                 request.setAttribute(ErrorCommand.MESSAGE_ERROR, "L'album '" + namealbum + "' n'existe pas.");
-                return new ActionFlow("error", attrPage, false);
+                return new ActionFlow("error", false);
             }
         }
-        return new ActionFlow("upload", attrPage, false);
+        form.close();
+        return new ActionFlow("upload", false);
     }
 }

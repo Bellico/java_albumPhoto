@@ -16,7 +16,6 @@ public class ServletListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {
         //Initialisation de la connexion a la base de donnée
         BDctx = new Database(sce.getServletContext());
-        sce.getServletContext().setAttribute("bdd", BDctx);
         //Initialisation des commandes
         CommandManager.init();
         Tools.appPath=sce.getServletContext().getRealPath("");

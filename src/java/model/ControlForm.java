@@ -14,13 +14,19 @@ public class ControlForm {
     public static final int TEXTE_10 = 10;
     public static final int TEXTE_25 = 25;
     public static final int TEXTE_100 = 100;
+    public static final String FIELD_ERROR = "important";
+    public static final String FIELD_VALID = "";
+    public static final String RES_ERROR = "danger";
+    public static final String RES_VALID = "success";
     private HttpServletRequest request;
     private HashMap<String, String> errors = new HashMap<String, String>();
     private ArrayList<String> fieldsForm = new ArrayList<String>();
+    private ResultForm result = new ResultForm();
     private int nbError = 0;
 
     public ControlForm(HttpServletRequest request) {
         this.request = request;
+
     }
 
     private boolean controlManager(int typeControl, String param) {
@@ -47,13 +53,14 @@ public class ControlForm {
     public String check(String field, int typeControl) {
         String value = request.getParameter(field);
         if (value != null) {
-            request.setAttribute(field, value);
-            fieldsForm.add(field);
+            result.setField(field, FIELD_VALID, value);
             boolean res = controlManager(typeControl, value);
             if (!res) {
+                result.setField(field, FIELD_ERROR, value);
                 nbError++;
             }
         } else {
+            result.setField(field, FIELD_ERROR, value);
             nbError++;
         }
         return value;
@@ -62,16 +69,15 @@ public class ControlForm {
     public String check(String field, int typeControl, String mError) {
         String value = request.getParameter(field);
         if (value != null) {
-            request.setAttribute(field, value);
-            fieldsForm.add(field);
+            result.setField(field, FIELD_VALID, value);
             boolean res = controlManager(typeControl, value);
             if (!res) {
+                result.setField(field, FIELD_ERROR, value, mError);
                 nbError++;
-                errors.put(field, mError);
             }
         } else {
+            result.setField(field, FIELD_ERROR, value, mError);
             nbError++;
-            errors.put(field, mError);
         }
         return value;
     }
@@ -79,18 +85,17 @@ public class ControlForm {
     public String check(String field, String regex, String mError) {
         String value = request.getParameter(field);
         if (value != null) {
-            request.setAttribute(field, value);
-            fieldsForm.add(field);
+            result.setField(field, FIELD_VALID, value);
             Pattern p = Pattern.compile(regex);
             Matcher m = p.matcher(value);
             boolean res = m.matches();
             if (!res) {
+                result.setField(field, FIELD_ERROR, value, mError);
                 nbError++;
-                errors.put(field, mError);
             }
         } else {
+            result.setField(field, FIELD_ERROR, value, mError);
             nbError++;
-            errors.put(field, mError);
         }
         return value;
     }
@@ -99,10 +104,11 @@ public class ControlForm {
         String v1 = request.getParameter(field1);
         String v2 = request.getParameter(field2);
         if (v1 != null && v2 != null) {
+            result.setField(field1, FIELD_VALID, v1);
             boolean res = compare_control(v1, v2);
             if (!res) {
+                result.setField(field1, FIELD_ERROR, v1, mError);
                 nbError++;
-                errors.put(field2, mError);
             }
         }
         return v1;
@@ -113,14 +119,15 @@ public class ControlForm {
     }
 
     public void close() {
-        request.setAttribute("form", errors);
+        request.setAttribute("form", result);
     }
 
     public void clean() {
-        request.removeAttribute("form");
-        for (String s : fieldsForm) {
-            request.removeAttribute(s);
-        }
+        result.clean();
+    }
+
+    public void setResult(String type, String mess) {
+        result.setResult(type, mess);
     }
 
     private boolean int_control(String value) {

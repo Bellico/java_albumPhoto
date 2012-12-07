@@ -9,52 +9,56 @@
         <link rel="stylesheet" href="<c:url value="/js/fancybox/jquery.fancybox.css"/>" type="text/css" media="screen" />
         <link rel="stylesheet" href="<c:url value="/js/fancybox/helpers/jquery.fancybox-buttons.css"/>" type="text/css" media="screen" />
         <link rel="stylesheet" href="<c:url value="/js/fancybox/helpers/jquery.fancybox-thumbs.css"/>" type="text/css" media="screen" />
-        <title>${page.titlePage} | Album Photo</title>
-        
-         <script src="<c:url value="/js/jquery.js"/>"></script>
-<script type="text/javascript" src="<c:url value="/js/fancybox/jquery.fancybox.js"/>"></script>
-<script type="text/javascript" src="<c:url value="/js/fancybox/jquery.easing-1.3.pack.js"/>"></script>
-<script type="text/javascript" src="<c:url value="/js/fancybox/jquery.mousewheel-3.0.6.pack.js"/>"></script>
-<script type="text/javascript" src="<c:url value="/js/fancybox/helpers/jquery.fancybox-buttons.js"/>"></script>
-<script type="text/javascript" src="<c:url value="/js/fancybox/helpers/jquery.fancybox-media.js"/>"></script>
-<script type="text/javascript" src="<c:url value="/js/fancybox/helpers/jquery.fancybox-thumbs.js"/>"></script>
+        <link href='http://fonts.googleapis.com/css?family=Marcellus+SC' rel='stylesheet' type='text/css'>
+        <title>${titlePage} | Album Photo</title>
 
- <script type="text/javascript">
-	$(document).ready(function() {
-	$(".fancybox-thumb").fancybox({
-		prevEffect	: 'none',
-		nextEffect	: 'none',
-		helpers	: {
-			title	: {
-				type: 'outside'
-			},
-			thumbs	: {
-				width	: 50,
-				height	: 50
-			}
-		}
-	});
+        <script src="<c:url value="/js/jquery.js"/>"></script>
+        <script type="text/javascript" src="<c:url value="/js/fancybox/jquery.fancybox.js"/>"></script>
+        <script type="text/javascript" src="<c:url value="/js/fancybox/jquery.easing-1.3.pack.js"/>"></script>
+        <script type="text/javascript" src="<c:url value="/js/fancybox/jquery.mousewheel-3.0.6.pack.js"/>"></script>
+        <script type="text/javascript" src="<c:url value="/js/fancybox/helpers/jquery.fancybox-buttons.js"/>"></script>
+        <script type="text/javascript" src="<c:url value="/js/fancybox/helpers/jquery.fancybox-media.js"/>"></script>
+        <script type="text/javascript" src="<c:url value="/js/fancybox/helpers/jquery.fancybox-thumbs.js"/>"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $(".fancybox-thumb").fancybox({
+                    prevEffect	: 'none',
+                    nextEffect	: 'none',
+                    helpers	: {
+                        title	: {
+                            type: 'outside'
+                        },
+                        thumbs	: {
+                            width	: 50,
+                            height	: 50
+                        }
+                    }
+                });
         
-         $("#single_1").fancybox({
-          helpers: {
-              title : {
-                  type : 'float'
-              }
-          }
-      });
-});
-</script>
+                $("#single_1").fancybox({
+                    helpers: {
+                        title : {
+                            type : 'float'
+                        }
+                    }
+                });
+            });
+        </script>
 
     </head>
     <body>
         <div class="well">
+            <div class="optAdmin">
+                <button class="btn btn-warning">Devenir Admin</button>
+            </div>
             <div id="titre">Album Photo</div>
         </div>
         <div class="container-fluid">
             <div class="row-fluid">
                 <div class="span2">
                     <div class="well" id="titre2">
-                        ${page.namePage}
+                        ${namePage}
                     </div>
                     <c:choose>
                         <c:when test="${empty sessionScope.user}">
@@ -70,6 +74,5 @@
                 <jsp:include page="/WEB-INF/${view}" />
             </div>
         </div>
-
     </body>
 </html>

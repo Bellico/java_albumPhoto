@@ -5,7 +5,7 @@ import bean.UserBean;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 
-public class UsersCommand extends Command {
+public class UsersCommand implements ICommand {
 
     @Override
     public ActionFlow actionPerform(HttpServletRequest request, String[] UrlParams) {
@@ -13,8 +13,8 @@ public class UsersCommand extends Command {
         ArrayList<UserBean> tab = p.getAll();
         request.setAttribute("user", tab);
 
-        setAttrPage(TITRE_PAGE, "Utilisateurs");
-        setAttrPage(NOM_PAGE, "Liste des utilisateurs");
-        return new ActionFlow("utilisateurs", attrPage, false);
+        request.setAttribute(TITRE_PAGE, "Utilisateurs");
+        request.setAttribute(NOM_PAGE, "Liste des utilisateurs");
+        return new ActionFlow("utilisateurs", false);
     }
 }

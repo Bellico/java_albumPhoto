@@ -9,7 +9,7 @@ import bean.UserBean;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 
-public class PhotosCommand extends Command {
+public class PhotosCommand implements ICommand {
 
     private PhotoMap mapPhoto = new PhotoMap();
     private AlbumMap mapAlbum = new AlbumMap();
@@ -48,16 +48,16 @@ public class PhotosCommand extends Command {
         }
         request.setAttribute("listImg", tab);
 
-        setAttrPage(TITRE_PAGE, "Photos");
-        setAttrPage(NOM_PAGE, "Liste des photos");
-        return new ActionFlow("photos", attrPage, false);
+        request.setAttribute(TITRE_PAGE, "Photos");
+        request.setAttribute(NOM_PAGE, "Liste des photos");
+        return new ActionFlow("photos", false);
     }
 
     public ActionFlow detailsPhoto(HttpServletRequest request, int numphoto) {
         PhotoBean photo = (PhotoBean) mapPhoto.getbyId(numphoto);
         if (photo == null) {
             request.setAttribute(ErrorCommand.MESSAGE_ERROR, "Cette photo n'existe pas.");
-            return new ActionFlow("error", attrPage, false);
+            return new ActionFlow("error", false);
         }
 
         AlbumBean album = (AlbumBean) mapAlbum.getbyId(photo.getIdAlbum());
@@ -74,8 +74,8 @@ public class PhotosCommand extends Command {
             photo.getDateLastUpdate()};
         request.setAttribute("details", tab);
 
-        setAttrPage(TITRE_PAGE, "Details Photos");
-        setAttrPage(NOM_PAGE, "Details de la photo");
-        return new ActionFlow("detailsPhoto", attrPage, false);
+        request.setAttribute(TITRE_PAGE, "Details Photos");
+        request.setAttribute(NOM_PAGE, "Details de la photo");
+        return new ActionFlow("detailsPhoto", false);
     }
 }

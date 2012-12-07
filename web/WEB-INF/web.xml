@@ -6,11 +6,11 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>CommandController</servlet-name>
-        <url-pattern>/index</url-pattern>
+        <url-pattern>/index/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CommandController</servlet-name>
-        <url-pattern>/error</url-pattern>
+        <url-pattern>/error/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CommandController</servlet-name>

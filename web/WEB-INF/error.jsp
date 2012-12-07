@@ -10,10 +10,11 @@
         <li><a href="<c:url value="/photos"/>"><i class="icon-picture"></i> Photos</a></li>
     </ul>
 </div>
+    
 <div class="span10"> 
-<h1>Nous sommes désolé, une erreur s'est produite </h1>
-<p>
-    ${messageError}
-</p>
+    <div class="alert alert-block">
+        <h4> Nous sommes désolés, une erreur s'est produite </h4>
+        ${messageError}
+    </div>
 </div>
 

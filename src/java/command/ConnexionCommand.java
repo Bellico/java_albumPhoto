@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 import model.ControlForm;
 import tools.Tools;
 
-public class ConnexionCommand extends Command {
+public class ConnexionCommand implements ICommand {
 
     @Override
     public ActionFlow actionPerform(HttpServletRequest request, String[] UrlParams) {
