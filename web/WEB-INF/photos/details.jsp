@@ -22,7 +22,7 @@
                     </td>
             </tr>
             <tr>
-                <th>Utilisateur</th>
+                <th>Auteur</th>
                 <td><c:out value="${details[1]}"/></td>
             </tr>
             <tr>

@@ -27,7 +27,7 @@
                 <td><c:out value="${details[2]}"/></td>
             </tr>
             <tr>
-                <th>Nombres de photo</th>
+                <th>Nombre de photos</th>
                 <td><c:out value="${details[3]}"/></td>
             </tr> 
         </thead>
@@ -38,7 +38,7 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>Images</th>
+                <th>Photo</th>
                 <th>Utilisateur</th>
                 <th>Album</th>
                 <th>Titre</th>

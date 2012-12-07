@@ -75,13 +75,13 @@ public class PhotosCommand implements ICommand {
                 request.setAttribute(ErrorCommand.MESSAGE_ERROR, "Cette photo fait partie d'un album privée. Veuillez vous connecter pour la visualiser.");
                 return new ActionFlow("error", false);
             } else {
-                 if(user.getIdUser()!=album.getIdUser()){
-                RightBean right = mapRight.get(user.getIdUser(), album.getIdAlbum());
-                if (right == null) {
-                    request.setAttribute(ErrorCommand.MESSAGE_ERROR, "Cette photo fait partie d'un album privée. Vous n'avez aucun droit sur celle-ci.");
-                    return new ActionFlow("error", false);
+                if (user.getIdUser() != album.getIdUser()) {
+                    RightBean right = mapRight.get(user.getIdUser(), album.getIdAlbum());
+                    if (right == null) {
+                        request.setAttribute(ErrorCommand.MESSAGE_ERROR, "Cette photo fait partie d'un album privée. Vous n'avez aucun droit sur celle-ci.");
+                        return new ActionFlow("error", false);
+                    }
                 }
-            }
             }
         }
         UserBean user = (UserBean) mapUser.getbyId(album.getIdUser());
@@ -96,7 +96,6 @@ public class PhotosCommand implements ICommand {
             photo.getDateCreated(),
             photo.getDateLastUpdate()};
         request.setAttribute("details", tab);
-
 
         return new ActionFlow("photos/details", false);
     }

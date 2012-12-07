@@ -8,7 +8,6 @@ import bean.AlbumBean;
 import bean.PhotoBean;
 import bean.RightBean;
 import bean.UserBean;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.servlet.http.HttpServletRequest;
@@ -65,8 +64,10 @@ public class AlbumCommand implements ICommand {
     }
 
     public ActionFlow mesAlbums(HttpServletRequest request) {
-
+        request.setAttribute(TITRE_PAGE, "Albums");
+        request.setAttribute(NOM_PAGE, "Liste de mes Albums");
         HttpSession session = request.getSession();
+
         UserBean user = (UserBean) session.getAttribute("user");
         if (user != null) {
             ArrayList<AlbumBean> albums = mapAlbum.getAllbyAttr("idUser", user.getIdUser());
@@ -82,8 +83,6 @@ public class AlbumCommand implements ICommand {
                         });
             }
             request.setAttribute("listAlbum", tab);
-            request.setAttribute(TITRE_PAGE, "Albums");
-            request.setAttribute(NOM_PAGE, "Liste de mes Albums");
             return new ActionFlow("albums/albums", false);
         } else {
             request.setAttribute(ErrorCommand.MESSAGE_ERROR, "Veuillez vous connecter pour voir vos albums.");

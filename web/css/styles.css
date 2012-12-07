@@ -62,6 +62,17 @@
     width:15%;
 }
 
+.partage{
+    width: 12%;
+}
+
+
+.partage img{
+    background: none;
+    width:  50%
+        
+}
+
 .formulaire input{
     width:90%;
 }

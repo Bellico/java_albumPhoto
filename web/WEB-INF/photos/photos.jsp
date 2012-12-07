@@ -15,7 +15,7 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>Images</th>
+                <th>Photo</th>
                 <th>Auteur</th>
                 <th>Album</th>
                 <th>Titre</th>
