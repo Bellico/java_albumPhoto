@@ -67,7 +67,7 @@
                 nextEffect	: 'none',
                 helpers	: {
                     title	: {
-                        type: 'outside'
+                        type: 'float'
                     },
                     thumbs	: {
                         width	: 50,

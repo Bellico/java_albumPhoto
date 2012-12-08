@@ -26,7 +26,7 @@
             </tr>
         </thead>
         <tbody>
-            <c:forEach items="${listImg}" var="img"  >
+            <c:forEach items="${listImg}" var="img">
                 <tr>
                     <td class="photocadre">
                         <a class="fancybox-thumb" rel="fancybox-thumb" href="<c:url value="/${img[0]}"/>" title="<c:out value="${img[3]}"/>">
@@ -42,7 +42,7 @@
                     <td class="options"> <p><a href="<c:url value="/photos/${img[7]}"/>"><button class="btn btn-small btn-primary" type="button">Voir Détails</button></a></p>
                     <c:if test="${!empty sessionScope.user && sessionScope.user.idUser==img[9]}">
                         <p> <a href="<c:url value="/albums/${album[4]}"/>"><button class="btn btn-small btn-inverse" type="button">Modifier</button></a> </p>
-                        <p> <a href="<c:url value="/albums/${album[4]}"/>"><button class="btn btn-small btn-danger" type="button">Supprimer</button></a> </p>
+                        <p> <a href="<c:url value="/supp/deletePhoto/${img[7]}"/>"><button class="btn btn-small btn-danger" type="button">Supprimer</button></a> </p>
                         </c:if>                   
                     </td>
                 </tr>
