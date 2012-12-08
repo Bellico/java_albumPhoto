@@ -44,6 +44,10 @@
         <servlet-name>CommandController</servlet-name>
         <url-pattern>/partage/*</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CommandController</servlet-name>
+        <url-pattern>/supp/*</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

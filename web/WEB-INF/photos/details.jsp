@@ -16,7 +16,7 @@
         <thead>
             <tr>
                   <td colspan="2" class="photocadre">
-                        <a class="fancybox-thumb" rel="fancybox-thumb" href="<c:url value="/${details[0]}"/>" title="<c:out value="${details[3]}"/>">
+                        <a id="single_1" class="fancybox-thumb" rel="fancybox-thumb" href="<c:url value="/${details[0]}"/>" title="<c:out value="${details[3]}"/>">
                             <img alt="" src="<c:url value="/${details[0]}"/>">
                         </a>
                     </td>
