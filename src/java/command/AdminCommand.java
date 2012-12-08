@@ -9,6 +9,7 @@ import bean.PhotoBean;
 import bean.RightBean;
 import bean.UserBean;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import tools.Tools;
@@ -21,45 +22,32 @@ public class AdminCommand implements ICommand {
     RightMap mapRight = new RightMap();
 
     @Override
-    public ActionFlow actionPerform(HttpServletRequest request, String[] UrlParams) {
-        UserBean user = (UserBean) mapUser.getbyAttr("login", "ADMIN");
-        if (user == null) {
-            user = new UserBean();
-            user.setName("ADMIN");
-            user.setFirstName("ADMIN");
-            user.setLogin("ADMIN");
-            user.setPassword(Tools.crypt("ADMIN", Tools.MD5, true));
-            mapUser.save(user);
-            user = (UserBean) mapUser.getbyAttr("login", "ADMIN");
-        }
+    public ActionFlow actionPerform(HttpServletRequest request, HashMap urlParams) {
+        UserBean user = creationAdmin();
         HttpSession session = request.getSession();
         session.setAttribute("admin", user);
-        session.setAttribute("user", user);
-
-        try {
-            if (UrlParams[1].equals("deleteUsers")) {
+        session.setAttribute(USERS_SESSION, user);
+        if (urlParams.get(1) != null) {
+            if (urlParams.get(1).equals("deleteUsers")) {
                 deletePhotos();
                 deleteRight();
                 deleteAlbums();
                 deleteUsers();
                 return new ActionFlow("utilisateurs", true);
             }
-            if (UrlParams[1].equals("deleteAlbums")) {
+            if (urlParams.get(1).equals("deleteAlbums")) {
                 deletePhotos();
                 deleteRight();
                 deleteAlbums();
                 return new ActionFlow("albums", true);
             }
-            if (UrlParams[1].equals("deletePhotos")) {
+            if (urlParams.get(1).equals("deletePhotos")) {
                 deletePhotos();
                 return new ActionFlow("photos", true);
             }
-            if (UrlParams[1].equals("deleteRight")) {
+            if (urlParams.get(1).equals("deleteRight")) {
                 deleteRight();
             }
-
-        } catch (IndexOutOfBoundsException ex) {
-            return new ActionFlow("index", true);
         }
         return new ActionFlow("index", true);
     }
@@ -90,5 +78,19 @@ public class AdminCommand implements ICommand {
         for (RightBean r : list) {
             mapRight.delete(r);
         }
+    }
+
+    public UserBean creationAdmin() {
+        UserBean user = (UserBean) mapUser.getbyAttr("login", "ADMIN");
+        if (user == null) {
+            user = new UserBean();
+            user.setName("ADMIN");
+            user.setFirstName("ADMIN");
+            user.setLogin("ADMIN");
+            user.setPassword(Tools.crypt("ADMIN", Tools.MD5, true));
+            mapUser.save(user);
+            user = (UserBean) mapUser.getbyAttr("login", "ADMIN");
+        }
+        return user;
     }
 }

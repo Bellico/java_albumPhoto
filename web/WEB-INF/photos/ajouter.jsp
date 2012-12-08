@@ -18,7 +18,7 @@
 
     <legend>Envoyer une nouvelle photo</legend>
 
-    <form class="form-horizontal" action="<c:url value="/upload/up"/>" method="post" enctype="multipart/form-data">
+    <form class="form-horizontal" action="<c:url value="/upload"/>" method="post" enctype="multipart/form-data">
 
         <div class="control-group">
             <label class="control-label">Titre de la photo : </label> 
@@ -36,10 +36,10 @@
                 <c:forEach items="${listAlbum}" var="al" >
                     <c:choose>
                         <c:when test="${form.getValue('album')==al.idAlbum}">
-                            <option selected="selected" value="${al.idAlbum}">${al.nameAlbum}</option>
+                            <option selected="selected" value="${al.idAlbum}"><c:out value="${al.nameAlbum}"/></option>
                         </c:when>
                         <c:otherwise>
-                            <option value="${al.idAlbum}">${al.nameAlbum}</option>
+                            <option value="${al.idAlbum}"><c:out value="${al.nameAlbum}"/></option>
                         </c:otherwise>  
                     </c:choose>
                 </c:forEach>

@@ -1,9 +1,19 @@
+body{
+    margin-top: 80px 
+}
 #formconnexion{
     text-align:right;
 }
 
 #titre{
     font-size:50px;
+}
+
+#banniere{
+    position: fixed;
+    left: 0;
+    right: 0;
+    top:0;
 }
 
 .well{
@@ -70,7 +80,7 @@
 .partage img{
     background: none;
     width:  50%
-        
+
 }
 
 .formulaire input{
@@ -118,6 +128,9 @@ tr:hover{
     width: 320px;
 }
 
+.tableright img{
+    margin: 0 25%
+}
 .tabdetails th{
     width: 30%
 }

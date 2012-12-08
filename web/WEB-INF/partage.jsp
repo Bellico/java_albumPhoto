@@ -30,24 +30,32 @@
         </thead>
     </table>
 
-    <span class="btn btn-${form.getResultType()}">${form.getResultMessage()}</span>
+    <span class="btn btn-${form.getResultType()}"><c:out value="${form.getResultMessage()}"/></span>
 
     <legend>Partager cet album avec d'autre personnes</legend>
 
     <form class="form-vertical" action="<c:url value="/partage/${album.idAlbum}"/>" method="post">
 
         <div class="control-group">
-            <label class="control-label">Saisissez le login de l'utilisateur : </label> 
-            <div class="controls">
-                <input name="name" type="text" />
-                <label class="control-label"> ou recherchez le dans la liste : </label> 
-                <select name="nameSelect" type="text" />
-                <option> </option>
-                <c:forEach items="${listUsers}" var="users"  > 
-                    <option value="${users.login}">${users.name} ${users.firstName}</option>
-                </c:forEach>
-                </select>
-            </div>
+            <c:choose>
+                <c:when test="${!empty param.modif}">
+                    <h5> Login de l'utilisateur : <c:out value="${param.modif}"/> </h5>  
+                    <input name="name" value="<c:out value="${param.modif}"/>" type="hidden" />
+                </c:when>
+                <c:otherwise>
+                    <label class="control-label">Saisissez le login de l'utilisateur : </label> 
+                    <div class="controls">
+                        <input name="name" type="text" />
+                        <label class="control-label"> ou recherchez le dans la liste : </label> 
+                        <select name="nameSelect" type="text" />
+                        <option> </option>
+                        <c:forEach items="${listUsers}" var="users"  > 
+                            <option value="<c:out value="${users.login}"/>"><c:out value="${users.name}"/>  <c:out value="${users.firstName}"/></option>
+                        </c:forEach>
+                        </select>
+                    </div>
+                </c:otherwise>  
+            </c:choose>
         </div>
 
         <div class="control-group">
@@ -57,13 +65,13 @@
                     <input type="checkbox"  checked="checked" disabled="disabled" name="read" value="read">Voir le contenu de l'album, même si celui-ci est privé
                 </label>
                 <label class="checkbox">
-                    <input type="checkbox" name="insert" value="insert">Insérer des images dans cet album
+                    <input type="checkbox" ${param.insert==1 ?  'checked="checked"' : "" } name="insert" value="insert">Insérer des images dans cet album
                 </label>
                 <label class="checkbox">
-                    <input type="checkbox" name="update" value="update">Modifier les informations de l'album et les images qu'il contient
+                    <input type="checkbox" ${param.update==1 ?  'checked="checked"' : "" } name="update" value="update">Modifier les informations de l'album et les images qu'il contient
                 </label>
                 <label class="checkbox">
-                    <input type="checkbox" name="delete" value="delete">Supprimer les images
+                    <input type="checkbox" ${param.delete==1 ?  'checked="checked"' : "" } name="delete" value="delete">Supprimer les images
                 </label>
             </div>
         </div>
@@ -78,7 +86,7 @@
 
     <legend>Actuellement, cet album partagé avec ces personnes</legend>
 
-    <table class="table table-bordered">
+    <table class="tableright table table-bordered">
         <thead>
             <tr>
                 <th>Nom</th>
@@ -97,12 +105,12 @@
                     <td class="partage"><c:out value="${col[0]}"/></td>
                     <td class="partage"><c:out value="${col[1]}"/></td>
                     <td class="partage"><c:out value="${col[2]}"/></td>
-                    <td class="partage"><img class="img-rounded" alt="" src="<c:url value="/img/${col[3]}.png"/>" /></td>
-                    <td class="partage"><img class="img-rounded" alt="" src="<c:url value="/img/${col[4]}.png"/>" /></td>
-                    <td class="partage"><img class="img-rounded" alt="" src="<c:url value="/img/${col[5]}.png"/>" /></td>
-                    <td class="partage"><img class="img-rounded" alt="" src="<c:url value="/img/${col[6]}.png"/>" /></td>
+                    <td class="partage"><img class="img-rounded" alt="" src="<c:url value="/img/"/>${col[3]=="1" ?  "validate" : "error" }.png" /></td>
+                    <td class="partage"><img class="img-rounded" alt="" src="<c:url value="/img/"/>${col[4]=="1" ?  "validate" : "error" }.png" /></td>
+                    <td class="partage"><img class="img-rounded" alt="" src="<c:url value="/img/"/>${col[5]=="1" ?  "validate" : "error" }.png" /></td>
+                    <td class="partage"><img class="img-rounded" alt="" src="<c:url value="/img/"/>${col[6]=="1" ?  "validate" : "error" }.png" /></td>
                     <td>
-                        <p> <button class="btn btn-small btn-inverse" type="button">Modifier ses droits</button></p>
+                        <p> <a href="<c:url value="/partage/${album.idAlbum}?modif=${col[2]}&insert=${col[4]}&update=${col[5]}&delete=${col[6]}"/>"><button class="btn btn-small btn-inverse" type="button">Modifier ses droits</button></a></p>
                         <p> <button class="btn btn-small btn-danger" type="button">Ne plus partager</button></p>
                     </td>
                 </tr>

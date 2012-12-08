@@ -16,11 +16,11 @@
         <thead>
             <tr>
                 <th>Titre</th>
-                <td><c:out value="${details[1]}"/></td>
+                <td><c:out value="${details[0]}"/></td>
             </tr>
             <tr>
-                <th>Utilisateur</th>
-                <td><c:out value="${details[0]}"/></td>
+                <th>Auteur</th>
+                <td><c:out value="${details[1]}"/></td>
             </tr>		  
             <tr>
                 <th>Description</th>
@@ -29,6 +29,10 @@
             <tr>
                 <th>Nombre de photos</th>
                 <td><c:out value="${details[3]}"/></td>
+            </tr> 
+            <tr>
+                <th>Statut</th>
+                <td><c:out value="${details[4]}"/></td>
             </tr> 
         </thead>
     </table>

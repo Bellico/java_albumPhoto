@@ -2,6 +2,7 @@ package command;
 
 import bdd.UserMap;
 import bean.UserBean;
+import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import model.ControlForm;
 import tools.Tools;
@@ -9,7 +10,7 @@ import tools.Tools;
 public class InscriptionCommand implements ICommand {
 
     @Override
-    public ActionFlow actionPerform(HttpServletRequest request, String[] UrlParams) {
+    public ActionFlow actionPerform(HttpServletRequest request, HashMap urlParams) {
         request.setAttribute(TITRE_PAGE, "Inscription");
         request.setAttribute(NOM_PAGE, "Inscrivez vous !");
         if (request.getMethod().equals("POST")) {

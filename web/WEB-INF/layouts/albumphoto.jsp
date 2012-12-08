@@ -13,7 +13,7 @@
         <title>${titlePage} | Album Photo</title>
     </head>
     <body>
-        <div class="well">
+        <div id="banniere" class="well">
             <div class="optAdmin">
                 <c:if test="${empty sessionScope.admin}">
                     <a href="<c:url value="/admin"/>"><button class="btn btn-warning">Devenir Admin</button> </a>

@@ -2,6 +2,7 @@ package command;
 
 import bdd.UserMap;
 import bean.UserBean;
+import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import model.ControlForm;
@@ -10,7 +11,7 @@ import tools.Tools;
 public class ConnexionCommand implements ICommand {
 
     @Override
-    public ActionFlow actionPerform(HttpServletRequest request, String[] UrlParams) {
+    public ActionFlow actionPerform(HttpServletRequest request, HashMap UrlParams) {
         request.setAttribute(TITRE_PAGE, "Accueil");
         request.setAttribute(NOM_PAGE, "Accueil");
 

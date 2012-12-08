@@ -18,12 +18,11 @@ public class ServletListener implements ServletContextListener {
         BDctx = new Database(sce.getServletContext());
         //Initialisation des commandes
         CommandManager.init();
-        Tools.appPath=sce.getServletContext().getRealPath("");
+        Tools.appPath = sce.getServletContext().getRealPath("");
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
         BDctx.close();
     }
-
 }

@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.jasypt.util.password.ConfigurablePasswordEncryptor;
@@ -84,13 +85,27 @@ public class Tools {
         return s.replaceFirst(".", (s.charAt(0) + "").toUpperCase());
     }
 
-    public static String[] parseUrl(String url) {
+    public static HashMap parseUrl(String url) {
         Pattern p = Pattern.compile("./(.*)");
         Matcher m = p.matcher(url);
         if ((m.find() && m.groupCount() == 1)) {
-            return m.group(1).split("/");
+            String[] tab = m.group(1).split("/");
+            HashMap<Integer, String> ht = new HashMap<Integer,String>();
+            for (int i = 0; i < tab.length; i++) {
+                ht.put(i, tab[i]);
+            }
+            return ht;
         } else {
             return null;
+        }
+    }
+
+    public static int toInteger(Object s) {
+        try {
+            int i = Integer.parseInt((String) s);
+            return i;
+        } catch (NumberFormatException ex) {
+            return -1;
         }
     }
 }

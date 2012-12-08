@@ -9,6 +9,7 @@ import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,22 +23,21 @@ public class UploadCommand implements ICommand {
     AlbumMap mapalbum = new AlbumMap();
 
     @Override
-    public ActionFlow actionPerform(HttpServletRequest request, String[] UrlParams) {
+    public ActionFlow actionPerform(HttpServletRequest request, HashMap urlParams) {
         request.setAttribute(TITRE_PAGE, "Upload");
         request.setAttribute(NOM_PAGE, "Nouvelle photo");
+
         HttpSession session = request.getSession();
         UserBean user = (UserBean) session.getAttribute("user");
         ArrayList<AlbumBean> list = mapalbum.getAllbyAttr("idUser", user.getIdUser());
         request.setAttribute("listAlbum", list);
-        try {
-            if (UrlParams[1].equals("up")) {
-                return upload(request);
-            } else {
-                return new ActionFlow("error", true);
-            }
-        } catch (IndexOutOfBoundsException ex) {
+
+        if (request.getMethod().equals("POST")) {
+            return upload(request);
+        } else {
             return new ActionFlow("photos/ajouter", false);
         }
+
     }
 
     synchronized public ActionFlow upload(HttpServletRequest request) {
@@ -50,7 +50,8 @@ public class UploadCommand implements ICommand {
             AlbumBean album = (AlbumBean) mapalbum.getbyId(Integer.parseInt(namealbum));
             if (album != null) {
                 namealbum = album.getNameAlbum();
-                String path = Tools.appPath + File.separator + FOLDER_ALBUM + namealbum;
+                String nameCrypt = Tools.crypt(namealbum, Tools.SHA1, true).replace("/", "").replace("=", "");
+                String path = Tools.appPath + File.separator + FOLDER_ALBUM + nameCrypt;
                 File f = new File(path);
                 f.mkdirs();
                 int state = up.uploadFile(request, path);

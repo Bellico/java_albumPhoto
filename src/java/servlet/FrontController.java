@@ -4,6 +4,7 @@ import command.ActionFlow;
 import command.ICommand;
 import command.CommandManager;
 import java.io.IOException;
+import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
@@ -21,14 +22,14 @@ public class FrontController extends HttpServlet {
             throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
-        String commandUrl = null;
-        ActionFlow flow;
+        ActionFlow flow = (ActionFlow) request.getAttribute("ACTIONFLOW");
+        HashMap<Integer, String> urlParams = Tools.parseUrl(request.getRequestURI());
+        String commandUrl = urlParams.get(0);
 
-        String[] urlParams = Tools.parseUrl(request.getRequestURI());
-        commandUrl = urlParams[0];
-
-        ICommand cmd = CommandManager.getCommand(commandUrl);
-        flow = (cmd == null) ? new ActionFlow("error", true) : cmd.actionPerform(request, urlParams);
+        if (flow == null) {
+            ICommand cmd = CommandManager.getCommand(commandUrl);
+            flow = (cmd == null) ? new ActionFlow("error", true) : cmd.actionPerform(request, urlParams);
+        }
         if (flow != null) {
             if (flow.isRedirect()) {
                 String ctx = getServletContext().getContextPath();

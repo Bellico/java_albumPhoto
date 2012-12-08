@@ -65,7 +65,7 @@ public class Upload {
                     content = part.getInputStream();
                 }
                 try {
-                    fileName = Tools.crypt(fileName, Tools.SHA1, false).replace("/", "")+"."+extension;
+                    fileName = Tools.crypt(fileName, Tools.SHA1, false).replace("/", "").replace("=","") +"."+extension;
                     writeFile(content, fileName, path);
                 } catch (Exception ex) {
                     state = 4;

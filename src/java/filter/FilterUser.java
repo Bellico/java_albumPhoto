@@ -1,5 +1,6 @@
 package filter;
 
+import command.ICommand;
 import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -9,11 +10,11 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import tools.Tools;
 
-@WebFilter(filterName = "filterUser", urlPatterns = {"/photos"})
-public class FilterUser implements Filter {
+@WebFilter(filterName = "filterUser", urlPatterns = {"/albums/nouveau", "/upload"})
+public class FilterUser extends FilterFunctions implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) {
@@ -25,14 +26,19 @@ public class FilterUser implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response,
+    public void doFilter(ServletRequest req, ServletResponse res,
             FilterChain chain)
             throws IOException, ServletException {
-        
-        HttpServletRequest req = (HttpServletRequest) request;
-        HttpSession session = req.getSession();
-        String []urlParams = Tools.parseUrl(req.getRequestURI());
-        
-        chain.doFilter(request, response);
+
+        HttpServletRequest request = (HttpServletRequest) req;
+        HttpServletResponse response = (HttpServletResponse) res;
+        HttpSession session = request.getSession();
+        //HashMap<Integer, String> urlParams = Tools.parseUrl(request.getRequestURI());
+
+        if (isConnect(session) == null) {
+            response.sendRedirect("/AlbumPhoto/" + ICommand.PAGE_ERROR);
+        } else {
+            chain.doFilter(request, response);
+        }
     }
 }
