@@ -90,7 +90,7 @@ public class Tools {
         Matcher m = p.matcher(url);
         if ((m.find() && m.groupCount() == 1)) {
             String[] tab = m.group(1).split("/");
-            HashMap<Integer, String> ht = new HashMap<Integer,String>();
+            HashMap<Integer, String> ht = new HashMap<Integer, String>();
             for (int i = 0; i < tab.length; i++) {
                 ht.put(i, tab[i]);
             }

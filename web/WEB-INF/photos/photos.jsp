@@ -42,7 +42,7 @@
                     <td class="options"> <p><a href="<c:url value="/photos/${img[7]}"/>"><button class="btn btn-small btn-primary" type="button">Voir Détails</button></a></p>
                     <c:if test="${!empty sessionScope.user && sessionScope.user.idUser==img[9]}">
                         <p> <a href="<c:url value="/albums/${album[4]}"/>"><button class="btn btn-small btn-inverse" type="button">Modifier</button></a> </p>
-                        <p> <a href="<c:url value="/supp/deletePhoto/${img[7]}"/>"><button class="btn btn-small btn-danger" type="button">Supprimer</button></a> </p>
+                        <p> <a href="<c:url value="/supp/photo/${img[7]}"/>"><button class="btn btn-small btn-danger" type="button">Supprimer</button></a> </p>
                         </c:if>                   
                     </td>
                 </tr>

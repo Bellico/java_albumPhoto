@@ -34,7 +34,7 @@ public class InscriptionCommand implements ICommand {
                 user = new UserBean();
                 user.setName(nom);
                 user.setFirstName(prenom);
-                user.setLogin(login);
+                user.setLogin(login.toLowerCase());
                 user.setPassword(Tools.crypt(pass, Tools.MD5, true));
                 if (map.save(user) == 1) {
                     form.clean();

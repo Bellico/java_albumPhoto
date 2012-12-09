@@ -32,8 +32,13 @@ public class FrontController extends HttpServlet {
         }
         if (flow != null) {
             if (flow.isRedirect()) {
-                String ctx = getServletContext().getContextPath();
-                response.sendRedirect(ctx + "/" + flow.getPath());
+                if (flow.getPath().startsWith("http:")) {
+                    response.sendRedirect(flow.getPath());
+                } else {
+                    String ctx = getServletContext().getContextPath();
+                    response.sendRedirect(ctx + "/" + flow.getPath());
+                }
+
             } else {
                 request.setAttribute("view", flow.getPath() + ".jsp");
                 getServletContext().getRequestDispatcher(TEMPLATE_SERVLET).forward(request, response);

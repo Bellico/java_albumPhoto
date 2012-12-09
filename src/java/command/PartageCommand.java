@@ -18,21 +18,28 @@ public class PartageCommand implements ICommand {
     private AlbumMap mapAlbum = new AlbumMap();
     private UserMap mapUser = new UserMap();
     private RightMap mapRight = new RightMap();
-    UserBean UserSession = null;
+    UserBean userSession = null;
 
     @Override
     public ActionFlow actionPerform(HttpServletRequest request, HashMap urlParams) {
         HttpSession session = request.getSession();
-        UserSession = (UserBean) session.getAttribute("user");
+        userSession = (UserBean) session.getAttribute("user");
+
         int numalbum = Tools.toInteger(urlParams.get(1));
         if (numalbum >= 0) {
             return partage(request, numalbum);
         }
-        return null;
+
+        return listePartage(request);
     }
 
     synchronized public ActionFlow partage(HttpServletRequest request, int numalbum) {
         AlbumBean album = (AlbumBean) mapAlbum.getbyId(numalbum);
+
+        int iduser = Tools.toInteger(request.getParameter("supp"));
+        if (iduser >= 0) {
+            album.removeUser((UserBean) mapUser.getbyId(iduser));
+        }
 
         if (request.getMethod().equals("POST")) {
             ControlForm form = new ControlForm(request);
@@ -41,10 +48,10 @@ public class PartageCommand implements ICommand {
                 name = request.getParameter("nameSelect");
             }
             if (!name.equals("")) {
-               UserBean user = (UserBean) mapUser.getbyAttr("login", name);
+                UserBean user = (UserBean) mapUser.getbyAttr("login", name.toLowerCase());
                 if (user == null) {
                     form.setResult(ControlForm.RES_ERROR, "L'utilisateur '" + name + "' est inconnu.");
-                } else if (user.getIdUser() == UserSession.getIdUser()) {
+                } else if (user.getIdUser() == userSession.getIdUser()) {
                     form.setResult(ControlForm.RES_ERROR, "Vous ne pouvez pas partager un album avec vous même.");
                 } else {
                     boolean read = true;
@@ -71,7 +78,8 @@ public class PartageCommand implements ICommand {
                         (r.isLire()) ? "1" : "0",
                         (r.isInserer()) ? "1" : "0",
                         (r.isModifier()) ? "1" : "0",
-                        (r.isSupprimer()) ? "1" : "0"
+                        (r.isSupprimer()) ? "1" : "0",
+                        Integer.toString(r.getIdUser())
                     });
         }
 
@@ -82,5 +90,30 @@ public class PartageCommand implements ICommand {
         request.setAttribute("listUsers", listUsers);
         request.setAttribute("collaborateurs", collaborateurs);
         return new ActionFlow("partage", false);
+    }
+
+    public ActionFlow listePartage(HttpServletRequest request) {
+        ArrayList<RightBean> listright = mapRight.getAllbyAttr("idUser", userSession.getIdUser());
+        ArrayList<String[]> tab = new ArrayList<String[]>();
+        for (RightBean r : listright) {
+            AlbumBean al = (AlbumBean) mapAlbum.getbyAttr("idAlbum", r.getIdAlbum());
+            UserBean user = (UserBean) mapUser.getbyId(al.getIdUser());
+            tab.add(new String[]{
+                        al.getNameAlbum(),
+                        userSession.getName() + " " + userSession.getFirstName(),
+                        al.getDescr(),
+                        Integer.toString(al.getNbPhoto()),
+                        Integer.toString(al.getIdAlbum()),
+                        Integer.toString(al.getIdUser()),
+                        (r.isModifier()) ? "1" : "0",
+                        (r.isSupprimer()) ? "1" : "0"
+                    });
+        }
+
+        request.setAttribute("listAlbum", tab);
+        request.setAttribute(TITRE_PAGE, "Albums partagés");
+        request.setAttribute(NOM_PAGE, "Albums partagés");
+        return new ActionFlow("albums/albums", false);
+
     }
 }

@@ -87,7 +87,9 @@ public class UploadCommand implements ICommand {
                         "Veuillez selectionner une photo à uploader.",
                         "Votre image doit faire 10Mo maximum.",
                         "L'upload ne s'est pas terminé correctement, une erreur serveur s'est produite.",
-                        "L'upload ne s'est pas terminé correctement, une erreur serveur s'est produite."};
+                        "L'upload ne s'est pas terminé correctement, une erreur serveur s'est produite.",
+                        "Votre fichier n'est pas une image."
+                    };
                     form.setResult(ControlForm.RES_ERROR, errorUpload[state - 1]);
                 }
             } else {

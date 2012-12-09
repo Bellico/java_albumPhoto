@@ -2,7 +2,6 @@ package filter;
 
 import bdd.RightMap;
 import bean.AlbumBean;
-import bean.PhotoBean;
 import bean.RightBean;
 import bean.UserBean;
 import java.io.IOException;
@@ -19,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import tools.Tools;
 
-@WebFilter(filterName = "albumFilter", urlPatterns = {"/albums/*", "/partage/*"})
+@WebFilter(filterName = "albumFilter", urlPatterns = {"/albums/*"})
 public class AlbumFilter extends FilterFunctions implements Filter {
 
     @Override
@@ -56,14 +55,10 @@ public class AlbumFilter extends FilterFunctions implements Filter {
                             if (userSession == null) {
                                 sendError(request, "Cet album est privé. Veuillez vous connecter pour le visualiser.");
                             } else if (userSession.getIdUser() != album.getIdUser()) {
-                                if (urlParams.get(0).equals("albums")) {
-                                    RightMap mapRight = new RightMap();
-                                    RightBean right = mapRight.get(userSession.getIdUser(), album.getIdAlbum());
-                                    if (right == null) {
-                                        sendError(request, "Cet album est privé. Vous n'avez aucun droit sur celui-ci.");
-                                    }
-                                } else {
-                                    sendError(request, "Vous n'avez aucun droit sur cet album.");
+                                RightMap mapRight = new RightMap();
+                                RightBean right = mapRight.get(userSession.getIdUser(), album.getIdAlbum());
+                                if (right == null) {
+                                    sendError(request, "Cet album est privé. Vous n'avez aucun droit sur celui-ci.");
                                 }
                             }
                         }

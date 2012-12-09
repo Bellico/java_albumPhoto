@@ -13,12 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter(filterName = "filterUser", urlPatterns = {"/albums/nouveau", "/upload"})
-public class FilterUser extends FilterFunctions implements Filter {
+@WebFilter(filterName = "userFilter", urlPatterns = {"/albums/nouveau", "/upload/*"})
+public class UserFilter extends FilterFunctions implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) {
-
     }
 
     @Override

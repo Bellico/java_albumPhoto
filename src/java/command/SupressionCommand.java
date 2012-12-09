@@ -6,6 +6,7 @@ import bdd.RightMap;
 import bdd.UserMap;
 import bean.AlbumBean;
 import bean.PhotoBean;
+import bean.RightBean;
 import bean.UserBean;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,47 +26,42 @@ public class SupressionCommand implements ICommand {
     public ActionFlow actionPerform(HttpServletRequest request, HashMap urlParams) {
         HttpSession session = request.getSession();
         userSession = (UserBean) session.getAttribute(USERS_SESSION);
-        if (urlParams.get(1) != null) {
-            if (urlParams.get(1).equals("deletePhoto")) {
+        if (urlParams.get(1) != null && urlParams.get(2) != null) {
+            if (urlParams.get(1).equals("photo")) {
                 int numphoto = Tools.toInteger(urlParams.get(2));
                 if (numphoto >= 0) {
-                    return PhotoDelete(request, numphoto);
+                    return deletePhoto(request, numphoto);
                 }
             }
-            if (urlParams.get(1).equals("deleteAlbum")) {
+            if (urlParams.get(1).equals("album")) {
                 int numalbum = Tools.toInteger(urlParams.get(2));
                 if (numalbum >= 0) {
-                    return AlbumDelete(request, numalbum);
+                    return deleteAlbum(request, numalbum);
                 }
             }
         }
-        return new ActionFlow("index", true);
+        return new ActionFlow("error", true);
     }
 
-    public ActionFlow PhotoDelete(HttpServletRequest request, int numphoto) {
-
-        PhotoBean photo = (PhotoBean) mapPhoto.getbyId(numphoto);
-
+    public ActionFlow deletePhoto(HttpServletRequest request, int num) {
+        PhotoBean photo = (PhotoBean) mapPhoto.getbyId(num);
         mapPhoto.delete(photo);
-
-
-        return new ActionFlow("index", false);
+        return new ActionFlow(request.getHeader("referer"), true);
     }
 
-    public ActionFlow AlbumDelete(HttpServletRequest request, int albumnum) {
-
-
-        AlbumBean album = (AlbumBean) mapAlbum.getbyId(albumnum);
-        UserBean user = (UserBean) mapUser.getbyAttr("idUser", album.getIdUser());
-        ArrayList<PhotoBean> photos = mapPhoto.getAllbyAttr("idAlbum", album.getIdAlbum());
-        for (PhotoBean ph : photos) {
-            mapPhoto.delete(ph);
+    public ActionFlow deleteAlbum(HttpServletRequest request, int num) {
+        AlbumBean album = (AlbumBean) mapAlbum.getbyId(num);
+        if (album != null) {
+            ArrayList<RightBean> right = mapRight.getAllbyAttr("idAlbum", album.getIdAlbum());
+            for (RightBean r : right) {
+                mapRight.delete(r);
+            }
+            ArrayList<PhotoBean> photos = mapPhoto.getAllbyAttr("idAlbum", album.getIdAlbum());
+            for (PhotoBean ph : photos) {
+                mapPhoto.delete(ph);
+            }
+            mapAlbum.delete(album);
         }
-
-
-        mapAlbum.delete(album);
-
-
-        return new ActionFlow("index", false);
+        return new ActionFlow(request.getHeader("referer"), true);
     }
 }

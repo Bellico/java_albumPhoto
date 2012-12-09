@@ -10,9 +10,9 @@ import javax.servlet.http.Part;
 import tools.Tools;
 
 /**
- * Permet d'uploader un fichier 
- * Utilisation de la librairie : http://commons.apache.org/fileupload/
- * Inspiré de : http://www.siteduzero.com/tutoriel-3-682903-integration-dans-mvc.html
+ * Permet d'uploader un fichier Utilisation de la librairie :
+ * http://commons.apache.org/fileupload/ Inspiré de :
+ * http://www.siteduzero.com/tutoriel-3-682903-integration-dans-mvc.html
  */
 public class Upload {
 
@@ -24,7 +24,8 @@ public class Upload {
     /**
      * Constructeur
      *
-     * @param formFiel : Nom du champs du formulaire permettant de charger un fichier
+     * @param formFiel : Nom du champs du formulaire permettant de charger un
+     * fichier
      * @param etx : extensions acceptées pour l'upload
      */
     public Upload(String formFiel, String[] etx) {
@@ -35,8 +36,8 @@ public class Upload {
     public String getFileName() {
         return fileName;
     }
-    
-    /**
+
+/**
      * Récupere le fichier binaire dans la requete , et l'enregistre
      *
      * @param request
@@ -47,6 +48,7 @@ public class Upload {
      *      2 : Le taille du fichier est supérieure à celle attendue 
      *      3 : Erreur coté serveur 
      *      4 : Erreur au niveau de l'écriture
+     *      5 : Le fichier n'est pas du type attendu
      */
     public int uploadFile(HttpServletRequest request, String path) {
         int state = 0;
@@ -56,20 +58,24 @@ public class Upload {
             fileName = getNameFromHeader(part);
             if (fileName != null && !fileName.isEmpty()) {
                 fileName = fileName.substring(fileName.lastIndexOf('/') + 1).substring(fileName.lastIndexOf('\\') + 1);
-                 String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
+                String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
                 if (ext != null) {
-                    if (Tools.in_Array(extension, ext)) {
+                    if (Tools.in_Array(extension.toLowerCase(), ext)) {
                         content = part.getInputStream();
+                    } else {
+                        state = 5;
                     }
                 } else {
                     content = part.getInputStream();
                 }
-                try {
-                    fileName = Tools.crypt(fileName, Tools.SHA1, false).replace("/", "").replace("=","") +"."+extension;
-                    writeFile(content, fileName, path);
-                } catch (Exception ex) {
-                    state = 4;
-                    System.out.println("[ Erreur Upload Ecriture Fichier ] : " + ex.getMessage());
+                if (state == 0) {
+                    try {
+                        fileName = Tools.crypt(fileName, Tools.SHA1, false).replace("/", "").replace("=", "") + "." + extension;
+                        writeFile(content, fileName, path);
+                    } catch (Exception ex) {
+                        state = 4;
+                        System.out.println("[ Erreur Upload Ecriture Fichier ] : " + ex.getMessage());
+                    }
                 }
                 //Aucun fichier sélectionnée
             } else {
@@ -82,7 +88,7 @@ public class Upload {
         } catch (Exception ex) {
             state = 3;
             System.out.println("[ Erreur Serveur Upload Fichier ] : " + ex.getMessage());
-        } 
+        }
         return state;
     }
 

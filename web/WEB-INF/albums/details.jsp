@@ -68,9 +68,15 @@
                     <td class="dateajout"><c:out value="${img[6]}"/> </td>
                     <td class="options">
                         <p> <a href="<c:url value="/photos/${img[7]}"/>"><button class="btn btn-small btn-primary" type="button">Voir Détails</button></a> </p>
-                        <c:if test="${!empty sessionScope.user && sessionScope.user.idUser==details[4]}">
+                        <c:if test="${sessionScope.user.idUser==details[5]}">
                             <p> <a href="<c:url value="/photos/${img[7]}"/>"><button class="btn btn-small btn-inverse" type="button">Modifier</button></a> </p>
-                            <p> <a href="<c:url value="/photos/${img[7]}"/>"><button class="btn btn-small btn-danger" type="button">Supprimer</button></a> </p>
+                            <p> <a href="<c:url value="/supp/photo/${img[7]}"/>"><button class="btn btn-small btn-danger" type="button">Supprimer</button></a> </p>
+                        </c:if>
+                        <c:if test="${img[8]=='1'}">
+                            <p> <a href="<c:url value="/photos/${img[7]}"/>"><button class="btn btn-small btn-inverse" type="button">Modifier</button></a> </p>
+                        </c:if>
+                        <c:if test="${img[9]=='1'}">
+                            <p> <a href="<c:url value="/supp/photo/${img[7]}"/>"><button class="btn btn-small btn-danger" type="button">Supprimer</button></a> </p>
                         </c:if>
                     </td>
                 </tr>

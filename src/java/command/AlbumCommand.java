@@ -95,22 +95,23 @@ public class AlbumCommand implements ICommand {
             (album.getIdStatut() == 0) ? "Public" : "Privé",
             Integer.toString(album.getIdUser())};
 
-        ArrayList<AlbumBean> albumpublic = mapAlbum.getAllbyAttr("idalbum", album.getIdAlbum());
         ArrayList<String[]> tab2 = new ArrayList<String[]>();
-        for (AlbumBean al : albumpublic) {
-            ArrayList<PhotoBean> photos = mapPhoto.getAllbyAttr("IDALBUM", al.getIdAlbum());
-            String albumCrypt = Tools.crypt(al.getNameAlbum(), Tools.SHA1, true).replace("/", "").replace("=", "");
-            for (PhotoBean ph : photos) {
-                tab2.add(new String[]{
-                            UploadCommand.FOLDER_ALBUM + albumCrypt + "/" + ph.getImg(),
-                            user.getName() + " " + user.getFirstName(),
-                            al.getNameAlbum(),
-                            ph.getTitle(),
-                            ph.getDescr(),
-                            ph.getDateCreated(),
-                            ph.getDateLastUpdate(),
-                            Integer.toString(ph.getIdPhoto()),});
-            }
+        ArrayList<PhotoBean> photos = mapPhoto.getAllbyAttr("idalbum", album.getIdAlbum());
+        String albumCrypt = Tools.crypt(album.getNameAlbum(), Tools.SHA1, true).replace("/", "").replace("=", "");
+        RightBean right = mapRight.get(userSession.getIdUser(), album.getIdAlbum());
+        for (PhotoBean ph : photos) {
+            tab2.add(new String[]{
+                        UploadCommand.FOLDER_ALBUM + albumCrypt + "/" + ph.getImg(),
+                        user.getName() + " " + user.getFirstName(),
+                        album.getNameAlbum(),
+                        ph.getTitle(),
+                        ph.getDescr(),
+                        ph.getDateCreated(),
+                        ph.getDateLastUpdate(),
+                        Integer.toString(ph.getIdPhoto()),
+                        (right != null && right.isModifier()) ? "1" : "0",
+                        (right != null && right.isSupprimer()) ? "1" : "0"
+                    });
         }
 
         request.setAttribute("details", tab);
@@ -121,6 +122,8 @@ public class AlbumCommand implements ICommand {
     }
 
     synchronized public ActionFlow ajoutAlbum(HttpServletRequest request) {
+        request.setAttribute(TITRE_PAGE, "Albums");
+        request.setAttribute(NOM_PAGE, "Creer un Album");
         if (request.getMethod().equals("GET")) {
             return new ActionFlow("albums/ajouter", false);
         }
@@ -150,8 +153,6 @@ public class AlbumCommand implements ICommand {
         }
         form.close();
 
-        request.setAttribute(TITRE_PAGE, "Albums");
-        request.setAttribute(NOM_PAGE, "Creer un Album");
         return new ActionFlow("albums/ajouter", false);
     }
 

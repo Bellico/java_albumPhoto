@@ -21,10 +21,11 @@
             <c:forEach items="${listImg}"  begin="0"  end="4" var="img"  >
                 <div class="item"><img class="imagecaro" alt="" src="<c:url value="/${img[0]}"/>">
                     <div class="carousel-caption">
-                        <h4><c:out value="${img[3]}"/></h4>
-                        <p><c:out value="${img[4]}"/></p>
-                    </div></div>
-                </c:forEach>
+                        <h4><c:out value="${img[1]}"/></h4>
+                        <p><c:out value="${img[2]}"/></p>
+                    </div>
+                </div>
+            </c:forEach>
         </div>
         <!-- Carousel nav -->
         <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
@@ -35,6 +36,6 @@
 <script type="text/javascript" src="<c:url value="/js/jquery.js"/>"></script>
 <script type="text/javascript" src="<c:url value="/js/bootstrap.js"/>"></script>
 <script type="text/javascript" src="<c:url value="/js/bootstrap.min.js"/>"></script>
-<script>$('.carousel').carousel()</script>
+<script>$('.carousel').carousel({width:1000})</script>
 
 

@@ -50,7 +50,7 @@
                         <select name="nameSelect" type="text" />
                         <option> </option>
                         <c:forEach items="${listUsers}" var="users"  > 
-                            <option value="<c:out value="${users.login}"/>"><c:out value="${users.name}"/>  <c:out value="${users.firstName}"/></option>
+                            <option value="<c:out value="${users.login}"/>"><c:out value="${users.name}"/>  <c:out value="${users.firstName}"/>  (<c:out value="${users.login}"/>)</option>
                         </c:forEach>
                         </select>
                     </div>
@@ -111,7 +111,7 @@
                     <td class="partage"><img class="img-rounded" alt="" src="<c:url value="/img/"/>${col[6]=="1" ?  "validate" : "error" }.png" /></td>
                     <td>
                         <p> <a href="<c:url value="/partage/${album.idAlbum}?modif=${col[2]}&insert=${col[4]}&update=${col[5]}&delete=${col[6]}"/>"><button class="btn btn-small btn-inverse" type="button">Modifier ses droits</button></a></p>
-                        <p> <button class="btn btn-small btn-danger" type="button">Ne plus partager</button></p>
+                        <p> <a href="<c:url value="/partage/${album.idAlbum}?supp=${col[7]}"/>"><button class="btn btn-small btn-danger" type="button">Ne plus partager</button></a></p>
                     </td>
                 </tr>
             </c:forEach>
