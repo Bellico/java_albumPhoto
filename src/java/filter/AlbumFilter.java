@@ -45,25 +45,29 @@ public class AlbumFilter extends FilterFunctions implements Filter {
                     sendError(request, "Veuillez vous connecter pour voir vos albums.");
                 }
             } else {
+
                 int numalbum = Tools.toInteger(urlParams.get(1));
                 if (numalbum >= 0) {
                     AlbumBean album = getAlbum(numalbum);
                     if (album == null) {
                         sendError(request, "Cette album n'existe pas.");
                     } else {
-                        if (album.getIdStatut() != 0) {
-                            if (userSession == null) {
-                                sendError(request, "Cet album est privé. Veuillez vous connecter pour le visualiser.");
-                            } else if (userSession.getIdUser() != album.getIdUser()) {
-                                RightMap mapRight = new RightMap();
-                                RightBean right = mapRight.get(userSession.getIdUser(), album.getIdAlbum());
-                                if (right == null) {
-                                    sendError(request, "Cet album est privé. Vous n'avez aucun droit sur celui-ci.");
+                        if (isAdmin(session) == null) {
+                            if (album.getIdStatut() != 0) {
+                                if (userSession == null) {
+                                    sendError(request, "Cet album est privé. Veuillez vous connecter pour le visualiser.");
+                                } else if (userSession.getIdUser() != album.getIdUser()) {
+                                    RightMap mapRight = new RightMap();
+                                    RightBean right = mapRight.get(userSession.getIdUser(), album.getIdAlbum());
+                                    if (right == null) {
+                                        sendError(request, "Cet album est privé. Vous n'avez aucun droit sur celui-ci.");
+                                    }
                                 }
                             }
                         }
                     }
                 }
+
             }
         }
         chain.doFilter(request, response);

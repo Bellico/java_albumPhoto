@@ -30,23 +30,17 @@
         </thead>
         <tbody>
             <c:forEach items="${listAlbum}" var="album">
-                <tr>
-                    <td> <c:out value="${album[0]}"/></td> 
-                    <td><c:out value="${album[1]}"/></td> 
-                    <td><c:out value="${album[2]}"/></td> 
-                    <td><c:out value="${album[3]}"/></td>
+                <tr class="${album.albumStatut}">
+                    <td> <c:out value="${album.nameAlbum}"/></td> 
+                    <td><c:out value="${album.userName}"/></td> 
+                    <td><c:out value="${album.albumDescr}"/></td> 
+                    <td><c:out value="${album.nbPhoto}"/></td>
                     <td class="options"> 
-                        <p> <a href="<c:url value="/albums/${album[4]}"/>"><button class="btn btn-small btn-primary" type="button">Voir Détails</button></a> </p>
-                        <c:if test="${sessionScope.user.idUser==album[5]}">
-                            <p> <a href="<c:url value="/partage/${album[4]}"/>"><button class="btn btn-small btn-inverse" type="button">Partager</button></a> </p>
-                            <p> <a href="<c:url value="/albums/${album[4]}"/>"><button class="btn btn-small btn-inverse" type="button">Modifier</button></a> </p>
-                            <p> <a href="<c:url value="/supp/album/${album[4]}"/>"><button class="btn btn-small btn-danger" type="button">Supprimer</button></a> </p>
-                        </c:if>
-                        <c:if test="${album[6]=='1'}">
-                            <p> <a href="<c:url value="/albums/${album[4]}"/>"><button class="btn btn-small btn-inverse" type="button">Modifier</button></a> </p>
-                        </c:if>                      
-                        <c:if test="${album[7]=='1'}">
-                            <p> <a href="<c:url value="/supp/album/${album[4]}"/>"><button class="btn btn-small btn-danger" type="button">Supprimer</button></a> </p>
+                        <p> <a href="<c:url value="/albums/${album.idAlbum}"/>"><button class="btn btn-small btn-primary" type="button">Voir Détails</button></a> </p>
+                        <c:if test="${!empty sessionScope.admin ||(!empty sessionScope.user && sessionScope.user.idUser==album.idUser)}">
+                            <p> <a href="<c:url value="/partage/${album.idAlbum}"/>"><button class="btn btn-small btn-inverse" type="button">Partager</button></a> </p>
+                            <p> <a href="<c:url value="/albums/${album.idAlbum}"/>"><button class="btn btn-small btn-inverse" type="button">Modifier</button></a> </p>
+                            <p> <a href="<c:url value="/supp/album/${album.idAlbum}"/>"><button class="btn btn-small btn-danger" type="button">Supprimer</button></a> </p>
                         </c:if>
                     </td>
                 </tr>

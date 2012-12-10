@@ -8,6 +8,7 @@ import bean.AlbumBean;
 import bean.PhotoBean;
 import bean.RightBean;
 import bean.UserBean;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
@@ -45,23 +46,45 @@ public class SupressionCommand implements ICommand {
 
     public ActionFlow deletePhoto(HttpServletRequest request, int num) {
         PhotoBean photo = (PhotoBean) mapPhoto.getbyId(num);
-        mapPhoto.delete(photo);
-        return new ActionFlow(request.getHeader("referer"), true);
+        if (photo != null) {
+            AlbumBean album = (AlbumBean) mapAlbum.getbyId(photo.getIdAlbum());
+            String nameCrypt = Tools.crypt(album.getNameAlbum(), Tools.SHA1, true).replace("/", "").replace("=", "");
+            String path = Tools.appPath + File.separator + UploadCommand.FOLDER_ALBUM + nameCrypt;
+            File f = new File(path + File.separator + photo.getImg());
+            mapPhoto.delete(photo);
+            f.delete();
+
+            String redirect = request.getHeader("referer");
+            return (redirect != null) ? new ActionFlow(request.getHeader("referer"), true) : new ActionFlow("photos/mesPhotos", true);
+        }
+        return new ActionFlow(PAGE_ERROR, true);
     }
 
     public ActionFlow deleteAlbum(HttpServletRequest request, int num) {
         AlbumBean album = (AlbumBean) mapAlbum.getbyId(num);
         if (album != null) {
+            String nameCrypt = Tools.crypt(album.getNameAlbum(), Tools.SHA1, true).replace("/", "").replace("=", "");
+            String path;
+            File f;
             ArrayList<RightBean> right = mapRight.getAllbyAttr("idAlbum", album.getIdAlbum());
             for (RightBean r : right) {
                 mapRight.delete(r);
             }
             ArrayList<PhotoBean> photos = mapPhoto.getAllbyAttr("idAlbum", album.getIdAlbum());
             for (PhotoBean ph : photos) {
+                path = Tools.appPath + File.separator + UploadCommand.FOLDER_ALBUM + nameCrypt;
+                f = new File(path + File.separator + ph.getImg());
                 mapPhoto.delete(ph);
+                f.delete();
             }
+            path = Tools.appPath + File.separator + UploadCommand.FOLDER_ALBUM + nameCrypt;
+            f = new File(path);
             mapAlbum.delete(album);
+            f.delete();
+
+            String redirect = request.getHeader("referer");
+            return (redirect != null) ? new ActionFlow(request.getHeader("referer"), true) : new ActionFlow("albums/mesAlbums", true);
         }
-        return new ActionFlow(request.getHeader("referer"), true);
+        return new ActionFlow(PAGE_ERROR, true);
     }
 }

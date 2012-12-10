@@ -16,23 +16,23 @@
         <thead>
             <tr>
                 <th>Titre</th>
-                <td><c:out value="${details[0]}"/></td>
+                <td><c:out value="${details.nameAlbum}"/></td>
             </tr>
             <tr>
                 <th>Auteur</th>
-                <td><c:out value="${details[1]}"/></td>
+                <td><c:out value="${details.userName}"/></td>
             </tr>		  
             <tr>
                 <th>Description</th>
-                <td><c:out value="${details[2]}"/></td>
+                <td><c:out value="${details.albumDescr}"/></td>
             </tr>
             <tr>
                 <th>Nombre de photos</th>
-                <td><c:out value="${details[3]}"/></td>
+                <td><c:out value="${details.nbPhoto}"/></td>
             </tr> 
             <tr>
                 <th>Statut</th>
-                <td><c:out value="${details[4]}"/></td>
+                <td><c:out value="${details.albumStatut}"/></td>
             </tr> 
         </thead>
     </table>
@@ -43,7 +43,7 @@
         <thead>
             <tr>
                 <th>Photo</th>
-                <th>Utilisateur</th>
+                <th>Auteur</th>
                 <th>Album</th>
                 <th>Titre</th>
                 <th>Description</th>
@@ -56,27 +56,27 @@
             <c:forEach items="${listImg}" var="img"  >
                 <tr>
                     <td class="photocadre">
-                        <a class="fancybox-thumb" rel="fancybox-thumb" href="<c:url value="/${img[0]}"/>" title="<c:out value="${img[3]}"/>">
-                            <img class="img-rounded" alt="" src="<c:url value="/${img[0]}"/>">
+                        <a class="fancybox-thumb" rel="fancybox-thumb" href="<c:url value="/${img.url}"/>" title="<c:out value="${img.titlePhoto}"/>">
+                            <img class="img-rounded" alt="" src="<c:url value="/${img.url}"/>">
                         </a>
                     </td>
-                    <td class="utilisateurs"><c:out value="${img[1]}"/></td>
-                    <td class="titrealbum"><c:out value="${img[2]}"/></td>
-                    <td class="titrealbum"><c:out value="${img[3]}"/></td>
-                    <td class="description"><c:out value="${img[4]}"/></td>
-                    <td class="dateajout"><c:out value="${img[5]}"/> </td>
-                    <td class="dateajout"><c:out value="${img[6]}"/> </td>
+                    <td class="utilisateurs"><c:out value="${img.userName}"/></td>
+                    <td class="titrealbum"><c:out value="${img.nameAlbum}"/></td>
+                    <td class="titrealbum"><c:out value="${img.titlePhoto}"/></td>
+                    <td class="description"><c:out value="${img.PhotoDescr}"/></td>
+                    <td class="dateajout"><c:out value="${img.PhotoDateCreated}"/> </td>
+                    <td class="dateajout"><c:out value="${img.PhotoLastUp}"/> </td>
                     <td class="options">
-                        <p> <a href="<c:url value="/photos/${img[7]}"/>"><button class="btn btn-small btn-primary" type="button">Voir Détails</button></a> </p>
-                        <c:if test="${sessionScope.user.idUser==details[5]}">
-                            <p> <a href="<c:url value="/photos/${img[7]}"/>"><button class="btn btn-small btn-inverse" type="button">Modifier</button></a> </p>
-                            <p> <a href="<c:url value="/supp/photo/${img[7]}"/>"><button class="btn btn-small btn-danger" type="button">Supprimer</button></a> </p>
+                        <p> <a href="<c:url value="/photos/${img.idPhoto}"/>"><button class="btn btn-small btn-primary" type="button">Voir Détails</button></a> </p>
+                        <c:if test="${!empty sessionScope.admin || (!empty sessionScope.user && sessionScope.user.idUser==details.idUser)}">
+                            <p> <a href="<c:url value="/photos/${img.idPhoto}"/>"><button class="btn btn-small btn-inverse" type="button">Modifier</button></a> </p>
+                            <p> <a href="<c:url value="/supp/photo/${img.idPhoto}"/>"><button class="btn btn-small btn-danger" type="button">Supprimer</button></a> </p>
                         </c:if>
-                        <c:if test="${img[8]=='1'}">
-                            <p> <a href="<c:url value="/photos/${img[7]}"/>"><button class="btn btn-small btn-inverse" type="button">Modifier</button></a> </p>
+                        <c:if test="${img.isUpdate=='1'}">
+                            <p> <a href="<c:url value="/photos/${img.idPhoto}"/>"><button class="btn btn-small btn-inverse" type="button">Modifier</button></a> </p>
                         </c:if>
-                        <c:if test="${img[9]=='1'}">
-                            <p> <a href="<c:url value="/supp/photo/${img[7]}"/>"><button class="btn btn-small btn-danger" type="button">Supprimer</button></a> </p>
+                        <c:if test="${img.isDelete=='1'}">
+                            <p> <a href="<c:url value="/supp/photo/${img.idPhoto}"/>"><button class="btn btn-small btn-danger" type="button">Supprimer</button></a> </p>
                         </c:if>
                     </td>
                 </tr>

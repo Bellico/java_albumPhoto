@@ -19,6 +19,11 @@ public class FilterFunctions {
         return userSession;
     }
 
+    protected UserBean isAdmin(HttpSession session) {
+        UserBean userSession = (UserBean) session.getAttribute(ICommand.ADMIN);
+        return userSession;
+    }
+
     protected UserBean getUser(int id) {
         UserMap map = new UserMap();
         return (UserBean) map.getbyId(id);

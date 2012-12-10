@@ -114,6 +114,15 @@ tr:hover{
     background: #DFF0D8;
 }
 
+.Prive{
+    background: #eccfcf
+}
+
+.Prive:hover{
+    background: #e3b9b9
+    
+}
+
 .optAdmin{
     position: absolute;
     top: 16px;

@@ -25,7 +25,7 @@ public class AdminCommand implements ICommand {
     public ActionFlow actionPerform(HttpServletRequest request, HashMap urlParams) {
         UserBean user = creationAdmin();
         HttpSession session = request.getSession();
-        session.setAttribute("admin", user);
+        session.setAttribute(ADMIN, user);
         session.setAttribute(USERS_SESSION, user);
         if (urlParams.get(1) != null) {
             if (urlParams.get(1).equals("deleteUsers")) {

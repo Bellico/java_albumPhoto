@@ -16,42 +16,42 @@
         <thead>
             <tr>
                   <td colspan="2" class="photocadre">
-                        <a id="single_1" class="fancybox-thumb" rel="fancybox-thumb" href="<c:url value="/${details[0]}"/>" title="<c:out value="${details[3]}"/>">
-                            <img alt="" src="<c:url value="/${details[0]}"/>">
+                        <a id="single_1" class="fancybox-thumb" rel="fancybox-thumb" href="<c:url value="/${details.url}"/>" title="<c:out value="${details.tiltePhoto}"/>">
+                            <img alt="" src="<c:url value="/${details.url}"/>">
                         </a>
                     </td>
             </tr>
             <tr>
                 <th>Auteur</th>
-                <td><c:out value="${details[1]}"/></td>
+                <td><c:out value="${details.userName}"/></td>
             </tr>
             <tr>
                 <th>Album</th>
-                <td><a href="<c:url value="/albums/${details[9]}"/>"><c:out value="${details[2]}"/></a></td>
+                <td><a href="<c:url value="/albums/${details.idAlbum}"/>"><c:out value="${details.nameAlbum}"/></a></td>
             </tr>
             <tr>
                 <th>Titre</th>
-                <td><c:out value="${details[3]}"/></td>
+                <td><c:out value="${details.titlePhoto}"/></td>
             </tr>		  
             <tr>
                 <th>Description</th>
-                <td><c:out value="${details[4]}"/></td>
+                <td><c:out value="${details.photoDescr}"/></td>
             </tr>	
             <tr>
                 <th>Largeur</th>
-                <td><c:out value="${details[5]}"/></td>
+                <td><c:out value="${details.widthPhoto}"/></td>
             </tr>	
             <tr>
                 <th>Hauteur</th>
-                <td><c:out value="${details[6]}"/></td>
+                <td><c:out value="${details.heightPhoto}"/></td>
             </tr>	
             <tr>
                 <th>Date création</th>
-                <td><c:out value="${details[7]}"/></td>
+                <td><c:out value="${details.photoDateCreated}"/></td>
             </tr>	
             <tr>
                 <th>Date dernière modification</th>
-                <td><c:out value="${details[8]}"/></td>
+                <td><c:out value="${details.photoLastUp}"/></td>
             </tr>	
         </thead>
     </table>

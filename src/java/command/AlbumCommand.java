@@ -22,12 +22,15 @@ public class AlbumCommand implements ICommand {
     private UserMap mapUser = new UserMap();
     private PhotoMap mapPhoto = new PhotoMap();
     private RightMap mapRight = new RightMap();
-    UserBean userSession = null;
+    UserBean userSession;
+    UserBean admin;
 
     @Override
     public ActionFlow actionPerform(HttpServletRequest request, HashMap<Integer, String> urlParams) {
         HttpSession session = request.getSession();
         userSession = (UserBean) session.getAttribute(USERS_SESSION);
+        admin = (UserBean) session.getAttribute(ADMIN);
+
         if (urlParams.get(1) != null) {
             if (urlParams.get(1).equals("nouveau")) {
                 return ajoutAlbum(request);
@@ -44,17 +47,18 @@ public class AlbumCommand implements ICommand {
     }
 
     public ActionFlow listAlbum(HttpServletRequest request) {
-        ArrayList<AlbumBean> albumpublic = mapAlbum.getAllbyAttr("idStatut", 0);
-        ArrayList<String[]> tab = new ArrayList<String[]>();
+        ArrayList<AlbumBean> albumpublic = (admin == null) ? mapAlbum.getAllbyAttr("idStatut", 0) : mapAlbum.getAll();
+        ArrayList<HashMap<String, String>> tab = new ArrayList<HashMap<String, String>>();
         for (AlbumBean al : albumpublic) {
             UserBean user = (UserBean) mapUser.getbyAttr("idUser", al.getIdUser());
-            tab.add(new String[]{
-                        al.getNameAlbum(),
-                        user.getName() + " " + user.getFirstName(),
-                        al.getDescr(),
-                        Integer.toString(al.getNbPhoto()),
-                        Integer.toString(al.getIdAlbum())
-                    });
+            HashMap<String, String> temp = new HashMap<String, String>();
+            temp.put("idAlbum", Integer.toString(al.getIdAlbum()));
+            temp.put("nameAlbum", al.getNameAlbum());
+            temp.put("userName", user.getName() + " " + user.getFirstName());
+            temp.put("albumDescr", al.getDescr());
+            temp.put("nbPhoto", Integer.toString(al.getNbPhoto()));
+            temp.put("albumStatut", (al.getIdStatut() == 0) ? "Public" : "Prive");
+            tab.add(temp);
         }
 
         request.setAttribute("listAlbum", tab);
@@ -65,16 +69,17 @@ public class AlbumCommand implements ICommand {
 
     public ActionFlow mesAlbums(HttpServletRequest request) {
         ArrayList<AlbumBean> albums = mapAlbum.getAllbyAttr("idUser", userSession.getIdUser());
-        ArrayList<String[]> tab = new ArrayList<String[]>();
+        ArrayList<HashMap<String, String>> tab = new ArrayList<HashMap<String, String>>();
         for (AlbumBean al : albums) {
-            tab.add(new String[]{
-                        al.getNameAlbum(),
-                        userSession.getName() + " " + userSession.getFirstName(),
-                        al.getDescr(),
-                        Integer.toString(al.getNbPhoto()),
-                        Integer.toString(al.getIdAlbum()),
-                        Integer.toString(al.getIdUser())
-                    });
+            HashMap<String, String> temp = new HashMap<String, String>();
+            temp.put("idAlbum", Integer.toString(al.getIdAlbum()));
+            temp.put("idUser", Integer.toString(al.getIdUser()));
+            temp.put("nameAlbum", al.getNameAlbum());
+            temp.put("userName", userSession.getName() + " " + userSession.getFirstName());
+            temp.put("albumDescr", al.getDescr());
+            temp.put("nbPhoto", Integer.toString(al.getNbPhoto()));
+            temp.put("albumStatut", (al.getIdStatut() == 0) ? "Public" : "Prive");
+            tab.add(temp);
         }
 
         request.setAttribute("listAlbum", tab);
@@ -87,31 +92,32 @@ public class AlbumCommand implements ICommand {
     public ActionFlow detailsAlbum(HttpServletRequest request, int numalbum) {
         AlbumBean album = (AlbumBean) mapAlbum.getbyId(numalbum);
         UserBean user = (UserBean) mapUser.getbyId(album.getIdUser());
-        String[] tab = new String[]{
-            album.getNameAlbum(),
-            user.getName() + " " + user.getFirstName(),
-            album.getDescr(),
-            Integer.toString(album.getNbPhoto()),
-            (album.getIdStatut() == 0) ? "Public" : "Privé",
-            Integer.toString(album.getIdUser())};
 
-        ArrayList<String[]> tab2 = new ArrayList<String[]>();
+        HashMap<String, String> tab = new HashMap<String, String>();
+        tab.put("idUser", Integer.toString(album.getIdUser()));
+        tab.put("nameAlbum", album.getNameAlbum());
+        tab.put("userName", user.getName() + " " + user.getFirstName());
+        tab.put("albumDescr", album.getDescr());
+        tab.put("nbPhoto", Integer.toString(album.getNbPhoto()));
+        tab.put("albumStatut", (album.getIdStatut() == 0) ? "Public" : "Prive");
+
+        ArrayList<HashMap<String, String>> tab2 = new ArrayList<HashMap<String, String>>();
         ArrayList<PhotoBean> photos = mapPhoto.getAllbyAttr("idalbum", album.getIdAlbum());
         String albumCrypt = Tools.crypt(album.getNameAlbum(), Tools.SHA1, true).replace("/", "").replace("=", "");
-        RightBean right = mapRight.get(userSession.getIdUser(), album.getIdAlbum());
+        RightBean right = (userSession != null) ? mapRight.get(userSession.getIdUser(), album.getIdAlbum()) : null;
         for (PhotoBean ph : photos) {
-            tab2.add(new String[]{
-                        UploadCommand.FOLDER_ALBUM + albumCrypt + "/" + ph.getImg(),
-                        user.getName() + " " + user.getFirstName(),
-                        album.getNameAlbum(),
-                        ph.getTitle(),
-                        ph.getDescr(),
-                        ph.getDateCreated(),
-                        ph.getDateLastUpdate(),
-                        Integer.toString(ph.getIdPhoto()),
-                        (right != null && right.isModifier()) ? "1" : "0",
-                        (right != null && right.isSupprimer()) ? "1" : "0"
-                    });
+            HashMap<String, String> temp = new HashMap<String, String>();
+            temp.put("url", UploadCommand.FOLDER_ALBUM + albumCrypt + "/" + ph.getImg());
+            temp.put("userName", user.getName() + " " + user.getFirstName());
+            temp.put("nameAlbum", album.getNameAlbum());
+            temp.put("titlePhoto", ph.getTitle());
+            temp.put("PhotoDescr", ph.getDescr());
+            temp.put("PhotoDateCreated", ph.getDateCreated());
+            temp.put("PhotoLastUp", ph.getDateLastUpdate());
+            temp.put("idPhoto", Integer.toString(ph.getIdPhoto()));
+            temp.put("isUpdate", (right != null && right.isModifier()) ? "1" : "0");
+            temp.put("isDelete", (right != null && right.isSupprimer()) ? "1" : "0");
+            tab2.add(temp);
         }
 
         request.setAttribute("details", tab);

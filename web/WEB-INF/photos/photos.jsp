@@ -27,22 +27,22 @@
         </thead>
         <tbody>
             <c:forEach items="${listImg}" var="img">
-                <tr>
+                <tr class="${img.albumStatut}">
                     <td class="photocadre">
-                        <a class="fancybox-thumb" rel="fancybox-thumb" href="<c:url value="/${img[0]}"/>" title="<c:out value="${img[3]}"/>">
-                            <img class="img-rounded" alt="" src="<c:url value="/${img[0]}"/>">
+                        <a class="fancybox-thumb" rel="fancybox-thumb" href="<c:url value="/${img.url}"/>" title="<c:out value="${img.titlePhoto}"/>">
+                            <img class="img-rounded" alt="" src="<c:url value="/${img.url}"/>">
                         </a>
                     </td>
-                    <td class="utilisateurs"><c:out value="${img[1]}"/></td>
-                    <td class="titrealbum"><a href="<c:url value="/albums/${img[8]}"/>"><c:out value="${img[2]}"/></a></td>
-                    <td class="titrealbum"><c:out value="${img[3]}"/></td>
-                    <td class="description"><c:out value="${img[4]}"/></td>
-                    <td class="dateajout"><c:out value="${img[5]}"/> </td>
-                    <td class="datemodif"><c:out value="${img[6]}"/> </td>
-                    <td class="options"> <p><a href="<c:url value="/photos/${img[7]}"/>"><button class="btn btn-small btn-primary" type="button">Voir Détails</button></a></p>
-                    <c:if test="${!empty sessionScope.user && sessionScope.user.idUser==img[9]}">
-                        <p> <a href="<c:url value="/albums/${album[4]}"/>"><button class="btn btn-small btn-inverse" type="button">Modifier</button></a> </p>
-                        <p> <a href="<c:url value="/supp/photo/${img[7]}"/>"><button class="btn btn-small btn-danger" type="button">Supprimer</button></a> </p>
+                    <td class="utilisateurs"><c:out value="${img.userName}"/></td>
+                    <td class="titrealbum"><a href="<c:url value="/albums/${img.idAlbum}"/>"><c:out value="${img.nameAlbum}"/></a></td>
+                    <td class="titrealbum"><c:out value="${img.titlePhoto}"/></td>
+                    <td class="description"><c:out value="${img.photoDescr}"/></td>
+                    <td class="dateajout"><c:out value="${img.photoDateCreated}"/> </td>
+                    <td class="datemodif"><c:out value="${img.photoLastUp}"/> </td>
+                    <td class="options"> <p><a href="<c:url value="/photos/${img.idPhoto}"/>"><button class="btn btn-small btn-primary" type="button">Voir Détails</button></a></p>
+                        <c:if test="${!empty sessionScope.admin ||(!empty sessionScope.user && sessionScope.user.idUser==img.idUser)}">
+                            <p> <a href="<c:url value="/albums/${img.idAlbum}"/>"><button class="btn btn-small btn-inverse" type="button">Modifier</button></a> </p>
+                            <p> <a href="<c:url value="/supp/photo/${img.idPhoto}"/>"><button class="btn btn-small btn-danger" type="button">Supprimer</button></a> </p>
                         </c:if>                   
                     </td>
                 </tr>
@@ -51,4 +51,4 @@
     </table>
 </div>
 
-   
+

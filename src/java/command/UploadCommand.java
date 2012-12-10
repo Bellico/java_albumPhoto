@@ -19,7 +19,7 @@ import tools.Tools;
 
 public class UploadCommand implements ICommand {
 
-    public static final String FOLDER_ALBUM = "albumphoto/";
+    public static final String FOLDER_ALBUM = "albumphoto"+File.separator;
     AlbumMap mapalbum = new AlbumMap();
 
     @Override

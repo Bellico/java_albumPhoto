@@ -52,15 +52,17 @@ public class PhotoFilter extends FilterFunctions implements Filter {
                     if (photo == null) {
                         sendError(request, "Cette photo n'existe pas.");
                     } else {
-                        AlbumBean album = getAlbum(photo.getIdAlbum());
-                        if (album.getIdStatut() != 0) {
-                            if (userSession == null) {
-                                sendError(request, "Cette photo fait partie d'un album privée. Veuillez vous connecter pour la visualiser.");
-                            } else if (userSession.getIdUser() != album.getIdUser()) {
-                                RightMap mapRight = new RightMap();
-                                RightBean right = mapRight.get(userSession.getIdUser(), album.getIdAlbum());
-                                if (right == null) {
-                                    sendError(request, "Cette photo fait partie d'un album privée. Vous n'avez aucun droit sur celle-ci.");
+                        if (isAdmin(session) == null) {
+                            AlbumBean album = getAlbum(photo.getIdAlbum());
+                            if (album.getIdStatut() != 0) {
+                                if (userSession == null) {
+                                    sendError(request, "Cette photo fait partie d'un album privée. Veuillez vous connecter pour la visualiser.");
+                                } else if (userSession.getIdUser() != album.getIdUser()) {
+                                    RightMap mapRight = new RightMap();
+                                    RightBean right = mapRight.get(userSession.getIdUser(), album.getIdAlbum());
+                                    if (right == null) {
+                                        sendError(request, "Cette photo fait partie d'un album privée. Vous n'avez aucun droit sur celle-ci.");
+                                    }
                                 }
                             }
                         }

@@ -67,20 +67,20 @@ public class PartageCommand implements ICommand {
             form.close();
         }
 
-        ArrayList<String[]> collaborateurs = new ArrayList<String[]>();
+        ArrayList<HashMap<String, String>> collaborateurs = new ArrayList<HashMap<String, String>>();
         ArrayList<RightBean> right = mapRight.getAllbyAttr("idAlbum", album.getIdAlbum());
         for (RightBean r : right) {
+            HashMap<String, String> temp = new HashMap<String, String>();
             UserBean u = (UserBean) mapUser.getbyId(r.getIdUser());
-            collaborateurs.add(new String[]{
-                        u.getName(),
-                        u.getFirstName(),
-                        u.getLogin(),
-                        (r.isLire()) ? "1" : "0",
-                        (r.isInserer()) ? "1" : "0",
-                        (r.isModifier()) ? "1" : "0",
-                        (r.isSupprimer()) ? "1" : "0",
-                        Integer.toString(r.getIdUser())
-                    });
+            temp.put("userName", u.getName());
+            temp.put("userFistName", u.getFirstName());
+            temp.put("userLogin", u.getLogin());
+            temp.put("isRead", (r.isLire()) ? "1" : "0");
+            temp.put("isInsert", (r.isInserer()) ? "1" : "0");
+            temp.put("isUpdate", (r.isModifier()) ? "1" : "0");
+            temp.put("isDelete", (r.isSupprimer()) ? "1" : "0");
+            temp.put("idUser", Integer.toString(r.getIdUser()));
+            collaborateurs.add(temp);
         }
 
         request.setAttribute(TITRE_PAGE, "Partager mes albums");
@@ -94,20 +94,19 @@ public class PartageCommand implements ICommand {
 
     public ActionFlow listePartage(HttpServletRequest request) {
         ArrayList<RightBean> listright = mapRight.getAllbyAttr("idUser", userSession.getIdUser());
-        ArrayList<String[]> tab = new ArrayList<String[]>();
+        ArrayList<HashMap<String, String>> tab = new ArrayList<HashMap<String, String>>();
         for (RightBean r : listright) {
             AlbumBean al = (AlbumBean) mapAlbum.getbyAttr("idAlbum", r.getIdAlbum());
             UserBean user = (UserBean) mapUser.getbyId(al.getIdUser());
-            tab.add(new String[]{
-                        al.getNameAlbum(),
-                        userSession.getName() + " " + userSession.getFirstName(),
-                        al.getDescr(),
-                        Integer.toString(al.getNbPhoto()),
-                        Integer.toString(al.getIdAlbum()),
-                        Integer.toString(al.getIdUser()),
-                        (r.isModifier()) ? "1" : "0",
-                        (r.isSupprimer()) ? "1" : "0"
-                    });
+            HashMap<String, String> temp = new HashMap<String, String>();
+            temp.put("idAlbum", Integer.toString(al.getIdAlbum()));
+            temp.put("idUser", Integer.toString(al.getIdUser()));
+            temp.put("nameAlbum", al.getNameAlbum());
+            temp.put("userName", user.getName() + " " + user.getFirstName());
+            temp.put("albumDescr", al.getDescr());
+            temp.put("nbPhoto", Integer.toString(al.getNbPhoto()));
+            temp.put("albumStatut", (al.getIdStatut() == 0) ? "Public" : "Prive");
+            tab.add(temp);
         }
 
         request.setAttribute("listAlbum", tab);

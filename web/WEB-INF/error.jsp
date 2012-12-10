@@ -13,7 +13,7 @@
     
 <div class="span10"> 
     <div class="alert alert-block">
-        <h4> Nous sommes désolés, une erreur s'est produite </h4>
+        <h4> Désolé, mais une erreur est survenue lors de l'éxécution de cette page </h4>
         ${messageError}
     </div>
 </div>

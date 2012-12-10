@@ -68,7 +68,7 @@
                     <input type="checkbox" ${param.insert==1 ?  'checked="checked"' : "" } name="insert" value="insert">Insérer des images dans cet album
                 </label>
                 <label class="checkbox">
-                    <input type="checkbox" ${param.update==1 ?  'checked="checked"' : "" } name="update" value="update">Modifier les informations de l'album et les images qu'il contient
+                    <input type="checkbox" ${param.update==1 ?  'checked="checked"' : "" } name="update" value="update">Modifier les informations des images dans cet album
                 </label>
                 <label class="checkbox">
                     <input type="checkbox" ${param.delete==1 ?  'checked="checked"' : "" } name="delete" value="delete">Supprimer les images
@@ -84,7 +84,7 @@
 
     </form>
 
-    <legend>Actuellement, cet album partagé avec ces personnes</legend>
+    <legend>Actuellement, cet est album partagé avec ces personnes</legend>
 
     <table class="tableright table table-bordered">
         <thead>
@@ -102,16 +102,16 @@
         <tbody>
             <c:forEach items="${collaborateurs}" var="col"  > 
                 <tr>
-                    <td class="partage"><c:out value="${col[0]}"/></td>
-                    <td class="partage"><c:out value="${col[1]}"/></td>
-                    <td class="partage"><c:out value="${col[2]}"/></td>
-                    <td class="partage"><img class="img-rounded" alt="" src="<c:url value="/img/"/>${col[3]=="1" ?  "validate" : "error" }.png" /></td>
-                    <td class="partage"><img class="img-rounded" alt="" src="<c:url value="/img/"/>${col[4]=="1" ?  "validate" : "error" }.png" /></td>
-                    <td class="partage"><img class="img-rounded" alt="" src="<c:url value="/img/"/>${col[5]=="1" ?  "validate" : "error" }.png" /></td>
-                    <td class="partage"><img class="img-rounded" alt="" src="<c:url value="/img/"/>${col[6]=="1" ?  "validate" : "error" }.png" /></td>
+                    <td class="partage"><c:out value="${col.userName}"/></td>
+                    <td class="partage"><c:out value="${col.userFistName}"/></td>
+                    <td class="partage"><c:out value="${col.userLogin}"/></td>
+                    <td class="partage"><img class="img-rounded" alt="" src="<c:url value="/img/"/>${col.isRead=="1" ?  "validate" : "error" }.png" /></td>
+                    <td class="partage"><img class="img-rounded" alt="" src="<c:url value="/img/"/>${col.isInsert=="1" ?  "validate" : "error" }.png" /></td>
+                    <td class="partage"><img class="img-rounded" alt="" src="<c:url value="/img/"/>${col.isUpdate=="1" ?  "validate" : "error" }.png" /></td>
+                    <td class="partage"><img class="img-rounded" alt="" src="<c:url value="/img/"/>${col.isDelete=="1" ?  "validate" : "error" }.png" /></td>
                     <td>
-                        <p> <a href="<c:url value="/partage/${album.idAlbum}?modif=${col[2]}&insert=${col[4]}&update=${col[5]}&delete=${col[6]}"/>"><button class="btn btn-small btn-inverse" type="button">Modifier ses droits</button></a></p>
-                        <p> <a href="<c:url value="/partage/${album.idAlbum}?supp=${col[7]}"/>"><button class="btn btn-small btn-danger" type="button">Ne plus partager</button></a></p>
+                        <p> <a href="<c:url value="/partage/${album.idAlbum}?modif=${col.userLogin}&insert=${col.isInsert}&update=${col.isUpdate}&delete=${col.isDelete}"/>"><button class="btn btn-small btn-inverse" type="button">Modifier ses droits</button></a></p>
+                        <p> <a href="<c:url value="/partage/${album.idAlbum}?supp=${col.idUser}"/>"><button class="btn btn-small btn-danger" type="button">Ne plus partager</button></a></p>
                     </td>
                 </tr>
             </c:forEach>
