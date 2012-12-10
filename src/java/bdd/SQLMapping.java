@@ -44,22 +44,55 @@ abstract public class SQLMapping<T> extends Database {
         return list;
     }
 
-    private ResultSet findByAttr(String attr, Object value) throws SQLException {
+    public ArrayList<Object> getAll(String order) {
+        ArrayList<Object> list = new ArrayList<Object>();
+        ResultSet res;
+        try {
+            if (queryPrepare) {
+                String nameStatement = "getall-" + table;
+                PreparedStatement statement = prepareQuery(nameStatement, "select * from " + table + " ORDER BY " + order);
+                res = statement.executeQuery();
+            } else {
+                res = query("select * from " + table + " ORDER BY " + order);
+            }
+            while (res.next()) {
+                list.add(ResultToBean(res));
+            }
+        } catch (SQLException ex) {
+            System.out.println("[ Erreur " + table + ">>getAll ] : " + ex.getMessage());
+        }
+        return list;
+    }
+
+    private ResultSet findByAttr(String attr, Object value, String order) throws SQLException {
+        String orderBy;
+        orderBy = (order != null) ? order : primary_key + " DESC ";
         ResultSet res;
         if (queryPrepare) {
             String nameStatement = "findByAttr-" + table + "-" + attr;
-            PreparedStatement statement = prepareQuery(nameStatement, "select * from " + table + " where " + attr + "= ?");
+            PreparedStatement statement = prepareQuery(nameStatement, "select * from " + table + " where " + attr + "= ? ORDER BY " + orderBy);
             setStatement(statement, value, 1);
             res = statement.executeQuery();
         } else {
-            res = query("select * from " + table + " where " + attr + "=" + value);
+            res = query("select * from " + table + " where " + attr + "=" + value + "ORDER BY " + orderBy);
         }
         return res;
     }
 
     public Object getbyId(int id) {
         try {
-            ResultSet res = findByAttr(primary_key, id);
+            ResultSet res = findByAttr(primary_key, id, null);
+            res.next();
+            return ResultToBean(res);
+        } catch (SQLException ex) {
+            System.out.println("[ Erreur " + table + ">>getbyId ] : " + ex.getMessage());
+            return null;
+        }
+    }
+
+    public Object getbyId(int id, String orderBy) {
+        try {
+            ResultSet res = findByAttr(primary_key, id, orderBy);
             res.next();
             return ResultToBean(res);
         } catch (SQLException ex) {
@@ -70,7 +103,18 @@ abstract public class SQLMapping<T> extends Database {
 
     public Object getbyAttr(String attr, Object value) {
         try {
-            ResultSet res = findByAttr(attr, value);
+            ResultSet res = findByAttr(attr, value, null);
+            res.next();
+            return ResultToBean(res);
+        } catch (SQLException ex) {
+            System.out.println("[ Erreur " + table + ">>getbyAttr ] : " + ex.getMessage());
+            return null;
+        }
+    }
+
+    public Object getbyAttr(String attr, Object value, String orderBy) {
+        try {
+            ResultSet res = findByAttr(attr, value, orderBy);
             res.next();
             return ResultToBean(res);
         } catch (SQLException ex) {
@@ -82,7 +126,21 @@ abstract public class SQLMapping<T> extends Database {
     public ArrayList<Object> getAllbyAttr(String attr, Object value) {
         ArrayList<Object> list = new ArrayList<Object>();
         try {
-            ResultSet res = findByAttr(attr, value);
+            ResultSet res = findByAttr(attr, value, null);
+            while (res.next()) {
+                list.add(ResultToBean(res));
+            }
+        } catch (SQLException ex) {
+            System.out.println("[ Erreur " + table + ">>getAllbyAttr ] : " + ex.getMessage());
+
+        }
+        return list;
+    }
+
+    public ArrayList<Object> getAllbyAttr(String attr, Object value, String orderBy) {
+        ArrayList<Object> list = new ArrayList<Object>();
+        try {
+            ResultSet res = findByAttr(attr, value, orderBy);
             while (res.next()) {
                 list.add(ResultToBean(res));
             }

@@ -107,7 +107,7 @@ public class AlbumCommand implements ICommand {
         RightBean right = (userSession != null) ? mapRight.get(userSession.getIdUser(), album.getIdAlbum()) : null;
         for (PhotoBean ph : photos) {
             HashMap<String, String> temp = new HashMap<String, String>();
-            temp.put("url", UploadCommand.FOLDER_ALBUM + albumCrypt + "/" + ph.getImg());
+            temp.put("url", UploadCommand.FOLDER_ALBUM + "/" + albumCrypt + "/" + ph.getImg());
             temp.put("userName", user.getName() + " " + user.getFirstName());
             temp.put("nameAlbum", album.getNameAlbum());
             temp.put("titlePhoto", ph.getTitle());

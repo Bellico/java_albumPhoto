@@ -19,8 +19,9 @@ import tools.Tools;
 
 public class UploadCommand implements ICommand {
 
-    public static final String FOLDER_ALBUM = "albumphoto"+File.separator;
+    public static final String FOLDER_ALBUM = "albumphoto";
     AlbumMap mapalbum = new AlbumMap();
+    UserBean userSession;
 
     @Override
     public ActionFlow actionPerform(HttpServletRequest request, HashMap urlParams) {
@@ -28,8 +29,8 @@ public class UploadCommand implements ICommand {
         request.setAttribute(NOM_PAGE, "Nouvelle photo");
 
         HttpSession session = request.getSession();
-        UserBean user = (UserBean) session.getAttribute("user");
-        ArrayList<AlbumBean> list = mapalbum.getAllbyAttr("idUser", user.getIdUser());
+        userSession = (UserBean) session.getAttribute("user");
+        ArrayList<AlbumBean> list = mapalbum.getAllbyAttr("idUser", userSession.getIdUser());
         request.setAttribute("listAlbum", list);
 
         if (request.getMethod().equals("POST")) {
@@ -48,10 +49,10 @@ public class UploadCommand implements ICommand {
         if (form.getNbError() == 0) {
             Upload up = new Upload("file", new String[]{"jpg", "jpeg", "png"});
             AlbumBean album = (AlbumBean) mapalbum.getbyId(Integer.parseInt(namealbum));
-            if (album != null) {
+            if (album != null && album.getIdUser() == userSession.getIdUser()) {
                 namealbum = album.getNameAlbum();
                 String nameCrypt = Tools.crypt(namealbum, Tools.SHA1, true).replace("/", "").replace("=", "");
-                String path = Tools.appPath + File.separator + FOLDER_ALBUM + nameCrypt;
+                String path = Tools.appPath + File.separator + FOLDER_ALBUM + File.separator + nameCrypt;
                 File f = new File(path);
                 f.mkdirs();
                 int state = up.uploadFile(request, path);
@@ -93,7 +94,7 @@ public class UploadCommand implements ICommand {
                     form.setResult(ControlForm.RES_ERROR, errorUpload[state - 1]);
                 }
             } else {
-                request.setAttribute(ErrorCommand.MESSAGE_ERROR, "L'album '" + namealbum + "' n'existe pas.");
+                request.setAttribute(ErrorCommand.MESSAGE_ERROR, "Vous n'avez aucun album nommé : " + namealbum);
                 return new ActionFlow("error", false);
             }
         }

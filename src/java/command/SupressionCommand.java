@@ -49,7 +49,7 @@ public class SupressionCommand implements ICommand {
         if (photo != null) {
             AlbumBean album = (AlbumBean) mapAlbum.getbyId(photo.getIdAlbum());
             String nameCrypt = Tools.crypt(album.getNameAlbum(), Tools.SHA1, true).replace("/", "").replace("=", "");
-            String path = Tools.appPath + File.separator + UploadCommand.FOLDER_ALBUM + nameCrypt;
+            String path = Tools.appPath + File.separator + UploadCommand.FOLDER_ALBUM + File.separator + nameCrypt;
             File f = new File(path + File.separator + photo.getImg());
             mapPhoto.delete(photo);
             f.delete();
@@ -72,12 +72,12 @@ public class SupressionCommand implements ICommand {
             }
             ArrayList<PhotoBean> photos = mapPhoto.getAllbyAttr("idAlbum", album.getIdAlbum());
             for (PhotoBean ph : photos) {
-                path = Tools.appPath + File.separator + UploadCommand.FOLDER_ALBUM + nameCrypt;
+                path = Tools.appPath + File.separator + UploadCommand.FOLDER_ALBUM + File.separator + nameCrypt;
                 f = new File(path + File.separator + ph.getImg());
                 mapPhoto.delete(ph);
                 f.delete();
             }
-            path = Tools.appPath + File.separator + UploadCommand.FOLDER_ALBUM + nameCrypt;
+            path = Tools.appPath + File.separator + UploadCommand.FOLDER_ALBUM + File.separator + nameCrypt;
             f = new File(path);
             mapAlbum.delete(album);
             f.delete();

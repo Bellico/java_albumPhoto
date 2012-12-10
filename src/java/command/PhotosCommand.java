@@ -47,7 +47,7 @@ public class PhotosCommand implements ICommand {
             String albumCrypt = Tools.crypt(al.getNameAlbum(), Tools.SHA1, true).replace("/", "").replace("=", "");
             for (PhotoBean ph : photos) {
                 HashMap<String, String> temp = new HashMap<String, String>();
-                temp.put("url", UploadCommand.FOLDER_ALBUM + albumCrypt + "/" + ph.getImg());
+                temp.put("url", UploadCommand.FOLDER_ALBUM + "/" + albumCrypt + "/" + ph.getImg());
                 temp.put("userName", user.getName() + " " + user.getFirstName());
                 temp.put("nameAlbum", al.getNameAlbum());
                 temp.put("titlePhoto", ph.getTitle());
@@ -73,7 +73,7 @@ public class PhotosCommand implements ICommand {
         UserBean user = (UserBean) mapUser.getbyId(album.getIdUser());
         String albumCrypt = Tools.crypt(album.getNameAlbum(), Tools.SHA1, true).replace("/", "").replace("=", "");
         HashMap<String, String> tab = new HashMap<String, String>();
-        tab.put("url", UploadCommand.FOLDER_ALBUM + albumCrypt + "/" + photo.getImg());
+        tab.put("url", UploadCommand.FOLDER_ALBUM + "/" + albumCrypt + "/" + photo.getImg());
         tab.put("userName", user.getName() + " " + user.getFirstName());
         tab.put("nameAlbum", album.getNameAlbum());
         tab.put("titlePhoto", photo.getTitle());
@@ -98,7 +98,7 @@ public class PhotosCommand implements ICommand {
             String albumCrypt = Tools.crypt(al.getNameAlbum(), Tools.SHA1, true).replace("/", "").replace("=", "");
             for (PhotoBean ph : photos) {
                 HashMap<String, String> temp = new HashMap<String, String>();
-                temp.put("url", UploadCommand.FOLDER_ALBUM + albumCrypt + "/" + ph.getImg());
+                temp.put("url", UploadCommand.FOLDER_ALBUM + "/" + albumCrypt + "/" + ph.getImg());
                 temp.put("userName", userSession.getName() + " " + userSession.getFirstName());
                 temp.put("nameAlbum", al.getNameAlbum());
                 temp.put("titlePhoto", ph.getTitle());
