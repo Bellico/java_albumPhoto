@@ -39,7 +39,7 @@ public class PhotosCommand implements ICommand {
     }
 
     public ActionFlow listPhoto(HttpServletRequest request) {
-        ArrayList<AlbumBean> albumpublic = (admin == null) ? mapAlbum.getAllbyAttr("idStatut", 0) : mapAlbum.getAll();
+        ArrayList<AlbumBean> albumpublic = (admin == null) ? mapAlbum.getAllbyAttr("idStatut", 0) : mapAlbum.getAll(null);
         ArrayList<HashMap<String, String>> tab = new ArrayList<HashMap<String, String>>();
         for (AlbumBean al : albumpublic) {
             UserBean user = (UserBean) mapUser.getbyAttr("idUser", al.getIdUser());

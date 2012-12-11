@@ -2,8 +2,10 @@ package command;
 
 import bdd.AlbumMap;
 import bdd.PhotoMap;
+import bdd.RightMap;
 import bean.AlbumBean;
 import bean.PhotoBean;
+import bean.RightBean;
 import bean.UserBean;
 import java.awt.Image;
 import java.io.File;
@@ -21,17 +23,30 @@ public class UploadCommand implements ICommand {
 
     public static final String FOLDER_ALBUM = "albumphoto";
     AlbumMap mapalbum = new AlbumMap();
+    RightMap mapRight = new RightMap();
     UserBean userSession;
+    UserBean admin;
 
     @Override
     public ActionFlow actionPerform(HttpServletRequest request, HashMap urlParams) {
-        request.setAttribute(TITRE_PAGE, "Upload");
-        request.setAttribute(NOM_PAGE, "Nouvelle photo");
-
         HttpSession session = request.getSession();
         userSession = (UserBean) session.getAttribute("user");
-        ArrayList<AlbumBean> list = mapalbum.getAllbyAttr("idUser", userSession.getIdUser());
+        admin = (UserBean) session.getAttribute(ADMIN);
+
+        ArrayList<AlbumBean> list = (admin == null) ? mapalbum.getAllbyAttr("idUser", userSession.getIdUser()) : mapalbum.getAll(null);
+
+        ArrayList<RightBean> rights = mapRight.getAllbyAttr("idUser", userSession.getIdUser());
+        ArrayList<AlbumBean> listpartage = new ArrayList<AlbumBean>();
+        for (RightBean r : rights) {
+            if (r.isInserer()) {
+                listpartage.add((AlbumBean) mapalbum.getbyId(r.getIdAlbum()));
+            }
+        }
+
+        request.setAttribute(TITRE_PAGE, "Upload");
+        request.setAttribute(NOM_PAGE, "Nouvelle photo");
         request.setAttribute("listAlbum", list);
+        request.setAttribute("listPartage", listpartage);
 
         if (request.getMethod().equals("POST")) {
             return upload(request);
@@ -45,11 +60,25 @@ public class UploadCommand implements ICommand {
         ControlForm form = new ControlForm(request);
         String title = form.check("titre", ControlForm.NON_VIDE, "Donnez un titre à votre photo.");
         String namealbum = form.check("album", ControlForm.ENTIER);
+        String albumPartage = form.check("albumPartage", ControlForm.ENTIER);
         String descr = form.check("description", ControlForm.NON_VIDE, "Une petite description?");
         if (form.getNbError() == 0) {
             Upload up = new Upload("file", new String[]{"jpg", "jpeg", "png"});
-            AlbumBean album = (AlbumBean) mapalbum.getbyId(Integer.parseInt(namealbum));
-            if (album != null && album.getIdUser() == userSession.getIdUser()) {
+            Integer numAlbum = Integer.parseInt(albumPartage);
+            AlbumBean album = null;
+            if (numAlbum != -1) {
+                RightBean right = mapRight.get(userSession.getIdUser(), numAlbum);
+                if (right != null && right.isInserer()) {
+                    album = (AlbumBean) mapalbum.getbyId(numAlbum);
+                }
+            } else {
+                numAlbum = Integer.parseInt(namealbum);
+                album = (AlbumBean) mapalbum.getbyId(numAlbum);
+                if (album != null) {
+                    album = (admin != null || album.getIdUser() == userSession.getIdUser()) ? (AlbumBean) mapalbum.getbyId(numAlbum) : null;
+                }
+            }
+            if (album != null) {
                 namealbum = album.getNameAlbum();
                 String nameCrypt = Tools.crypt(namealbum, Tools.SHA1, true).replace("/", "").replace("=", "");
                 String path = Tools.appPath + File.separator + FOLDER_ALBUM + File.separator + nameCrypt;

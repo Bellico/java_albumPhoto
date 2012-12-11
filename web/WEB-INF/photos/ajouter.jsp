@@ -30,9 +30,9 @@
 
 
         <div class="control-group">
-            <label class="control-label">Album : </label> 
+            <label class="control-label">Mes Albums : </label> 
             <div class="controls">
-                <select name="album" type="text" />
+                <select name="album" />
                 <c:forEach items="${listAlbum}" var="al" >
                     <c:choose>
                         <c:when test="${form.getValue('album')==al.idAlbum}">
@@ -47,7 +47,31 @@
                 <a href="<c:url value="/albums/nouveau"/>"><button class="btn btn-small btn-inverse" type="button">Nouvel Album ?</button></a>
             </div>
         </div>
-
+        <c:choose>
+            <c:when test="${listPartage.size()>0}">
+                <div class="control-group">
+                    <label class="control-label">Albums Partagés: </label> 
+                    <div class="controls">
+                        <select name="albumPartage"/>
+                        <option value ="-1">${listPartage.size()} albums partagés</option>
+                        <c:forEach items="${listPartage}" var="partage" >
+                            <c:choose>
+                                <c:when test="${form.getValue('albumPartage')==partage.idAlbum}">
+                                    <option selected="selected" value="${partage.idAlbum}"><c:out value="${partage.nameAlbum}"/></option>
+                                </c:when>
+                                <c:otherwise>
+                                    <option value="${partage.idAlbum}"><c:out value="${partage.nameAlbum}"/></option>
+                                </c:otherwise>  
+                            </c:choose>
+                        </c:forEach>
+                        </select>
+                    </div>
+                </div>
+            </c:when>   
+            <c:otherwise>
+                <input name="albumPartage" type="hidden" value="-1" />
+            </c:otherwise>  
+        </c:choose>
         <div class="control-group">
             <label class="control-label">Description : </label> 
             <div class="controls">

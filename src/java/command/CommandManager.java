@@ -18,6 +18,7 @@ public class CommandManager {
         cmds.put("partage", new PartageCommand());
         cmds.put("admin", new AdminCommand());
         cmds.put("supp", new SupressionCommand());
+        cmds.put("modif", new ModificationCommand());
     }
 
     public static ICommand getCommand(String commandName) {

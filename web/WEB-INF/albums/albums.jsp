@@ -39,7 +39,7 @@
                         <p> <a href="<c:url value="/albums/${album.idAlbum}"/>"><button class="btn btn-small btn-primary" type="button">Voir Détails</button></a> </p>
                         <c:if test="${!empty sessionScope.admin ||(!empty sessionScope.user && sessionScope.user.idUser==album.idUser)}">
                             <p> <a href="<c:url value="/partage/${album.idAlbum}"/>"><button class="btn btn-small btn-inverse" type="button">Partager</button></a> </p>
-                            <p> <a href="<c:url value="/albums/${album.idAlbum}"/>"><button class="btn btn-small btn-inverse" type="button">Modifier</button></a> </p>
+                            <p> <a href="<c:url value="modif/album/${album.idAlbum}"/>"><button class="btn btn-small btn-inverse" type="button">Modifier</button></a> </p>
                             <p> <a href="<c:url value="/supp/album/${album.idAlbum}"/>"><button class="btn btn-small btn-danger" type="button">Supprimer</button></a> </p>
                         </c:if>
                     </td>

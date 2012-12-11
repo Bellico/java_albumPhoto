@@ -38,7 +38,7 @@
         <div class="control-group">
             <label class="control-label">Déclaré cet album comme étant : </label> 
             <div class="controls">
-                <select name="statut" type="text" />
+                <select name="statut" />
                 <c:choose>
                     <c:when test="${empty form.getValue('statut') || form.getValue('statut')==0}">
                         <option selected="selected" value="0">Public</option>

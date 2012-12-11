@@ -47,7 +47,7 @@
                     <div class="controls">
                         <input name="name" type="text" />
                         <label class="control-label"> ou recherchez le dans la liste : </label> 
-                        <select name="nameSelect" type="text" />
+                        <select name="nameSelect" />
                         <option> </option>
                         <c:forEach items="${listUsers}" var="users"  > 
                             <option value="<c:out value="${users.login}"/>"><c:out value="${users.name}"/>  <c:out value="${users.firstName}"/>  (<c:out value="${users.login}"/>)</option>

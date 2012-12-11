@@ -53,28 +53,28 @@ public class AdminCommand implements ICommand {
     }
 
     public void deleteUsers() {
-        ArrayList<UserBean> list = mapUser.getAll();
+        ArrayList<UserBean> list = mapUser.getAll(null);
         for (UserBean u : list) {
             mapUser.delete(u);
         }
     }
 
     public void deleteAlbums() {
-        ArrayList<AlbumBean> list = mapAlbum.getAll();
+        ArrayList<AlbumBean> list = mapAlbum.getAll(null);
         for (AlbumBean a : list) {
             mapAlbum.delete(a);
         }
     }
 
     public void deletePhotos() {
-        ArrayList<PhotoBean> list = mapPhoto.getAll();
+        ArrayList<PhotoBean> list = mapPhoto.getAll(null);
         for (PhotoBean p : list) {
             mapPhoto.delete(p);
         }
     }
 
     public void deleteRight() {
-        ArrayList<RightBean> list = mapRight.getAll();
+        ArrayList<RightBean> list = mapRight.getAll(null);
         for (RightBean r : list) {
             mapRight.delete(r);
         }

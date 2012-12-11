@@ -13,6 +13,7 @@ abstract public class SQLMapping<T> extends Database {
     protected String table = "table";
     protected String primary_key = "id";
     protected boolean queryPrepare = true;
+    public static final String ORDER_BY_DATE = "date_lastUpdate DESC, time_lastUpdate DESC";
 
     abstract int getPrimaryKey(Object o);
 
@@ -24,36 +25,17 @@ abstract public class SQLMapping<T> extends Database {
         this.queryPrepare = queryPrepare;
     }
 
-    public ArrayList<Object> getAll() {
-        ArrayList<Object> list = new ArrayList<Object>();
-        ResultSet res;
-        try {
-            if (queryPrepare) {
-                String nameStatement = "getall-" + table;
-                PreparedStatement statement = prepareQuery(nameStatement, "select * from " + table);
-                res = statement.executeQuery();
-            } else {
-                res = query("select * from " + table);
-            }
-            while (res.next()) {
-                list.add(ResultToBean(res));
-            }
-        } catch (SQLException ex) {
-            System.out.println("[ Erreur " + table + ">>getAll ] : " + ex.getMessage());
-        }
-        return list;
-    }
-
     public ArrayList<Object> getAll(String order) {
+        String orderBy = (order != null) ? order : primary_key + " DESC ";
         ArrayList<Object> list = new ArrayList<Object>();
         ResultSet res;
         try {
             if (queryPrepare) {
                 String nameStatement = "getall-" + table;
-                PreparedStatement statement = prepareQuery(nameStatement, "select * from " + table + " ORDER BY " + order);
+                PreparedStatement statement = prepareQuery(nameStatement, "select * from " + table + " ORDER BY " + orderBy);
                 res = statement.executeQuery();
             } else {
-                res = query("select * from " + table + " ORDER BY " + order);
+                res = query("select * from " + table + " ORDER BY " + orderBy);
             }
             while (res.next()) {
                 list.add(ResultToBean(res));
@@ -65,8 +47,7 @@ abstract public class SQLMapping<T> extends Database {
     }
 
     private ResultSet findByAttr(String attr, Object value, String order) throws SQLException {
-        String orderBy;
-        orderBy = (order != null) ? order : primary_key + " DESC ";
+        String orderBy = (order != null) ? order : primary_key + " DESC ";
         ResultSet res;
         if (queryPrepare) {
             String nameStatement = "findByAttr-" + table + "-" + attr;

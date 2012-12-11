@@ -21,7 +21,7 @@ public class UsersCommand implements ICommand {
             }
         }
         UserMap p = new UserMap();
-        ArrayList<UserBean> tab = p.getAll();
+        ArrayList<UserBean> tab = p.getAll(null);
         request.setAttribute("user", tab);
         return new ActionFlow("utilisateurs", false);
     }

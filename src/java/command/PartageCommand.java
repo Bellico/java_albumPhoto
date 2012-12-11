@@ -86,7 +86,7 @@ public class PartageCommand implements ICommand {
         request.setAttribute(TITRE_PAGE, "Partager mes albums");
         request.setAttribute(NOM_PAGE, "Partager mes albums");
         request.setAttribute("album", album);
-        ArrayList<UserBean> listUsers = mapUser.getAll();
+        ArrayList<UserBean> listUsers = mapUser.getAll(null);
         request.setAttribute("listUsers", listUsers);
         request.setAttribute("collaborateurs", collaborateurs);
         return new ActionFlow("partage", false);

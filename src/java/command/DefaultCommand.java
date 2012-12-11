@@ -24,7 +24,7 @@ public class DefaultCommand implements ICommand {
             String albumCrypt = Tools.crypt(al.getNameAlbum(), Tools.SHA1, true).replace("/", "").replace("=", "");
             for (PhotoBean ph : photos) {
                 tab.add(new String[]{
-                            UploadCommand.FOLDER_ALBUM + albumCrypt + "/" + ph.getImg(),
+                            UploadCommand.FOLDER_ALBUM + "/" + albumCrypt + "/" + ph.getImg(),
                             ph.getTitle(),
                             ph.getDescr(),});
             }
