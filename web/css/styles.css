@@ -120,7 +120,7 @@ tr:hover{
 
 .Prive:hover{
     background: #e3b9b9
-    
+
 }
 
 .optAdmin{
@@ -129,12 +129,16 @@ tr:hover{
     right: 15px
 }
 
-.form-horizontal textarea{
+.form-horizontal textarea, .form-vertical textarea {
     width: 320px;
     height: 250px
 }
 
 .form-horizontal input[type=text], .form-horizontal input[type=password]{
+    width: 320px;
+}
+
+.form-vertical input[type=text], .form-vertical input[type=password]{
     width: 320px;
 }
 

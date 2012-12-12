@@ -69,11 +69,11 @@
                     <td class="options">
                         <p> <a href="<c:url value="/photos/${img.idPhoto}"/>"><button class="btn btn-small btn-primary" type="button">Voir Détails</button></a> </p>
                         <c:if test="${!empty sessionScope.admin || (!empty sessionScope.user && sessionScope.user.idUser==details.idUser)}">
-                            <p> <a href="<c:url value="modif/photo/${img.idPhoto}"/>"><button class="btn btn-small btn-inverse" type="button">Modifier</button></a> </p>
+                            <p> <a href="<c:url value="/modif/photo/${img.idPhoto}"/>"><button class="btn btn-small btn-inverse" type="button">Modifier</button></a> </p>
                             <p> <a href="<c:url value="/supp/photo/${img.idPhoto}"/>"><button class="btn btn-small btn-danger" type="button">Supprimer</button></a> </p>
                         </c:if>
                         <c:if test="${img.isUpdate=='1'}">
-                            <p> <a href="<c:url value="modif/photo/${img.idPhoto}"/>"><button class="btn btn-small btn-inverse" type="button">Modifier</button></a> </p>
+                            <p> <a href="<c:url value="/modif/photo/${img.idPhoto}"/>"><button class="btn btn-small btn-inverse" type="button">Modifier</button></a> </p>
                         </c:if>
                         <c:if test="${img.isDelete=='1'}">
                             <p> <a href="<c:url value="/supp/photo/${img.idPhoto}"/>"><button class="btn btn-small btn-danger" type="button">Supprimer</button></a> </p>

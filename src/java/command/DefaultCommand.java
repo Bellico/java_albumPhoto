@@ -29,7 +29,7 @@ public class DefaultCommand implements ICommand {
                             ph.getDescr(),});
             }
         }
-
+        
         request.setAttribute(TITRE_PAGE, "Accueil");
         request.setAttribute(NOM_PAGE, "Accueil");
         request.setAttribute("listImg", tab);

@@ -27,7 +27,6 @@ public class ControlForm {
 
     public ControlForm(HttpServletRequest request) {
         this.request = request;
-
     }
 
     private boolean controlManager(int typeControl, String param) {
@@ -67,11 +66,11 @@ public class ControlForm {
         return value;
     }
 
-        public String check(String field, String[]values) {
+    public String check(String field, String[] values) {
         String value = request.getParameter(field);
         if (value != null) {
             result.setField(field, FIELD_VALID, value);
-            boolean res =Tools.in_Array(value, values);
+            boolean res = Tools.in_Array(value, values);
             if (!res) {
                 result.setField(field, FIELD_ERROR, value);
                 nbError++;
@@ -82,7 +81,7 @@ public class ControlForm {
         }
         return value;
     }
-        
+
     public String check(String field, int typeControl, String mError) {
         String value = request.getParameter(field);
         if (value != null) {
@@ -145,6 +144,10 @@ public class ControlForm {
 
     public void setResult(String type, String mess) {
         result.setResult(type, mess);
+    }
+
+    public ResultForm getResultForm() {
+        return result;
     }
 
     private boolean int_control(String value) {

@@ -28,7 +28,6 @@
             </div>
         </div>
 
-
         <div class="control-group">
             <label class="control-label">Mes Albums : </label> 
             <div class="controls">

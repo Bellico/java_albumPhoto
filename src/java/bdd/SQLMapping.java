@@ -234,7 +234,7 @@ abstract public class SQLMapping<T> extends Database {
             int id = getPrimaryKey(o);
             try {
                 if (id > 0) {
-                    res = update(data, "idUser", id);
+                    res = update(data, primary_key, id);
                 } else {
                     res = insert(data);
                 }

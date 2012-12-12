@@ -20,6 +20,11 @@ public class ResultForm {
         resultat[1] = message;
     }
 
+    public void setResult(String message) {
+        resultat[0] = null;
+        resultat[1] = message;
+    }
+
     public void setField(String field, String type, String value, String message) {
         fields_type.put(field, type);
         fields_value.put(field, value);
@@ -28,6 +33,12 @@ public class ResultForm {
 
     public void setField(String field, String type, String value) {
         fields_type.put(field, type);
+        fields_value.put(field, value);
+        fields_message.put(field, null);
+    }
+
+    public void setField(String field, String value) {
+        fields_type.put(field, null);
         fields_value.put(field, value);
         fields_message.put(field, null);
     }

@@ -95,7 +95,7 @@ public class UploadCommand implements ICommand {
                         photo.setImg(up.getFileName());
                         photo.setHeight(img.getHeight(null));
                         photo.setWidth(img.getWidth(null));
-                        photo.setKeyword(Tools.generate_KeyWord(photo.getDescr()));
+                        photo.setKeyword(Tools.generate_KeyWord(descr));
                         photo.setIdAlbum(album.getIdAlbum());
                         PhotoMap maphoto = new PhotoMap();
                         if (maphoto.save(photo) == 1) {

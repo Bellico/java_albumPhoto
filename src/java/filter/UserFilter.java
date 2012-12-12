@@ -32,7 +32,6 @@ public class UserFilter extends FilterFunctions implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
         HttpSession session = request.getSession();
-        //HashMap<Integer, String> urlParams = Tools.parseUrl(request.getRequestURI());
 
         if (isConnect(session) == null) {
             response.sendRedirect("/AlbumPhoto/" + ICommand.PAGE_ERROR);
