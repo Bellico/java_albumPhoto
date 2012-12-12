@@ -18,11 +18,11 @@
 </div>
 
 <div class="span10">
-    
+
     <span class="btn btn-${form.getResultType()}">${form.getResultMessage()}</span>
-  
+
     <legend>Modification des informations personnelles</legend>
-    
+
     <form class="form-horizontal" method="post" action="<c:url value="/modif/utilisateur/${user.idUser}"/>">
 
         <div class="control-group">
@@ -71,7 +71,6 @@
             </div>
         </div>
     </form>
-    
+
 </div>
-            
- 
+

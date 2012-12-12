@@ -16,7 +16,7 @@
 
     <legend>Saissisez vos nouvelles données</legend>
 
-     <form  class="form-horizontal" action="<c:url value="/modif/album/${album.idAlbum}"/>" method="post">
+    <form  class="form-horizontal" action="<c:url value="/modif/album/${album.idAlbum}"/>" method="post">
 
         <div class="control-group">
             <label class="control-label">Titre Album : </label> 

@@ -2,7 +2,6 @@ package command;
 
 import bdd.AlbumMap;
 import bdd.PhotoMap;
-import bdd.RightMap;
 import bdd.UserMap;
 import bean.AlbumBean;
 import bean.PhotoBean;
@@ -79,7 +78,6 @@ public class ModificationCommand implements ICommand {
         request.setAttribute(TITRE_PAGE, "Modification Image");
         request.setAttribute(NOM_PAGE, "Modifier votre image");
         return new ActionFlow("photos/modifier", false);
-
     }
 
     public ActionFlow modifAlbum(HttpServletRequest request, int num) {
@@ -123,7 +121,6 @@ public class ModificationCommand implements ICommand {
             if (!request.getParameter("pass").isEmpty()) {
                 pass = form.compare("passc", "pass", "Vous devez confirmer votre nouveau mot de passe.");
             }
-
             if (form.getNbError() == 0) {
                 UserBean u = (UserBean) mapUser.getbyAttr("login", login);
                 if (u == null || u.getIdUser() == user.getIdUser()) {
@@ -135,7 +132,6 @@ public class ModificationCommand implements ICommand {
                     if (pass != null) {
                         user.setPassword(Tools.crypt(pass, Tools.MD5, true));
                     }
-                    // user.setPassword(Tools.crypt(pass, Tools.MD5, true));
                     mapUser.save(user);
                     return new ActionFlow("utilisateurs", true);
                 } else {

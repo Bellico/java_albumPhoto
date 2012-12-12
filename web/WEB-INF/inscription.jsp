@@ -12,11 +12,11 @@
 </div>
 
 <div class="span10">
-    
+
     <span class="btn btn-${form.getResultType()}">${form.getResultMessage()}</span>
-  
+
     <legend>Inscription d'un nouvel utilisateur</legend>
-    
+
     <form class="form-horizontal" method="post" action="<c:url value="/inscription"/>">
 
         <div class="control-group">
@@ -65,7 +65,6 @@
             </div>
         </div>
     </form>
-    
+
 </div>
-            
- 
+

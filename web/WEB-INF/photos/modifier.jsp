@@ -21,7 +21,7 @@
 
     <span class="btn btn-${form.getResultType()}">${form.getResultMessage()}</span>
 
-    <legend>Saissisez vos nouvelles données</legend>
+    <legend>Saisisez vos nouvelles données</legend>
 
     <form class="form-vertical" action="<c:url value="/modif/photo/${photo.idPhoto}"/>" method="post">
 
