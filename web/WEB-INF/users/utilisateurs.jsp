@@ -48,6 +48,9 @@
                             <c:if test="${!empty sessionScope.admin || us.idUser==sessionScope.user.idUser}">
                                 <p> <a href="<c:url value="/modif/utilisateur/${us.idUser}"/>"><button class="btn btn-small btn-inverse" type="button">Modifier</button></a> </p>
                             </c:if>
+                            <c:if test="${!empty sessionScope.admin}">
+                                <p> <a href="<c:url value="/supp/utilisateur/${us.idUser}"/>"><button class="btn btn-small btn-danger" type="button">Supprimer</button></a> </p>
+                            </c:if>
                         </td> 
                     </c:if>
                 </tr>

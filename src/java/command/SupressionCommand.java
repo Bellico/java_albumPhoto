@@ -40,6 +40,12 @@ public class SupressionCommand implements ICommand {
                     return deleteAlbum(request, numalbum);
                 }
             }
+            if (urlParams.get(1).equals("utilisateur")) {
+                int numuser = Tools.toInteger(urlParams.get(2));
+                if (numuser >= 0) {
+                    return deleteUser(request, numuser);
+                }
+            }
         }
         return new ActionFlow("error", true);
     }
@@ -86,5 +92,12 @@ public class SupressionCommand implements ICommand {
             return (redirect != null) ? new ActionFlow(request.getHeader("referer"), true) : new ActionFlow("albums/mesAlbums", true);
         }
         return new ActionFlow(PAGE_ERROR, true);
+    }
+
+    public ActionFlow deleteUser(HttpServletRequest request, int num) {
+        //Supprimer les droits
+        UserBean user = (UserBean) mapUser.getbyId(num);
+        mapUser.delete(user);
+        return new ActionFlow("utilisateurs", true);
     }
 }

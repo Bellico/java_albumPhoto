@@ -1,9 +1,7 @@
 package filter;
 
-import bean.PhotoBean;
 import bean.RightBean;
 import command.ICommand;
-import command.UploadCommand;
 import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -12,9 +10,10 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
+import tools.Tools;
 
-@WebFilter(filterName = "albumPhotoFilter", urlPatterns = {"/" + UploadCommand.FOLDER_ALBUM + "/*"})
-public class PhotoFilter extends FilterFunctions implements Filter {
+@WebFilter(filterName = "suppressionFilter", urlPatterns = {"/supp/*"})
+public class SuppFilter extends FilterFunctions implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) {
@@ -32,17 +31,21 @@ public class PhotoFilter extends FilterFunctions implements Filter {
         init_MyFilter(req, res);
 
         RightBean right = null;
-        String urlPhoto = urlParams.get(2);
-        if (urlPhoto != null) {
-            PhotoBean photo = (PhotoBean) mapPhoto.getbyAttr("img", urlPhoto);
-            right = Right_On_Album(isConnect(), photo);
+        if (urlParams.get(1).equals("photo")) {
+            right = Right_On_Album(isConnect(), getPhoto(Tools.toInteger(urlParams.get(2))));
+        } else if (urlParams.get(1).equals("album")) {
+            right = Right_On_Album(isConnect(), getAlbum(Tools.toInteger(urlParams.get(2))));
+        } else if (urlParams.get(1).equals("utilisateur")) {
+            right = Right_On_User(isConnect(), getUser(Tools.toInteger(urlParams.get(2))));
         }
 
-        if (right == null || !right.isLire()) {
+        if (right == null) {
             response.sendRedirect("/AlbumPhoto/" + ICommand.PAGE_ERROR);
         } else {
+            if (!right.isSupprimer()) {
+                sendError("Cette page ne vous est pas autorisée");
+            }
             chain.doFilter(request, response);
         }
-
     }
 }
