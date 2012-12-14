@@ -1,0 +1,5 @@
+drop table rights;
+drop table photos;
+drop table albums;
+drop table statuts;
+drop table users;
