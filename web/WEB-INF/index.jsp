@@ -36,6 +36,6 @@
 <script type="text/javascript" src="<c:url value="/js/jquery.js"/>"></script>
 <script type="text/javascript" src="<c:url value="/js/bootstrap.js"/>"></script>
 <script type="text/javascript" src="<c:url value="/js/bootstrap.min.js"/>"></script>
-<script>$('.carousel').carousel({width:1000})</script>
+<script>$('.carousel').carousel({width:1000, interval: 2000})</script>
 
 
